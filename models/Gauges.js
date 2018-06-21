@@ -28,21 +28,23 @@ var GaugesSchema = new Schema({
 	},
 
 	last_date_pulled: {
-		type: String,
-		default: '1890-01-01',
+		type: Date,
+		default: new Date('1890-01-01'),
+		get: getLDP,
 		required: true,
 	},
 
-	// `dailyData` is an object that stores a DailyData id
-	// The ref property links the ObjectId to the DailyData model
-	// This allows us to populate the Gauge with an associated DailyData
-	dailyData: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'DailyData',
-		},
-	],
+	//gauge belongs to River
+	river: {
+		type: Schema.Types.ObjectId,
+		ref: 'Rivers',
+	},
 });
+
+//get Date in YYYY-MM-DD format
+function getLDP(date) {
+	return date.toISOString().split('T')[0];
+}
 
 // This creates our model from the above schema, using mongoose's model method
 var Gauges = mongoose.model('Gauges', GaugesSchema);

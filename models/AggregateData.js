@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
-// Using the Schema constructor, create a new DailyDataSchema object
+// Using the Schema constructor, create a new AggregateDataSchema object
 // This is similar to a Sequelize model
-var DailyDataSchema = new Schema({
+var AggregateDataSchema = new Schema({
 	date: {
 		type: Date,
 		get: getRecordDate,
@@ -19,7 +19,7 @@ var DailyDataSchema = new Schema({
 		required: true,
 	},
 
-	//data belongs to gauges
+	//aggregate data belongs to gauges
 	gauge: {
 		type: Schema.Types.ObjectId,
 		ref: 'Gauges',
@@ -41,7 +41,7 @@ function getRecordDate(date) {
 }
 
 // This creates our model from the above schema, using mongoose's model method
-var DailyData = mongoose.model('DailyData', DailyDataSchema);
+var AggregateData = mongoose.model('AggregateData', AggregateDataSchema);
 
-// Export the DailyData model
-module.exports = DailyData;
+// Export the AggregateData model
+module.exports = AggregateData;
