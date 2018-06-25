@@ -6,9 +6,15 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new GaugesSchema object
 // This is similar to a Sequelize model
 var GaugesSchema = new Schema({
-	// `usgs_site_no` is required and of type Number
-	usgs_site_no: {
+	// `gauge_id` is required and of type Number
+	gauge_id: {
 		type: Number,
+		required: true,
+	},
+
+	agency: {
+		type: String,
+		default: 'USGS',
 		required: true,
 	},
 
