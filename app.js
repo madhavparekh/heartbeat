@@ -4,19 +4,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var { uploadDailyDataDatabase } = require('./utils/uploadDatabase');
 
 var app = express();
 
 // Connect to the Mongo DB
 var databaseUri = 'mongodb://localhost/heartbeat';
+var mongooseOptions = { poolSize: 20 };
 
 if (process.env.MONGODB_URI) {
-	mongoose.connect(process.env.MONGODB_URI);
+	mongoose.connect(
+		process.env.MONGODB_URI,
+		mongooseOptions
+	);
 } else {
-	mongoose.connect(databaseUri);
+	mongoose.connect(
+		databaseUri,
+		mongooseOptions
+	);
 }
 
 var db = mongoose.connection;
@@ -29,6 +36,8 @@ db.on('error', (err) => {
 db.once('open', () => {
 	console.log('Mongoose connectoion successful');
 });
+
+uploadDailyDataDatabase();
 
 app.use(logger('dev'));
 app.use(express.json());
