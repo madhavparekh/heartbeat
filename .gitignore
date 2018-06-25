@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+Notes/tmp.csv
+Notes/tmp.json
+.gitignore
+tmp.csv

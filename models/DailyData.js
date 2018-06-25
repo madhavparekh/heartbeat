@@ -7,26 +7,22 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var DailyDataSchema = new Schema({
 	date: {
-		type: String,
-		default: '1890-01-01',
+		type: Date,
 		required: true,
 	},
 
-	discharge_cfs: {
-		type: Number,
-		get: getCFS(),
-		set: setCFS(),
+	discharge: {
+		type: mongoose.SchemaTypes.Decimal128,
 		required: true,
+	},
+
+	//data belongs to gauges
+	gauge_id: {
+		type: Schema.Types.Number,
+		ref: 'Gauges',
 	},
 });
 
-function getCFS(num) {
-	return (num / 100).toFixed(2);
-}
-
-function setCFS(num) {
-	return num * 100;
-}
 
 // This creates our model from the above schema, using mongoose's model method
 var DailyData = mongoose.model('DailyData', DailyDataSchema);
