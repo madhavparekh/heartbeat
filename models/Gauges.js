@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 var GaugesSchema = new Schema({
 	// `gauge_id` is required and of type Number
 	gauge_id: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 
@@ -36,7 +36,6 @@ var GaugesSchema = new Schema({
 	last_date_pulled: {
 		type: Date,
 		default: new Date('1890-01-01'),
-		get: getLDP,
 		required: true,
 	},
 
@@ -46,11 +45,6 @@ var GaugesSchema = new Schema({
 		ref: 'Rivers',
 	},
 });
-
-//get Date in YYYY-MM-DD format
-function getLDP(date) {
-	return date.toISOString().split('T')[0];
-}
 
 // This creates our model from the above schema, using mongoose's model method
 var Gauges = mongoose.model('Gauges', GaugesSchema);

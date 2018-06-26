@@ -13,12 +13,12 @@ var DailyDataSchema = new Schema({
 
 	discharge: {
 		type: mongoose.SchemaTypes.Decimal128,
-		required: true,
+		default: null
 	},
 
 	//data belongs to gauges
 	gauge_id: {
-		type: Schema.Types.Number,
+		type: Schema.Types.String,
 		ref: 'Gauges',
 	},
 });
