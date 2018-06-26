@@ -3,27 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose/lib');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var { uploadDailyDataDatabase } = require('./utils/uploadDatabase');
+var {
+	uploadDailyDataDatabase,
+	uploadUnimpairedDatabase,
+	uploadAggregateData,
+} = require('./utils/uploadDatabase');
 
 var app = express();
 
 // Connect to the Mongo DB
 var databaseUri = 'mongodb://localhost/heartbeat';
-var mongooseOptions = { poolSize: 20 };
+//var mongooseOptions = { poolSize: 20 };
 
 if (process.env.MONGODB_URI) {
-	mongoose.connect(
-		process.env.MONGODB_URI,
-		mongooseOptions
-	);
+	mongoose.connect(process.env.MONGODB_URI);
 } else {
-	mongoose.connect(
-		databaseUri,
-		mongooseOptions
-	);
+	mongoose.connect(databaseUri);
 }
 
 var db = mongoose.connection;
@@ -37,7 +35,16 @@ db.once('open', () => {
 	console.log('Mongoose connectoion successful');
 });
 
-uploadDailyDataDatabase();
+
+//###### upload database #####//
+//upload daily discharge data from website (USGS/IBWC)
+//uploadDailyDataDatabase();
+
+//upload unimpaired data from CSV file
+//uploadUnimpairedDatabase();
+
+//upload aggregate data
+uploadAggregateData();
 
 app.use(logger('dev'));
 app.use(express.json());

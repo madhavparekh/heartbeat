@@ -1,4 +1,6 @@
+require('dotenv').config();
 var axios = require('axios');
+var request = require('request');
 var fs = require('fs');
 var db = require('../models');
 var csv = require('csvtojson');
@@ -12,18 +14,70 @@ const params4USGS = {
 	headers: ['agency', 'gauge_id', 'date', 'discharge', 'discharge_data_type'],
 	delimiter: 'auto',
 	colParser: {
+		date: (date) => new Date(date),
+		discharge: (discharge) => parseFloat(discharge).toFixed(2),
+		gauge_id: (gauge) => gauge.toString().padStart(8, 0),
 		column1: 'omit',
 		column5: 'omit',
-		discharge: (discharge) => {
-			return parseFloat(discharge).toFixed(2);
-		},
 	},
+	ignoreEmpty: true,
+};
+
+const params4UNIMPAIRED = {
+	noheader: false,
+	delimiter: 'auto',
+	colParser: {
+		date: (date) => new Date(date),
+		column2: 'omit',
+		column3: 'omit',
+		column4: 'omit',
+	},
+	ignoreEmpty: true,
 };
 
 const params4IBWC = {
 	noheader: true,
 	delimiter: [' '],
 	ignoreEmpty: true,
+};
+
+exports.uploadUnimpairedDatabase = async () => {
+	var headers = ['date', 'year', 'month', 'day'];
+	rioGrandGauges.forEach((gauge) => headers.push(gauge.id));
+
+	params4UNIMPAIRED.headers = headers;
+
+	try {
+		await db.UnImpairedData.deleteMany();
+		var count = 0;
+		csv(params4UNIMPAIRED)
+			.fromStream(request.get(process.env.UNIMPAIRED_FILE_URL))
+			.on('data', (data) => {
+				data = JSON.parse(data);
+				let objArr = [];
+
+				rioGrandGauges.forEach((gauge, indx) => {
+					let obj = {
+						gauge_id: gauge.id,
+						discharge: data[gauge.id]
+							? parseFloat(data[gauge.id]).toFixed(2)
+							: null,
+						date: data['date'],
+					};
+					objArr.push(obj);
+				});
+				db.UnImpairedData.insertMany(objArr)
+					.then(() => {})
+					.catch((err) => {
+						if (err) throw err;
+					});
+			})
+			.on('done', (err) => {
+				if (err) throw err;
+			});
+	} catch (err) {
+		throw err;
+	}
 };
 
 exports.uploadDailyDataDatabase = async () => {
@@ -34,9 +88,7 @@ exports.uploadDailyDataDatabase = async () => {
 		await db.DailyData.deleteMany();
 
 		await rioGrandGauges.forEach((gauge) => {
-			var url =
-				usgsDataURL.replace('00000000', gauge.id.toString().padStart('0', 9)) +
-				today;
+			var url = usgsDataURL.replace('00000000', gauge.id) + today;
 			if (gauge.agency === 'USGS') {
 				axios.get(url).then((response) => {
 					var data = response.data
@@ -65,16 +117,10 @@ exports.uploadDailyDataDatabase = async () => {
 					data = data.replace('</PRE>', '').trim();
 					data = data.replace('</BODY>', '').trim();
 					data = data.replace('</HTML>', '').trim();
-					// fs.appendFile(__dirname + '/../Notes/tmp.csv', data);
-					// fs.appendFile(
-					// 	__dirname + '/../Notes/tmp.csv',
-					// 	'#####################\n'
-					// );
 
 					csv(params4IBWC)
 						.fromString(data)
 						.then((jsonArr) => {
-							//fs.writeFile(__dirname + '/../Notes/tmp.json', );
 							var objArr = [];
 							jsonArr.forEach((json, indx) => {
 								var obj = {
@@ -82,11 +128,11 @@ exports.uploadDailyDataDatabase = async () => {
 								};
 
 								Object.keys(json).map((key, indx) => {
-									if (indx === 0) obj.date = json[key];
+									if (indx === 0) obj.date = new Date(json[key]);
 									if (indx === 1)
 										obj.discharge =
 											json[key] === 'NR'
-												? 0.0
+												? null
 												: (json[key] * 35.3147).toFixed(2); //cms to cfs
 								});
 								objArr.push(obj);
@@ -104,4 +150,57 @@ exports.uploadDailyDataDatabase = async () => {
 	} catch (err) {
 		throw err;
 	}
+};
+
+exports.uploadAggregateData = async () => {
+	await db.AggregateData.deleteMany({});
+
+	rioGrandGauges.forEach((gauge) => {
+		var cursor = db.DailyData.find({ gauge_id: gauge.id }).cursor();
+		var aggregateData = {};
+		var aggregateCount = {};
+
+		cursor.on('data', (doc) => {
+			let mmDD = `${(doc.date.getMonth() + 1)
+				.toString()
+				.padStart(2, '0')}/${doc.date
+				.getDate()
+				.toString()
+				.padStart(2, '0')}`;
+
+			aggregateData[mmDD] = isNaN(aggregateData[mmDD])
+				? 0
+				: parseFloat(aggregateData[mmDD]) + parseFloat(doc.discharge);
+
+			aggregateCount[mmDD] = isNaN(aggregateCount[mmDD])
+				? 0.0
+				: aggregateCount[mmDD] + 1;
+		});
+
+		cursor.on('end', () => {
+			console.log(
+				`Data: ${Object.values(aggregateData).length} - Count: ${
+					Object.values(aggregateCount).length
+				}`
+			);
+			upLoadAggregateDischargeData(aggregateData, aggregateCount, gauge.id);
+		});
+		cursor.on('error', (err) => {
+			throw err;
+		});
+	});
+};
+
+const upLoadAggregateDischargeData = (data, count, gauge_id) => {
+	Object.keys(data).forEach((date) => {
+		db.AggregateData.create({
+			gauge_id: gauge_id,
+			date: new Date(date),
+			discharge: parseFloat(data[date] / count[date]).toFixed(2),
+		})
+			.then(() => {})
+			.catch((err) => {
+				if (err) throw err;
+			});
+	});
 };
