@@ -34,6 +34,7 @@
     "@material-ui/icons": "1.1.0",
     "d3": "4.13.0",
     "lodash": "4.17.5",
+    "material-ui": "0.20.1",
     "object-assign": "4.1.0",
     "react": "16.4.1",
     "react-dom": "16.4.1",
