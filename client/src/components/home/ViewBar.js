@@ -46,21 +46,21 @@ class ViewBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
-            value={value}
-            onChange={this.handleChange}
+            value={this.state.value}
+            onChange={(e, v) => this.handleChange(e, v)}
             indicatorColor="primary"
             textColor="primary"
             scrollable
             scrollButtons="auto"
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
+            <Tab label="Flow Comparison" />
+            <Tab label="General Flow" />
+            <Tab label="Dimensionless Hydrograph" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Item One</TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
+        {value === 0 && <TabContainer>Flow Comparison</TabContainer>}
+        {value === 1 && <TabContainer>General Flow</TabContainer>}
+        {value === 2 && <TabContainer>Dimensionless Hydrograph</TabContainer>}
       </div>
     );
   }
