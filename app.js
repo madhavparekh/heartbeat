@@ -6,7 +6,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose/lib');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var cron = require('cron').CronJob;
+var CronJob = require('cron').CronJob;
 var {
 	uploadImpairedDatabase,
 	uploadUnimpairedDatabase,
@@ -36,8 +36,20 @@ db.once('open', () => {
 	console.log('Mongoose connectoion successful');
 });
 
-//###### upload database #####//
-var CronJob = require('cron').CronJob;
+//upload data if argv set to '--upload'
+if (process.argv[2] === '--upload') {
+	//impaird data
+	uploadImpairedDatabase();
+	//unimpaired data
+	setTimeout(() => {
+		uploadImpairedDatabase();
+	}, 10000);
+	//aggregate data
+	setTimeout(() => {
+		uploadAggregateData();
+	}, 10000);
+}
+//scheduling task for uploading flow data
 CronJob(
 	'00 00 00 * * 6',
 	() => {
