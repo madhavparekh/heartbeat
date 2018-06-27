@@ -80,12 +80,12 @@ exports.uploadUnimpairedDatabase = async () => {
 	}
 };
 
-exports.uploadDailyDataDatabase = async () => {
+exports.uploadImpairedDatabase = async () => {
 	var today = new Date(Date.now());
 	today = today.toISOString().split('T')[0];
 
 	try {
-		await db.DailyData.deleteMany();
+		await db.ImpairedData.deleteMany();
 
 		await rioGrandGauges.forEach((gauge) => {
 			var url = usgsDataURL.replace('00000000', gauge.id) + today;
@@ -98,7 +98,7 @@ exports.uploadDailyDataDatabase = async () => {
 					csv(params4USGS)
 						.fromString(data)
 						.then((jsonArr) => {
-							db.DailyData.insertMany(jsonArr).catch((err) => {
+							db.ImpairedData.insertMany(jsonArr).catch((err) => {
 								if (err) {
 									console.log(err);
 									return err;
@@ -137,7 +137,7 @@ exports.uploadDailyDataDatabase = async () => {
 								});
 								objArr.push(obj);
 							});
-							db.DailyData.insertMany(objArr).catch((err) => {
+							db.ImpairedData.insertMany(objArr).catch((err) => {
 								if (err) {
 									console.log(err);
 									return err;
@@ -153,10 +153,19 @@ exports.uploadDailyDataDatabase = async () => {
 };
 
 exports.uploadAggregateData = async () => {
-	await db.AggregateData.deleteMany({});
+	var impairedAggrDB = db.ImpairedAggregateData;
+	var unImpairedAggrDB = db.UnImpairedAggregateData;
 
+	await impairedAggrDB.deleteMany({});
+	await unImpairedAggrDB.deleteMany({});
+
+	pullDailyData(impairedAggrDB, db.ImpairedData);
+	pullDailyData(unImpairedAggrDB, db.UnImpairedData);
+};
+
+const pullDailyData = (toDB, fromDB) => {
 	rioGrandGauges.forEach((gauge) => {
-		var cursor = db.DailyData.find({ gauge_id: gauge.id }).cursor();
+		var cursor = fromDB.find({ gauge_id: gauge.id }).cursor();
 		var aggregateData = {};
 		var aggregateCount = {};
 
@@ -168,22 +177,29 @@ exports.uploadAggregateData = async () => {
 				.toString()
 				.padStart(2, '0')}`;
 
-			aggregateData[mmDD] = isNaN(aggregateData[mmDD])
-				? 0
-				: parseFloat(aggregateData[mmDD]) + parseFloat(doc.discharge);
+			if (doc.discharge !== null) {
+				aggregateData[mmDD] = isNaN(aggregateData[mmDD])
+					? 0
+					: parseFloat(aggregateData[mmDD]) + parseFloat(doc.discharge);
 
-			aggregateCount[mmDD] = isNaN(aggregateCount[mmDD])
-				? 0.0
-				: aggregateCount[mmDD] + 1;
+				aggregateCount[mmDD] = isNaN(aggregateCount[mmDD])
+					? 0.0
+					: aggregateCount[mmDD] + 1;
+			}
 		});
 
 		cursor.on('end', () => {
-			console.log(
-				`Data: ${Object.values(aggregateData).length} - Count: ${
-					Object.values(aggregateCount).length
-				}`
+			// console.log(
+			// 	`Data: ${Object.values(aggregateData).length} - Count: ${
+			// 		Object.values(aggregateCount).length
+			// 	}`
+			//);
+			upLoadAggregateDischargeData(
+				aggregateData,
+				aggregateCount,
+				gauge.id,
+				toDB
 			);
-			upLoadAggregateDischargeData(aggregateData, aggregateCount, gauge.id);
 		});
 		cursor.on('error', (err) => {
 			throw err;
@@ -191,13 +207,14 @@ exports.uploadAggregateData = async () => {
 	});
 };
 
-const upLoadAggregateDischargeData = (data, count, gauge_id) => {
+const upLoadAggregateDischargeData = (data, count, gauge_id, aggrDB) => {
 	Object.keys(data).forEach((date) => {
-		db.AggregateData.create({
-			gauge_id: gauge_id,
-			date: new Date(date),
-			discharge: parseFloat(data[date] / count[date]).toFixed(2),
-		})
+		aggrDB
+			.create({
+				gauge_id: gauge_id,
+				date: new Date(date),
+				discharge: parseFloat(data[date] / count[date]).toFixed(2),
+			})
 			.then(() => {})
 			.catch((err) => {
 				if (err) throw err;
