@@ -3,8 +3,8 @@
 module.exports = {
 	River: require('./Rivers'),
 	Gauges: require('./Gauges'),
-	DailyData: require('./DailyData'),
-	AggregateData: require('./AggregateData'),
+	ImpairedData: require('./ImpairedData'),
+	ImpairedAggregateData: require('./ImpairedAggregateData'),
 	UnImpairedData: require('./UnImpairedData'),
 	UnImpairedAggregateData: require('./UnImpairedAggregateData'),
 };

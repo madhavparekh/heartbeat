@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
-// Using the Schema constructor, create a new DailyDataSchema object
+// Using the Schema constructor, create a new ImpairedDataSchema object
 // This is similar to a Sequelize model
-var DailyDataSchema = new Schema({
+var ImpairedDataSchema = new Schema({
 	date: {
 		type: Date,
 		required: true,
@@ -25,7 +25,7 @@ var DailyDataSchema = new Schema({
 
 
 // This creates our model from the above schema, using mongoose's model method
-var DailyData = mongoose.model('DailyData', DailyDataSchema);
+var ImpairedData = mongoose.model('ImpairedData', ImpairedDataSchema);
 
-// Export the DailyData model
-module.exports = DailyData;
+// Export the ImpairedData model
+module.exports = ImpairedData;
