@@ -58,9 +58,33 @@ class ViewBar extends React.Component {
             <Tab label="Dimensionless Hydrograph" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Flow Comparison</TabContainer>}
-        {value === 1 && <TabContainer>General Flow</TabContainer>}
-        {value === 2 && <TabContainer>Dimensionless Hydrograph</TabContainer>}
+        {value === 0 && (
+          <TabContainer>
+            Flow Comparison: Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla
+            facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor
+            quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id,
+            pellentesque lobortis odio.
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
+            General Flow: Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla
+            facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor
+            quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id,
+            pellentesque lobortis odio.
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer>
+            Dimensionless Hydrograph: Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat.
+            Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia
+            auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus
+            id, pellentesque lobortis odio.
+          </TabContainer>
+        )}
       </div>
     );
   }
