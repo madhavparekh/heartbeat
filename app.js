@@ -6,8 +6,9 @@ var logger = require('morgan');
 var mongoose = require('mongoose/lib');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var cron = require('cron').CronJob;
 var {
-	uploadDailyDataDatabase,
+	uploadImpairedDatabase,
 	uploadUnimpairedDatabase,
 	uploadAggregateData,
 } = require('./utils/uploadDatabase');
@@ -35,16 +36,49 @@ db.once('open', () => {
 	console.log('Mongoose connectoion successful');
 });
 
-
 //###### upload database #####//
-//upload daily discharge data from website (USGS/IBWC)
-//uploadDailyDataDatabase();
+var CronJob = require('cron').CronJob;
+CronJob(
+	'00 00 00 * * 6',
+	() => {
+		console.log('Uploading Impaired Data..');
+		//upload impaired data from website (USGS/IBWC)
+		uploadImpairedDatabase();
+	},
+	function() {
+		console.log('Impaired Data uploaded..');
+	},
+	true /* Start the job right now */,
+	'America/Los_Angeles' /* Time zone of this job. */
+);
 
-//upload unimpaired data from CSV file
-//uploadUnimpairedDatabase();
+CronJob(
+	'00 15 00 * * 6',
+	() => {
+		console.log('Uploading Unmpaired Data..');
 
-//upload aggregate data
-uploadAggregateData();
+		//upload unimpaired data from CSV file
+		uploadUnimpairedDatabase();
+	},
+	function() {
+		console.log('Unmpaired Data uploaded..');
+	},
+	true /* Start the job right now */,
+	'America/Los_Angeles' /* Time zone of this job. */
+);
+CronJob(
+	'00 30 00 * * 6',
+	() => {
+		console.log('Uploading Aggregate Impaired/Unmpaired Data..');
+		//upload aggregate data
+		uploadAggregateData();
+	},
+	function() {
+		console.log('Aggregate Impaired/Unmpaired Data uploaded..');
+	},
+	true /* Start the job right now */,
+	'America/Los_Angeles' /* Time zone of this job. */
+);
 
 app.use(logger('dev'));
 app.use(express.json());
