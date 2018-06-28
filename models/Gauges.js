@@ -32,10 +32,13 @@ var GaugesSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	//for IBWC gauges only
+	data_url: {
+		type: String,
+	},
 
 	last_date_pulled: {
 		type: Date,
-		default: new Date('1890-01-01'),
 		required: true,
 	},
 
