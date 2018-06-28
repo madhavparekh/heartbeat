@@ -43,7 +43,7 @@ if (process.argv[2] === '--upload') {
 	//unimpaired data
 	setTimeout(() => {
 		uploadImpairedDatabase();
-	}, 10000);
+	}, 5000);
 	//aggregate data
 	setTimeout(() => {
 		uploadAggregateData();
