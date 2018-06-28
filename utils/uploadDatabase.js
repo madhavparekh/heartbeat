@@ -7,7 +7,7 @@ var csv = require('csvtojson');
 
 const usgsDataURL = `https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=00000000&referred_module=sw&period=&begin_date=1899-07-01&end_date=`;
 
-var { rioGrandGauges } = require('../static/rioGrandGauges');
+var { rioGrandeGauges } = require('../static/rioGrandeGauges');
 
 const params4USGS = {
 	noheader: true,
@@ -43,7 +43,7 @@ const params4IBWC = {
 
 exports.uploadUnimpairedDatabase = async () => {
 	var headers = ['date', 'year', 'month', 'day'];
-	rioGrandGauges.forEach((gauge) => headers.push(gauge.id));
+	rioGrandeGauges.forEach((gauge) => headers.push(gauge_id));
 
 	params4UNIMPAIRED.headers = headers;
 
@@ -56,11 +56,11 @@ exports.uploadUnimpairedDatabase = async () => {
 				data = JSON.parse(data);
 				let objArr = [];
 
-				rioGrandGauges.forEach((gauge, indx) => {
+				rioGrandeGauges.forEach((gauge, indx) => {
 					let obj = {
-						gauge_id: gauge.id,
-						discharge: data[gauge.id]
-							? parseFloat(data[gauge.id]).toFixed(2)
+						gauge_id: gauge_id,
+						discharge: data[gauge_id]
+							? parseFloat(data[gauge_id]).toFixed(2)
 							: null,
 						date: data['date'],
 					};
@@ -85,10 +85,26 @@ exports.uploadImpairedDatabase = async () => {
 	today = today.toISOString().split('T')[0];
 
 	try {
-		await db.ImpairedData.deleteMany();
+		//await db.ImpairedData.deleteMany();
 
-		await rioGrandGauges.forEach((gauge) => {
-			var url = usgsDataURL.replace('00000000', gauge.id) + today;
+		var gauges = await db.Gauges.find({}).catch((err) => {
+			if (err) throw err;
+		});
+
+		gauges.forEach((gauge) => {
+			//get last pulled date and add a 1 day to it
+			var pullFromDate = new Date(gauge.last_date_pulled);
+			pullFromDate.setDate(pullFromDate.getDate() + 1);
+
+			var url = usgsDataURL.replace(
+				'1899-07-01',
+				pullFromDate.toISOString().split('T')[0]
+			);
+
+			url = url.replace('00000000', gauge.gauge_id) + today;
+
+			console.log(url);
+
 			if (gauge.agency === 'USGS') {
 				axios.get(url).then((response) => {
 					var data = response.data
@@ -107,6 +123,10 @@ exports.uploadImpairedDatabase = async () => {
 						});
 				});
 			} else if (gauge.agency === 'IBWC') {
+				//delete all records for gauge first 
+				//-- need to fix this by parsing and trimming html res to last pulled date
+				await db.ImpairedData.deleteMany({gauge_id: gauge.gauge_id});
+
 				params4IBWC.output = 'json';
 				axios.get(gauge.data_url).then((response) => {
 					var data = response.data
@@ -124,7 +144,7 @@ exports.uploadImpairedDatabase = async () => {
 							var objArr = [];
 							jsonArr.forEach((json, indx) => {
 								var obj = {
-									gauge_id: gauge.id,
+									gauge_id: gauge_id,
 								};
 
 								Object.keys(json).map((key, indx) => {
@@ -147,9 +167,41 @@ exports.uploadImpairedDatabase = async () => {
 				});
 			}
 		});
+
+		//update Gauges collection with last pulled date
+		updateLastPulledDate();
 	} catch (err) {
 		throw err;
 	}
+};
+
+const updateLastPulledDate = () => {
+	db.ImpairedData.aggregate(
+		[
+			{
+				$group: {
+					_id: '$gauge_id',
+					date: { $max: '$date' },
+				},
+			},
+		],
+		(err, docs) => {
+			if (err) throw err;
+
+			docs.forEach((doc) => {
+				db.Gauges.update(
+					{ gauge_id: doc._id },
+					{ $set: { last_date_pulled: doc.date } }
+				)
+					.then((doc) => {
+						//console.log(doc);
+					})
+					.catch((err) => {
+						if (err) throw err;
+					});
+			});
+		}
+	);
 };
 
 exports.uploadAggregateData = async () => {
@@ -164,8 +216,8 @@ exports.uploadAggregateData = async () => {
 };
 
 const pullDailyData = (toDB, fromDB) => {
-	rioGrandGauges.forEach((gauge) => {
-		var cursor = fromDB.find({ gauge_id: gauge.id }).cursor();
+	rioGrandeGauges.forEach((gauge) => {
+		var cursor = fromDB.find({ gauge_id: gauge_id }).cursor();
 		var aggregateData = {};
 		var aggregateCount = {};
 
@@ -197,7 +249,7 @@ const pullDailyData = (toDB, fromDB) => {
 			upLoadAggregateDischargeData(
 				aggregateData,
 				aggregateCount,
-				gauge.id,
+				gauge_id,
 				toDB
 			);
 		});
