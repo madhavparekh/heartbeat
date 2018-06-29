@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { fetchTodos } from "../actions/todo";
 
 //water project
-import { fetchDefaultData } from "../actions/record"
+import { fetchGuages } from "../actions/guage"
+// import { fetchDefaultData } from "../actions/record"
 
 import Layout from "../components/home/Layout";
 
@@ -17,6 +18,7 @@ export class Home extends React.Component {
         fetchTodos={() => this.props.fetchTodos()}
 
         //water project
+        fetchGuages={() => this.props.fetchGuages()}
         fetchDefaultData={() => this.props.fetchDefaultData()}
       />
     );
@@ -28,6 +30,7 @@ Home.propTypes = {
   fetchTodos: PropTypes.func.isRequired,
 
   //water project 
+  fetchGuages: PropTypes.func.isRequired,
   fetchDefaultData: PropTypes.func.isRequired
 };
 
@@ -36,6 +39,7 @@ const mapStateToProps = state => {
     todos: state.todo.todos,
 
     //water project
+    guages: state.guage.guages,
     defaultView: state.record.data
   };
 };
@@ -45,6 +49,7 @@ const mapDispatchToProps = dispatch => {
     fetchTodos: () => dispatch(fetchTodos()),
     
     //water project
+    fetchGuages: () => dispatch(fetchGuages()),
     fetchDefaultData: () => dispatch(fetchDefaultData()),
   };
 };
