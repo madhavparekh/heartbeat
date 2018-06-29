@@ -11,16 +11,6 @@ var RiversSchema = new Schema({
 		type: String,
 		required: true,
 	},
-
-	// `gagues` is an object that stores a gauge id
-	// The ref property links the ObjectId to the Gauges model
-	// This allows us to populate the River with an associated Gauges
-	gauges: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Gauges',
-		},
-	],
 });
 
 // This creates our model from the above schema, using mongoose's model method

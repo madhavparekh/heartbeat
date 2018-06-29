@@ -24,25 +24,32 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  login: {
+    marginRight: 15,
+    marginLeft: 5,
+  },
 };
 
 class NavBar extends React.Component {
-  // state = {
-  //   auth: true,
-  //   anchorEl: null,
-  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: true,
+      anchorEl: null,
+    };
+  }
 
-  // handleChange = (event, checked) => {
-  //   this.setState({ auth: checked });
-  // };
+  handleChange(event, checked) {
+    this.setState({ auth: checked });
+  }
 
-  // handleMenu = event => {
-  //   this.setState({ anchorEl: event.currentTarget });
-  // };
+  handleMenu(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
 
-  // handleClose = () => {
-  //   this.setState({ anchorEl: null });
-  // };
+  handleClose() {
+    this.setState({ anchorEl: null });
+  }
 
   render() {
     const { classes } = this.props;
@@ -51,34 +58,29 @@ class NavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-                onChange={this.handleChange}
-                aria-label="LoginSwitch"
-              />
-            }
-            label={auth ? "Logout" : "Login"}
-          />
-        </FormGroup>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography
               variant="title"
               color="inherit"
               className={classes.flex}
             >
-              Title
+              HeartBeat
             </Typography>
+            <IconButton className={classes.login}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={auth}
+                      onChange={this.handleChange}
+                      aria-label="LoginSwitch"
+                    />
+                  }
+                  label={auth ? "Logout" : "Login"}
+                />
+              </FormGroup>
+            </IconButton>
             {auth && (
               <div>
                 <IconButton
@@ -105,6 +107,7 @@ class NavBar extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem />
                 </Menu>
               </div>
             )}

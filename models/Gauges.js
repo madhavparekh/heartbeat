@@ -6,9 +6,15 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new GaugesSchema object
 // This is similar to a Sequelize model
 var GaugesSchema = new Schema({
-	// `usgs_site_no` is required and of type Number
-	usgs_site_no: {
-		type: Number,
+	// `gauge_id` is required and of type Number
+	gauge_id: {
+		type: String,
+		required: true,
+	},
+
+	agency: {
+		type: String,
+		default: 'USGS',
 		required: true,
 	},
 
@@ -28,20 +34,16 @@ var GaugesSchema = new Schema({
 	},
 
 	last_date_pulled: {
-		type: String,
-		default: '1890-01-01',
+		type: Date,
+		default: new Date('1890-01-01'),
 		required: true,
 	},
 
-	// `dailyData` is an object that stores a DailyData id
-	// The ref property links the ObjectId to the DailyData model
-	// This allows us to populate the Gauge with an associated DailyData
-	dailyData: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'DailyData',
-		},
-	],
+	//gauge belongs to River
+	river: {
+		type: Schema.Types.ObjectId,
+		ref: 'Rivers',
+	},
 });
 
 // This creates our model from the above schema, using mongoose's model method
