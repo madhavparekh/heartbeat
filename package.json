@@ -11,7 +11,8 @@
 		"test:cover": "yarn test -- --coverage ",
 		"test:cover:CI": "yarn test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
 		"test:watch": "jest --watch",
-		"heroku-postbuild": "cd client && yarn && yarn run build"
+		"heroku-postbuild": "cd client && yarn && yarn run build",
+		"seeder:gauges": "md-seed run Gauges"
 	},
 	"dependencies": {
 		"axios": "^0.18.0",
@@ -24,6 +25,7 @@
 		"http-errors": "~1.6.2",
 		"jade": "~1.11.0",
 		"mongoose": "^5.1.6",
+		"mongoose-data-seed": "^1.0.6",
 		"morgan": "~1.9.0",
 		"request": "^2.87.0"
 	}
