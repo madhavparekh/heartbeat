@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import GraphCard from "./GraphCard";
 import MapCard from "./MapCard";
 import ViewCard from "./ViewCard";
+import NavBar from "./NavBar";
 
 const styles = {
   card: {

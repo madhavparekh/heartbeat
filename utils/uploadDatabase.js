@@ -44,11 +44,13 @@ const params4IBWC = {
 exports.uploadUnimpairedDatabase = async () => {
 	console.log('Loading Unimpaired data..');
 	var headers = ['date', 'year', 'month', 'day'];
+
 	var gauges = await db.Gauges.find({}).catch((err) => {
 		if (err) throw err;
 	});
 
 	gauges.forEach((gauge) => headers.push(gauge.gauge_id));
+
 
 	params4UNIMPAIRED.headers = headers;
 
@@ -68,6 +70,7 @@ exports.uploadUnimpairedDatabase = async () => {
 						gauge_id: gauge.gauge_id,
 						discharge: data[gauge.gauge_id]
 							? parseFloat(data[gauge.gauge_id]).toFixed(2)
+
 							: null,
 						date: data['date'],
 					};
@@ -93,6 +96,7 @@ exports.uploadImpairedDatabase = async () => {
 	today = today.toISOString().split('T')[0];
 
 	try {
+
 		var gauges = await db.Gauges.find({}).catch((err) => {
 			if (err) throw err;
 		});
@@ -103,6 +107,7 @@ exports.uploadImpairedDatabase = async () => {
 			pullFromDate.setDate(pullFromDate.getDate() + 1);
 
 			let url = usgsDataURL.replace(
+
 				'1899-07-01',
 				pullFromDate.toISOString().split('T')[0]
 			);
@@ -127,6 +132,7 @@ exports.uploadImpairedDatabase = async () => {
 						});
 				});
 			} else if (gauge.agency === 'IBWC') {
+
 				//delete all records for gauge first
 				//-- need to fix this by parsing and trimming html res to last pulled date
 				db.ImpairedData.deleteMany({ gauge_id: gauge.gauge_id }).catch(
@@ -134,6 +140,7 @@ exports.uploadImpairedDatabase = async () => {
 						if (err) throw err;
 					}
 				);
+
 
 				params4IBWC.output = 'json';
 				axios.get(gauge.data_url).then((response) => {

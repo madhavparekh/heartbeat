@@ -38,6 +38,7 @@ router.get('/api/gauges/:gauge_id', (req, res) => {
 /* GET api Gauges*/
 router.get('/api/gauges', (req, res) => {
 	gauges.show(req, res);
+
 });
 
 module.exports = router;
