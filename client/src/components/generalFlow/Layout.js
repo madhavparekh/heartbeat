@@ -1,18 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import generalFlow from "./generalFlow"
+import GeneralFlow from "./GeneralFlow"
 
 const Layout = () => (
-
-
-    <div>
-        <div>
-            Axis
-        </div>
-        <div>
-            <generalFlow />
-        </div>
-    </div>
+  <div>
+    <GeneralFlow />
+  </div>
 );
 
 Layout.propTypes = {
