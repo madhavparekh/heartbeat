@@ -8,7 +8,7 @@ module.exports = {
 	},
 	findOne(req, res) {
 		return Gauges.find({ gauge_id: req.params.gauge_id })
-			.then((Gauges) => res.status(200).send(Gauges))
+			.then((gauge) => res.status(200).send(gauge))
 			.catch((err) => res.status(400).send(err));
 	},
 };
