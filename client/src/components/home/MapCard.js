@@ -25,7 +25,7 @@ const styles = {
   },
 };
 
-class MapCard extends React.Component(props) {
+class MapCard extends React.Component {
   // const { classes } = props;
   //   const bull = <span className={classes.bullet}>•</span>;
 
@@ -33,9 +33,9 @@ class MapCard extends React.Component(props) {
 
     return (
       <div>
-        <Card className={classes.card}>
+        <Card>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
+            <Typography color="textSecondary">
               Map of the Rio Grande
             </Typography>
           </CardContent>
@@ -46,7 +46,7 @@ class MapCard extends React.Component(props) {
 }
 
 MapCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(MapCard);
