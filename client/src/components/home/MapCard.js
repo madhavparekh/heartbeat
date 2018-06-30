@@ -25,21 +25,24 @@ const styles = {
   },
 };
 
-function MapCard(props) {
-  const { classes } = props;
+class MapCard extends React.Component(props) {
+  // const { classes } = props;
   //   const bull = <span className={classes.bullet}>•</span>;
 
-  return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary">
-            Map of the Rio Grande
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  render() {
+
+    return (
+      <div>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary">
+              Map of the Rio Grande
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }  
 }
 
 MapCard.propTypes = {
