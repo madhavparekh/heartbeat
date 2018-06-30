@@ -19,7 +19,7 @@ export class Home extends React.Component {
 
         //water project
         fetchGuages={() => this.props.fetchGuages()}
-        fetchDefaultData={() => this.props.fetchDefaultData()}
+        // fetchDefaultData={() => this.props.fetchDefaultData()}
       />
     );
   }
@@ -50,7 +50,7 @@ const mapDispatchToProps = dispatch => {
     
     //water project
     fetchGuages: () => dispatch(fetchGuages()),
-    fetchDefaultData: () => dispatch(fetchDefaultData()),
+    // fetchDefaultData: () => dispatch(fetchDefaultData()),
   };
 };
 

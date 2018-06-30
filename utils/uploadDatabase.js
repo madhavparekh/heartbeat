@@ -125,7 +125,7 @@ exports.uploadImpairedDatabase = async () => {
 			} else if (gauge.agency === 'IBWC') {
 				//delete all records for gauge first 
 				//-- need to fix this by parsing and trimming html res to last pulled date
-				await db.ImpairedData.deleteMany({gauge_id: gauge.gauge_id});
+				 db.ImpairedData.deleteMany({gauge_id: gauge.gauge_id});
 
 				params4IBWC.output = 'json';
 				axios.get(gauge.data_url).then((response) => {

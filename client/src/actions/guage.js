@@ -9,11 +9,11 @@ const fetchGuageObjects = guages => {
     };
 };
 
-export function fetchGuages() {
+export function fetchGuages(river) {
     return async dispatch => {
         try {
             const guagesFromAPI = await request.get(
-                "https://ron-swanson-quotes.herokuapp.com/v2/quotes"
+                "https://ron-swanson-quotes.herokuapp.com/v2/quotes/" + river 
             );
             // pretent this is an api call...
             dispatch(fetchGuageObjects(guagesFromAPI.body));
