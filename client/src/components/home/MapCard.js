@@ -25,25 +25,28 @@ const styles = {
   },
 };
 
-function MapCard(props) {
-  const { classes } = props;
+class MapCard extends React.Component {
+  // const { classes } = props;
   //   const bull = <span className={classes.bullet}>•</span>;
 
-  return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary">
-            Map of the Rio Grande
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  render() {
+
+    return (
+      <div>
+        <Card>
+          <CardContent>
+            <Typography color="textSecondary">
+              Map of the Rio Grande
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }  
 }
 
 MapCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(MapCard);
