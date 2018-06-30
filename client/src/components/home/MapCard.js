@@ -30,19 +30,16 @@ class MapCard extends React.Component {
   //   const bull = <span className={classes.bullet}>•</span>;
 
   render() {
-
     return (
-      <div>
+      <div className="MapCard">
         <Card>
           <CardContent>
-            <Typography color="textSecondary">
-              Map of the Rio Grande
-            </Typography>
+            <Typography color="textSecondary">Map of the Rio Grande</Typography>
           </CardContent>
         </Card>
       </div>
     );
-  }  
+  }
 }
 
 MapCard.propTypes = {
