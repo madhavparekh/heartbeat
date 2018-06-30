@@ -38,16 +38,31 @@ db.once('open', () => {
 
 //upload data if argv set to '--upload'
 if (process.argv[2] === '--upload') {
-	//impaird data
-	uploadImpairedDatabase();
-	//unimpaired data
-	setTimeout(() => {
-		uploadImpairedDatabase();
-	}, 5000);
-	//aggregate data
-	setTimeout(() => {
-		uploadAggregateData();
-	}, 10000);
+	switch (process.argv[3]) {
+		case 'impaired':
+			uploadImpairedDatabase();
+			break;
+		case 'unimpaired':
+			uploadUnimpairedDatabase();
+			break;
+		case 'aggregate':
+			uploadAggregateData();
+			break;
+		default:
+			//impaired data
+			console.log('Loading Impaired data..');
+			uploadImpairedDatabase();
+			//unimpaired data
+			setTimeout(() => {
+				console.log('Loading Unimpaired data..');
+				uploadUnimpairedDatabase();
+			}, 1000 * 60 * 5);
+			//aggregate data
+			setTimeout(() => {
+				console.log('Loading Aggregate data..');
+				uploadAggregateData();
+			}, 1000 * 60 * 10);
+	}
 }
 //scheduling task for uploading flow data
 CronJob(

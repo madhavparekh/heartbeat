@@ -12,7 +12,7 @@ var UnImpairedDataSchema = new Schema({
 	},
 
 	discharge: {
-		type: mongoose.SchemaTypes.Decimal128,
+		type: Number,
 		default: null,
 	},
 

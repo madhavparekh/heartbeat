@@ -1,8 +1,8 @@
-var { ImpairedData } = require('../models');
+var { UnImpairedAggregateData } = require('../models');
 
 module.exports = {
 	show(req, res) {
-		return ImpairedData.aggregate([
+		return UnImpairedAggregateData.aggregate([
 			{ $match: { gauge_id: req.params.gauge_id, discharge: { $ne: null } } },
 			{
 				$project: {
@@ -13,9 +13,9 @@ module.exports = {
 			},
 			{ $sort: { date: 1 } },
 		])
-			.then((ImpairedData) => {
-				res.status(200).send(ImpairedData);
-			})
+			.then((UnImpairedAggregateData) =>
+				res.status(200).send(UnImpairedAggregateData)
+			)
 			.catch((err) => res.status(400).send(err));
 	},
 };

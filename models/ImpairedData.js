@@ -12,8 +12,8 @@ var ImpairedDataSchema = new Schema({
 	},
 
 	discharge: {
-		type: mongoose.SchemaTypes.Decimal128,
-		default: null
+		type: Number,
+		default: null,
 	},
 
 	//data belongs to gauges
@@ -22,7 +22,6 @@ var ImpairedDataSchema = new Schema({
 		ref: 'Gauges',
 	},
 });
-
 
 // This creates our model from the above schema, using mongoose's model method
 var ImpairedData = mongoose.model('ImpairedData', ImpairedDataSchema);

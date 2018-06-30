@@ -42,25 +42,35 @@ const params4IBWC = {
 };
 
 exports.uploadUnimpairedDatabase = async () => {
+	console.log('Loading Unimpaired data..');
 	var headers = ['date', 'year', 'month', 'day'];
-	rioGrandeGauges.forEach((gauge) => headers.push(gauge_id));
+
+	var gauges = await db.Gauges.find({}).catch((err) => {
+		if (err) throw err;
+	});
+
+	gauges.forEach((gauge) => headers.push(gauge.gauge_id));
+
 
 	params4UNIMPAIRED.headers = headers;
 
 	try {
-		await db.UnImpairedData.deleteMany();
-		var count = 0;
+		db.UnImpairedData.deleteMany().catch((err) => {
+			if (err) throw err;
+		});
 		csv(params4UNIMPAIRED)
 			.fromStream(request.get(process.env.UNIMPAIRED_FILE_URL))
 			.on('data', (data) => {
 				data = JSON.parse(data);
 				let objArr = [];
+				//console.log(data);
 
-				rioGrandeGauges.forEach((gauge, indx) => {
+				gauges.forEach((gauge, indx) => {
 					let obj = {
-						gauge_id: gauge_id,
-						discharge: data[gauge_id]
-							? parseFloat(data[gauge_id]).toFixed(2)
+						gauge_id: gauge.gauge_id,
+						discharge: data[gauge.gauge_id]
+							? parseFloat(data[gauge.gauge_id]).toFixed(2)
+
 							: null,
 						date: data['date'],
 					};
@@ -81,11 +91,11 @@ exports.uploadUnimpairedDatabase = async () => {
 };
 
 exports.uploadImpairedDatabase = async () => {
+	console.log('Loading Impaired data..');
 	var today = new Date(Date.now());
 	today = today.toISOString().split('T')[0];
 
 	try {
-		//await db.ImpairedData.deleteMany();
 
 		var gauges = await db.Gauges.find({}).catch((err) => {
 			if (err) throw err;
@@ -93,21 +103,20 @@ exports.uploadImpairedDatabase = async () => {
 
 		gauges.forEach((gauge) => {
 			//get last pulled date and add a 1 day to it
-			var pullFromDate = new Date(gauge.last_date_pulled);
+			let pullFromDate = new Date(gauge.last_date_pulled);
 			pullFromDate.setDate(pullFromDate.getDate() + 1);
 
-			var url = usgsDataURL.replace(
+			let url = usgsDataURL.replace(
+
 				'1899-07-01',
 				pullFromDate.toISOString().split('T')[0]
 			);
 
 			url = url.replace('00000000', gauge.gauge_id) + today;
 
-			console.log(url);
-
 			if (gauge.agency === 'USGS') {
 				axios.get(url).then((response) => {
-					var data = response.data
+					let data = response.data
 						.slice(response.data.lastIndexOf('10s') + '10s'.length + 1)
 						.trim();
 
@@ -123,13 +132,19 @@ exports.uploadImpairedDatabase = async () => {
 						});
 				});
 			} else if (gauge.agency === 'IBWC') {
-				//delete all records for gauge first 
+
+				//delete all records for gauge first
 				//-- need to fix this by parsing and trimming html res to last pulled date
-				 db.ImpairedData.deleteMany({gauge_id: gauge.gauge_id});
+				db.ImpairedData.deleteMany({ gauge_id: gauge.gauge_id }).catch(
+					(err) => {
+						if (err) throw err;
+					}
+				);
+
 
 				params4IBWC.output = 'json';
 				axios.get(gauge.data_url).then((response) => {
-					var data = response.data
+					let data = response.data
 						.slice(
 							response.data.lastIndexOf('REVISION') + 'REVISION'.length + 1
 						)
@@ -141,10 +156,10 @@ exports.uploadImpairedDatabase = async () => {
 					csv(params4IBWC)
 						.fromString(data)
 						.then((jsonArr) => {
-							var objArr = [];
+							let objArr = [];
 							jsonArr.forEach((json, indx) => {
-								var obj = {
-									gauge_id: gauge_id,
+								let obj = {
+									gauge_id: gauge.gauge_id,
 								};
 
 								Object.keys(json).map((key, indx) => {
@@ -205,6 +220,7 @@ const updateLastPulledDate = () => {
 };
 
 exports.uploadAggregateData = async () => {
+	console.log('Loading Aggregate data..');
 	var impairedAggrDB = db.ImpairedAggregateData;
 	var unImpairedAggrDB = db.UnImpairedAggregateData;
 
@@ -217,7 +233,7 @@ exports.uploadAggregateData = async () => {
 
 const pullDailyData = (toDB, fromDB) => {
 	rioGrandeGauges.forEach((gauge) => {
-		var cursor = fromDB.find({ gauge_id: gauge_id }).cursor();
+		var cursor = fromDB.find({ gauge_id: gauge.gauge_id }).cursor();
 		var aggregateData = {};
 		var aggregateCount = {};
 
@@ -249,7 +265,7 @@ const pullDailyData = (toDB, fromDB) => {
 			upLoadAggregateDischargeData(
 				aggregateData,
 				aggregateCount,
-				gauge_id,
+				gauge.gauge_id,
 				toDB
 			);
 		});
