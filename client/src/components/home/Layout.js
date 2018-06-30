@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import BodyCard from "./BodyCard";
 
 const Layout = () => (
+
+
   <div>
     <div>
       <NavBar />
