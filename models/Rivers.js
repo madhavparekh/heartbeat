@@ -1,20 +1,20 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new RiversSchema object
 // This is similar to a Sequelize model
-var RiversSchema = new Schema({
-	// `name` is required and of type String
-	name: {
-		type: String,
-		required: true,
-	},
+const RiversSchema = new Schema({
+  // `name` is required and of type String
+  name: {
+    type: String,
+    required: true,
+  },
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Rivers = mongoose.model('Rivers', RiversSchema);
+const Rivers = mongoose.model('Rivers', RiversSchema);
 
 // Export the Rivers model
 module.exports = Rivers;
