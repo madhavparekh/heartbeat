@@ -27,7 +27,7 @@ const styles = {
 
 };
 
-class NavBar extends React.Component {
+// class NavBar extends React.Component {
   // state = {
   //   auth: true,
   //   anchorEl: null,
@@ -45,11 +45,11 @@ class NavBar extends React.Component {
   //   this.setState({ anchorEl: null });
   // };
 
-  login: {
-    marginRight: 15,
-    marginLeft: 5,
-  },
-};
+//   login: {
+//     marginRight: 15,
+//     marginLeft: 5,
+//   },
+// };
 
 class NavBar extends React.Component {
   constructor(props) {
