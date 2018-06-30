@@ -7,4 +7,6 @@ module.exports = {
   ImpairedAggregateData: require('./ImpairedAggregateData'),
   UnImpairedData: require('./UnImpairedData'),
   UnImpairedAggregateData: require('./UnImpairedAggregateData'),
+  Users: require('./Users'),
+
 };
