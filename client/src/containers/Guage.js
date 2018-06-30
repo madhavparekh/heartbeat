@@ -24,16 +24,18 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchGuages: () => dispatch(fetchGuages(river)),
+        fetchGuages: river => dispatch(fetchGuages(river)),
     };
 };
 
 Guage.propTypes = {
     fetchGuages: PropTypes.func.isRequired,
-    fetchDefaultData: PropTypes.func.isRequired
+    guages: PropTypes.array.isRequired
+    // fetchDefaultData: PropTypes.func.isRequired
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Guage);
+ 
