@@ -3,7 +3,7 @@ node_js:
    - "8"
 script:
   - yarn lint
-  - yarn test-cover
+  - yarn test:cover
 #   - cd client 
 #   - yarn run test:CI
 # after_success:
