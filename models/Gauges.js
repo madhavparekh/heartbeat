@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Save a reference to the Schema constructor
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; //eslint-disable-line
 
 // Using the Schema constructor, create a new GaugesSchema object
 // This is similar to a Sequelize model
@@ -43,8 +43,8 @@ const GaugesSchema = new Schema({
   },
 
   // gauge belongs to River
-  river: {
-    type: Schema.Types.ObjectId,
+  river_name: {
+    type: Schema.Types.String,
     ref: 'Rivers',
   },
 });

@@ -1,13 +1,12 @@
 require('dotenv').config();
 const axios = require('axios');
 const request = require('request');
-const fs = require('fs');
 const csv = require('csvtojson');
 const db = require('../models');
 
-const usgsDataURL = 'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=00000000&referred_module=sw&period=&begin_date=1899-07-01&end_date=';
+const usgsDataURL =	'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=00000000&referred_module=sw&period=&begin_date=1899-07-01&end_date='; //eslint-disable-line
 
-const { rioGrandeGauges } = require('../static/rioGrandeGauges');
+const rioGrandeGauges = db.Gauges.find().catch(err => err);
 
 const params4USGS = {
   noheader: true,
@@ -41,16 +40,33 @@ const params4IBWC = {
   ignoreEmpty: true,
 };
 
+const updateLastPulledDate = () => {
+  db.ImpairedData.aggregate(
+    [
+      {
+        $group: {
+          _id: '$gauge_id',
+          date: { $max: '$date' },
+        },
+      },
+    ],
+    (err, docs) => {
+      if (err) throw err;
+
+      docs.forEach((doc) => {
+        db.Gauges.update(
+					{ gauge_id: doc._id }, //eslint-disable-line
+          { $set: { last_date_pulled: doc.date } },
+        ).catch(error => error);
+      });
+    },
+  );
+};
+
 exports.uploadUnimpairedDatabase = async () => {
-  console.log('Loading Unimpaired data..');
   const headers = ['date', 'year', 'month', 'day'];
 
-  const gauges = await db.Gauges.find({}).catch((err) => {
-    if (err) throw err;
-  });
-
-  gauges.forEach(gauge => headers.push(gauge.gauge_id));
-
+  rioGrandeGauges.forEach(gauge => headers.push(gauge.gauge_id));
 
   params4UNIMPAIRED.headers = headers;
 
@@ -60,17 +76,16 @@ exports.uploadUnimpairedDatabase = async () => {
     });
     csv(params4UNIMPAIRED)
       .fromStream(request.get(process.env.UNIMPAIRED_FILE_URL))
-      .on('data', (data) => {
-        data = JSON.parse(data);
+      .on('data', (res) => {
+        const data = JSON.parse(res);
         const objArr = [];
         // console.log(data);
 
-        gauges.forEach((gauge, indx) => {
+        rioGrandeGauges.forEach((gauge) => {
           const obj = {
             gauge_id: gauge.gauge_id,
             discharge: data[gauge.gauge_id]
               ? parseFloat(data[gauge.gauge_id]).toFixed(2)
-
               : null,
             date: data.date,
           };
@@ -91,22 +106,16 @@ exports.uploadUnimpairedDatabase = async () => {
 };
 
 exports.uploadImpairedDatabase = async () => {
-  console.log('Loading Impaired data..');
   let today = new Date(Date.now());
-  today = today.toISOString().split('T')[0];
+	today = today.toISOString().split('T')[0]; //eslint-disable-line
 
   try {
-    const gauges = await db.Gauges.find({}).catch((err) => {
-      if (err) throw err;
-    });
-
-    gauges.forEach((gauge) => {
+    rioGrandeGauges.forEach((gauge) => {
       // get last pulled date and add a 1 day to it
       const pullFromDate = new Date(gauge.last_date_pulled);
       pullFromDate.setDate(pullFromDate.getDate() + 1);
 
       let url = usgsDataURL.replace(
-
         '1899-07-01',
         pullFromDate.toISOString().split('T')[0],
       );
@@ -122,11 +131,7 @@ exports.uploadImpairedDatabase = async () => {
           csv(params4USGS)
             .fromString(data)
             .then((jsonArr) => {
-              db.ImpairedData.insertMany(jsonArr).catch((err) => {
-                if (err) {
-                  return err;
-                }
-              });
+              db.ImpairedData.insertMany(jsonArr).catch(err => err);
             });
         });
       } else if (gauge.agency === 'IBWC') {
@@ -137,7 +142,6 @@ exports.uploadImpairedDatabase = async () => {
             if (err) throw err;
           },
         );
-
 
         params4IBWC.output = 'json';
         axios.get(gauge.data_url).then((response) => {
@@ -154,27 +158,20 @@ exports.uploadImpairedDatabase = async () => {
             .fromString(data)
             .then((jsonArr) => {
               const objArr = [];
-              jsonArr.forEach((json, indx) => {
+              jsonArr.forEach((json) => {
                 const obj = {
                   gauge_id: gauge.gauge_id,
                 };
-
-                Object.keys(json).map((key, indx) => {
+                // prettier-ignore
+								Object.keys(json).map((key, indx) => {//eslint-disable-line
                   if (indx === 0) obj.date = new Date(json[key]);
                   if (indx === 1) {
-                    obj.discharge =											json[key] === 'NR'
-											  ? null
-											  : (json[key] * 35.3147).toFixed(2);
+                    obj.discharge = json[key] === 'NR' ? null : (json[key] * 35.3147).toFixed(2);
                   } // cms to cfs
                 });
                 objArr.push(obj);
               });
-              db.ImpairedData.insertMany(objArr).catch((err) => {
-                if (err) {
-                  console.log(err);
-                  return err;
-                }
-              });
+              db.ImpairedData.insertMany(objArr).catch(err => err);
             });
         });
       }
@@ -187,42 +184,19 @@ exports.uploadImpairedDatabase = async () => {
   }
 };
 
-const updateLastPulledDate = () => {
-  db.ImpairedData.aggregate(
-    [
-      {
-        $group: {
-          _id: '$gauge_id',
-          date: { $max: '$date' },
-        },
-      },
-    ],
-    (err, docs) => {
-      if (err) throw err;
-
-      docs.forEach((doc) => {
-        db.Gauges.update(
-          { gauge_id: doc._id },
-          { $set: { last_date_pulled: doc.date } },
-        )
-          .catch((err) => {
-            if (err) throw err;
-          });
+const upLoadAggregateDischargeData = (data, count, gaugeId, aggrDB) => {
+  Object.keys(data).forEach((date) => {
+    aggrDB
+      .create({
+        gaugeId,
+        date: new Date(date),
+        discharge: parseFloat(data[date] / count[date]).toFixed(2),
+      })
+      .then(() => {})
+      .catch((err) => {
+        if (err) throw err;
       });
-    },
-  );
-};
-
-exports.uploadAggregateData = async () => {
-  console.log('Loading Aggregate data..');
-  const impairedAggrDB = db.ImpairedAggregateData;
-  const unImpairedAggrDB = db.UnImpairedAggregateData;
-
-  await impairedAggrDB.deleteMany({});
-  await unImpairedAggrDB.deleteMany({});
-
-  pullDailyData(impairedAggrDB, db.ImpairedData);
-  pullDailyData(unImpairedAggrDB, db.UnImpairedData);
+  });
 };
 
 const pullDailyData = (toDB, fromDB) => {
@@ -240,22 +214,17 @@ const pullDailyData = (toDB, fromDB) => {
         .padStart(2, '0')}`;
 
       if (doc.discharge !== null) {
-        aggregateData[mmDD] = isNaN(aggregateData[mmDD])
+        aggregateData[mmDD] = Number.isNaN(aggregateData[mmDD])
           ? 0
           : parseFloat(aggregateData[mmDD]) + parseFloat(doc.discharge);
 
-        aggregateCount[mmDD] = isNaN(aggregateCount[mmDD])
+        aggregateCount[mmDD] = Number.isNaN(aggregateCount[mmDD])
           ? 0.0
           : aggregateCount[mmDD] + 1;
       }
     });
 
     cursor.on('end', () => {
-      // console.log(
-      // 	`Data: ${Object.values(aggregateData).length} - Count: ${
-      // 		Object.values(aggregateCount).length
-      // 	}`
-      // );
       upLoadAggregateDischargeData(
         aggregateData,
         aggregateCount,
@@ -269,17 +238,13 @@ const pullDailyData = (toDB, fromDB) => {
   });
 };
 
-const upLoadAggregateDischargeData = (data, count, gauge_id, aggrDB) => {
-  Object.keys(data).forEach((date) => {
-    aggrDB
-      .create({
-        gauge_id,
-        date: new Date(date),
-        discharge: parseFloat(data[date] / count[date]).toFixed(2),
-      })
-      .then(() => {})
-      .catch((err) => {
-        if (err) throw err;
-      });
-  });
+exports.uploadAggregateData = async () => {
+  const impairedAggrDB = db.ImpairedAggregateData;
+  const unImpairedAggrDB = db.UnImpairedAggregateData;
+
+  await impairedAggrDB.deleteMany({});
+  await unImpairedAggrDB.deleteMany({});
+
+  pullDailyData(impairedAggrDB, db.ImpairedData);
+  pullDailyData(unImpairedAggrDB, db.UnImpairedData);
 };

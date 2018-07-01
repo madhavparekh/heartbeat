@@ -1,4 +1,4 @@
-const Seeder = require('mongoose-data-seed').Seeder;
+const Seeder = require('mongoose-data-seed').Seeder; //eslint-disable-line
 const Model = require('../models/Gauges');
 
 const { rioGrandeGauges } = require('../static/rioGrandeGauges');

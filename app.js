@@ -1,110 +1,111 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var mongoose = require('mongoose/lib');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var CronJob = require('cron').CronJob;
-var {
-	uploadImpairedDatabase,
-	uploadUnimpairedDatabase,
-	uploadAggregateData,
+const { CronJob } = require('cron').CronJob;
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose/lib');
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+
+const {
+  uploadImpairedDatabase,
+  uploadUnimpairedDatabase,
+  uploadAggregateData,
 } = require('./utils/uploadDatabase');
 
-var app = express();
+const app = express();
 
 // Connect to the Mongo DB
-var databaseUri = 'mongodb://localhost/heartbeat';
-//var mongooseOptions = { poolSize: 20 };
+const databaseUri = 'mongodb://localhost/heartbeat';
 
 if (process.env.MONGODB_URI) {
-	mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI);
 } else {
-	mongoose.connect(databaseUri);
+  mongoose.connect(databaseUri);
 }
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
-//show any mongoose error
+// show any mongoose error
 db.on('error', (err) => {
-	console.log('Mongoose Error: ', err);
+	console.log('Mongoose Error: ', err); //eslint-disable-line
 });
 
 db.once('open', () => {
-	console.log('Mongoose connectoion successful');
+	console.log('Mongoose connectoion successful'); //eslint-disable-line
 });
 
-//upload data if argv set to '--upload'
+// upload data if argv set to '--upload'
 if (process.argv[2] === '--upload') {
-	switch (process.argv[3]) {
-		case 'impaired':
-			uploadImpairedDatabase();
-			break;
-		case 'unimpaired':
-			uploadUnimpairedDatabase();
-			break;
-		case 'aggregate':
-			uploadAggregateData();
-			break;
-		default:
-			//impaired data
-			console.log('Loading Impaired data..');
-			uploadImpairedDatabase();
-			//unimpaired data
-			setTimeout(() => {
-				console.log('Loading Unimpaired data..');
-				uploadUnimpairedDatabase();
-			}, 1000 * 60 * 5);
-			//aggregate data
-			setTimeout(() => {
-				console.log('Loading Aggregate data..');
-				uploadAggregateData();
-			}, 1000 * 60 * 10);
-	}
+  switch (process.argv[3]) {
+    case 'impaired':
+      uploadImpairedDatabase();
+      break;
+    case 'unimpaired':
+      uploadUnimpairedDatabase();
+      break;
+    case 'aggregate':
+      uploadAggregateData();
+      break;
+    default:
+      // impaired data
+			console.log('Loading Impaired data..'); //eslint-disable-line
+      uploadImpairedDatabase();
+      // unimpaired data
+      setTimeout(() => {
+				console.log('Loading Unimpaired data..'); //eslint-disable-line
+        uploadUnimpairedDatabase();
+      }, 1000 * 60 * 5);
+      // aggregate data
+      setTimeout(() => {
+				console.log('Loading Aggregate data..'); //eslint-disable-line
+        uploadAggregateData();
+      }, 1000 * 60 * 10);
+  }
 }
-//scheduling task for uploading flow data
+// scheduling task for uploading flow data
 CronJob(
-	'00 00 00 * * 6',
-	() => {
-		console.log('Uploading Impaired Data..');
-		//upload impaired data from website (USGS/IBWC)
-		uploadImpairedDatabase();
-	},
-	function() {
-		console.log('Impaired Data uploaded..');
-	},
-	true /* Start the job right now */,
-	'America/Los_Angeles' /* Time zone of this job. */
+  '00 00 00 * * 6',
+  () => {
+		console.log('Uploading Impaired Data..'); //eslint-disable-line
+    // upload impaired data from website (USGS/IBWC)
+    uploadImpairedDatabase();
+  },
+  () => {
+		console.log('Impaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles', /* Time zone of this job. */
 );
 
 CronJob(
-	'00 15 00 * * 6',
-	() => {
-		console.log('Uploading Unmpaired Data..');
+  '00 15 00 * * 6',
+  () => {
+		console.log('Uploading Unmpaired Data..'); //eslint-disable-line
 
-		//upload unimpaired data from CSV file
-		uploadUnimpairedDatabase();
-	},
-	function() {
-		console.log('Unmpaired Data uploaded..');
-	},
-	true /* Start the job right now */,
-	'America/Los_Angeles' /* Time zone of this job. */
+    // upload unimpaired data from CSV file
+    uploadUnimpairedDatabase();
+  },
+  () => {
+		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles', /* Time zone of this job. */
 );
 CronJob(
-	'00 30 00 * * 6',
-	() => {
-		console.log('Uploading Aggregate Impaired/Unmpaired Data..');
-		//upload aggregate data
-		uploadAggregateData();
-	},
-	function() {
-		console.log('Aggregate Impaired/Unmpaired Data uploaded..');
-	},
-	true /* Start the job right now */,
-	'America/Los_Angeles' /* Time zone of this job. */
+  '00 30 00 * * 6',
+  () => {
+		console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
+    // upload aggregate data
+    uploadAggregateData();
+  },
+  () => {
+		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles', /* Time zone of this job. */
 );
 
 app.use(logger('dev'));
@@ -118,19 +119,19 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-	next(createError(404));
+app.use((req, res, next) => {
+  next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use((err, req, res) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
