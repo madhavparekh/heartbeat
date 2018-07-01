@@ -1,8 +1,14 @@
+const impaired = require('./impaired');
+const unImpaired = require('./unImpaired');
+const impairedAggregate = require('./impairedAggregate');
+const unImpairedAggreate = require('./unImpairedAggregate');
+const gauges = require('./gauges');
+
 module.exports = {
-  impaired: require('./impaired'),
-  unImpaired: require('./unImpaired'),
-  impairedAggregate: require('./impairedAggregate'),
-  unImpairedAggreate: require('./unImpairedAggregate'),
-  gauges: require('./gauges'),
+  impaired,
+  unImpaired,
+  impairedAggregate,
+  unImpairedAggreate,
+  gauges,
   // users: require('./users'),
 };
