@@ -6,7 +6,15 @@ const db = require('../models');
 
 const usgsDataURL =	'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=00000000&referred_module=sw&period=&begin_date=1899-07-01&end_date='; //eslint-disable-line
 
-const rioGrandeGauges = db.Gauges.find().catch(err => err);
+let rioGrandeGauges = [];
+
+const getGauges = async () => {
+  await db.Gauges.find()
+    .then((data) => {
+      rioGrandeGauges = data;
+    })
+    .catch(err => err);
+};
 
 const params4USGS = {
   noheader: true,
@@ -66,6 +74,8 @@ const updateLastPulledDate = () => {
 exports.uploadUnimpairedDatabase = async () => {
   const headers = ['date', 'year', 'month', 'day'];
 
+  await getGauges();
+
   rioGrandeGauges.forEach(gauge => headers.push(gauge.gauge_id));
 
   params4UNIMPAIRED.headers = headers;
@@ -110,6 +120,8 @@ exports.uploadImpairedDatabase = async () => {
 	today = today.toISOString().split('T')[0]; //eslint-disable-line
 
   try {
+    await getGauges();
+
     rioGrandeGauges.forEach((gauge) => {
       // get last pulled date and add a 1 day to it
       const pullFromDate = new Date(gauge.last_date_pulled);
@@ -239,11 +251,13 @@ const pullDailyData = (toDB, fromDB) => {
 };
 
 exports.uploadAggregateData = async () => {
+  await getGauges();
+
   const impairedAggrDB = db.ImpairedAggregateData;
   const unImpairedAggrDB = db.UnImpairedAggregateData;
 
-  await impairedAggrDB.deleteMany({});
-  await unImpairedAggrDB.deleteMany({});
+  await impairedAggrDB.deleteMany({}).catch(err => err);
+  await unImpairedAggrDB.deleteMany({}).catch(err => err);
 
   pullDailyData(impairedAggrDB, db.ImpairedData);
   pullDailyData(unImpairedAggrDB, db.UnImpairedData);
