@@ -1,8 +1,6 @@
 language: node_js
 node_js:
    - "8"
-before_script:
-  - yarn seeder:gauges
 script:
   - yarn lint
   - yarn test-cover
