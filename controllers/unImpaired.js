@@ -13,7 +13,7 @@ module.exports = {
       },
       { $sort: { date: 1 } },
     ])
-      .then(UnImpairedData => res.status(200).send(UnImpairedData))
+      .then(unImpairedData => res.status(200).send(unImpairedData))
       .catch(err => res.status(400).send(err));
   },
 };
