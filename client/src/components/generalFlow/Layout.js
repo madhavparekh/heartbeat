@@ -4,7 +4,10 @@ import GeneralFlow from "./generalFlow"
 
 const Layout = () => (
   <div>
-    <GeneralFlow />
+    <GeneralFlow
+      height={'250'}
+      width={'97%'}
+     />
   </div>
 );
 

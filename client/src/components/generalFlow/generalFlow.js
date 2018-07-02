@@ -6,11 +6,11 @@ import * as d3 from 'd3';
 
 class GeneralFlow extends Component {
  
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            view: null
-            default: {
+            view: null,
+            stock: {
                 minValue: 0, // The gauge minimum value.
                 maxValue: 100, // The gauge maximum value.
                 circleThickness: 0.05, // The outer circle thickness as a percentage of it's radius.
@@ -35,9 +35,8 @@ class GeneralFlow extends Component {
         }   
     }
 
-    componentWillMount() {
-        let config = this.liquidFillGaugeDefaultSettings()
-        let newView = this.loadLiquidFillGauge(60.44, config)
+    componentwillmount() {
+        let newView = this.loadLiquidFillGauge(60.44, this.state.stock)
         
         this.setState({view: newView}) 
     }
@@ -47,13 +46,11 @@ class GeneralFlow extends Component {
         const svg = d3.select(this.refs.anchor),
             { width, height } = this.props
 
-        const projection = d3
-          .geoAlbers()
-          .scale(1280)
-          .translate([width / 2, height / 2]);
+        let config = this.liquidFillGaugeDefaultSettings()
+        this.loadLiquidFillGauge(svg, 60.44, config)
+            
 
-        const path = d3.geoPath(projection);
-
+        
 
     }
 
@@ -83,10 +80,10 @@ class GeneralFlow extends Component {
         };
     }    
 
-    loadLiquidFillGauge(value, config) {    
-        if (config == null) config = liquidFillGaugeDefaultSettings();
+    loadLiquidFillGauge(svg, value, config) {    
+        if (config == null) config = this.liquidFillGaugeDefaultSettings();
 
-        var gauge = d3.select("#" + elementId);
+        var gauge = d3.select("#" + svg);
         var radius = Math.min(parseInt(gauge.style("width")), parseInt(gauge.style("height"))) / 2;
         var locationX = parseInt(gauge.style("width")) / 2 - radius;
         var locationY = parseInt(gauge.style("height")) / 2 - radius;
@@ -187,7 +184,7 @@ class GeneralFlow extends Component {
             .y1(function (d) { return (fillCircleRadius * 2 + waveHeight); });
         var waveGroup = gaugeGroup.append("defs")
             .append("clipPath")
-            .attr("id", "clipWave" + elementId);
+            .attr("id", "clipWave" + svg);
         var wave = waveGroup.append("path")
             .datum(data)
             .attr("d", clipArea)
@@ -195,7 +192,7 @@ class GeneralFlow extends Component {
 
         // The inner circle with the clipping wave attached.
         var fillCircleGroup = gaugeGroup.append("g")
-            .attr("clip-path", "url(#clipWave" + elementId + ")");
+            .attr("clip-path", "url(#clipWave" + svg + ")");
         fillCircleGroup.append("circle")
             .attr("cx", radius)
             .attr("cy", radius)
@@ -322,11 +319,11 @@ class GeneralFlow extends Component {
 
     render() {
 
-        const { view, default } = this.state;
-        if(!view || !default ){
-            return null
-        }
-        
+        // const { view, stock } = this.state;
+        // if(!view || !stock ){
+        //     return null
+        // }
+
         return (
             <g ref="anchor" />
         )    
