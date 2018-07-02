@@ -1,10 +1,16 @@
 // Exporting an object containing all of our models
+const River = require('./Rivers');
+const Gauges = require('./Gauges');
+const ImpairedData = require('./ImpairedData');
+const ImpairedAggregateData = require('./ImpairedAggregateData');
+const UnImpairedData = require('./UnImpairedData');
+const UnImpairedAggregateData = require('./UnImpairedAggregateData');
 
 module.exports = {
-  River: require('./Rivers'),
-  Gauges: require('./Gauges'),
-  ImpairedData: require('./ImpairedData'),
-  ImpairedAggregateData: require('./ImpairedAggregateData'),
-  UnImpairedData: require('./UnImpairedData'),
-  UnImpairedAggregateData: require('./UnImpairedAggregateData'),
+  River,
+  Gauges,
+  ImpairedData,
+  ImpairedAggregateData,
+  UnImpairedData,
+  UnImpairedAggregateData,
 };

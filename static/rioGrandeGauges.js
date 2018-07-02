@@ -3,9 +3,10 @@ exports.rioGrandeGauges = [
     agency: 'USGS',
     gauge_id: '08251500',
     description: 'RIO GRANDE NEAR LOBATOS, CO',
-    latitude: '37°04\'43 N',
-    longitude: '105°45\'25 W',
+    latitude: "37°04'43 N",
+    longitude: "105°45'25 W",
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -14,6 +15,7 @@ exports.rioGrandeGauges = [
     latitude: '36°44\'24.06" N',
     longitude: '105°41\'00.39" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -22,6 +24,7 @@ exports.rioGrandeGauges = [
     latitude: '36°19\'12.12" N',
     longitude: '105°45\'16" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -30,6 +33,7 @@ exports.rioGrandeGauges = [
     latitude: '36°12\'20" N',
     longitude: '105°57\'50.3" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -38,6 +42,7 @@ exports.rioGrandeGauges = [
     latitude: '35°52\'28.2" N',
     longitude: '106°08\'32.8" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -46,6 +51,7 @@ exports.rioGrandeGauges = [
     latitude: '35°37\'04.8" N',
     longitude: '106°19\'26.2" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -54,6 +60,7 @@ exports.rioGrandeGauges = [
     latitude: '35°26\'40.5" N',
     longitude: '106°26\'23.4" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -62,6 +69,7 @@ exports.rioGrandeGauges = [
     latitude: '35°05\'21" N',
     longitude: '106°40\'50.5" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -70,6 +78,7 @@ exports.rioGrandeGauges = [
     latitude: '34°15\'23" N',
     longitude: '106°53\'27" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -78,6 +87,7 @@ exports.rioGrandeGauges = [
     latitude: '33°40\'44.7" N',
     longitude: '106°59\'49.2" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -86,6 +96,7 @@ exports.rioGrandeGauges = [
     latitude: '33°08\'54.64" N',
     longitude: '107°12\'24.42" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'USGS',
@@ -94,6 +105,7 @@ exports.rioGrandeGauges = [
     latitude: '32°53\'05.68" N',
     longitude: '107°17\'33.71" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'IBWC',
@@ -103,6 +115,7 @@ exports.rioGrandeGauges = [
     latitude: '31°48\'10" N',
     longitude: '106°32\'25" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'IBWC',
@@ -112,15 +125,17 @@ exports.rioGrandeGauges = [
     latitude: '31°05\'05" N',
     longitude: '105°36\'25" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
   {
     agency: 'IBWC',
     gauge_id: '08371500',
     description:
-			'RIO GRANDE ABOVE RIO CONCHOS NEAR PRESIDIO, TX AND OJINAGA, CHIH.',
+			'RIO GRANDE ABOVE RIO CONCHOS NEAR PRESIDIO, TX AND OJINAGA, CHIH.', //eslint-disable-line
     data_url: 'https://www.ibwc.gov/wad/DDQUPRES.htm',
     latitude: '29°37\'15" N',
     longitude: '104°28\'50" W',
     last_date_pulled: '1890-01-01',
+    river_name: 'Rio Grande',
   },
 ];

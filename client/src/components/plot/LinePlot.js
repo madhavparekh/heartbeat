@@ -17,7 +17,7 @@ export default class LinePlot extends React.Component {
     this.updateD3(props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.updateD3(nextProps);
   }
 

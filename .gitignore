@@ -63,3 +63,7 @@ Notes/tmp.csv
 Notes/tmp.json
 .gitignore
 tmp.csv
+
+# Mongo dump
+dump
+
