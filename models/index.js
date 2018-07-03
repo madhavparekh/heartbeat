@@ -5,6 +5,7 @@ const ImpairedData = require('./ImpairedData');
 const ImpairedAggregateData = require('./ImpairedAggregateData');
 const UnImpairedData = require('./UnImpairedData');
 const UnImpairedAggregateData = require('./UnImpairedAggregateData');
+const User = require('./User');
 
 module.exports = {
   River,
@@ -13,4 +14,5 @@ module.exports = {
   ImpairedAggregateData,
   UnImpairedData,
   UnImpairedAggregateData,
+  User,
 };

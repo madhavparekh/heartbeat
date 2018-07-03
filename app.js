@@ -5,9 +5,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose/lib');
-
+const passport = require('passport');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const uploadRouter = require('./routes/upload');
 
 const {
   uploadImpairedDatabase,
@@ -77,7 +78,7 @@ CronJob(
 		console.log('Impaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
-  'America/Los_Angeles', /* Time zone of this job. */
+  'America/Los_Angeles' /* Time zone of this job. */,
 );
 
 CronJob(
@@ -92,7 +93,7 @@ CronJob(
 		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
-  'America/Los_Angeles', /* Time zone of this job. */
+  'America/Los_Angeles' /* Time zone of this job. */,
 );
 CronJob(
   '00 30 00 * * 6',
@@ -105,7 +106,7 @@ CronJob(
 		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
-  'America/Los_Angeles', /* Time zone of this job. */
+  'America/Los_Angeles' /* Time zone of this job. */,
 );
 
 app.use(logger('dev'));
@@ -115,8 +116,15 @@ app.use(cookieParser());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.use(passport.initialize());
+// Bring in defined Passport Strategy
+require('./config/passport')(passport);
+
+app.use(passport.session());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/upload', uploadRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

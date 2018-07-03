@@ -7,7 +7,6 @@ const {
   impairedAggregate,
   unImpairedAggreate,
   gauges,
-  // users,
 } = require('../controllers');
 
 /* GET api impaired data from gauge_id */

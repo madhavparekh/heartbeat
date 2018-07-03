@@ -3,6 +3,7 @@ const unImpaired = require('./unImpaired');
 const impairedAggregate = require('./impairedAggregate');
 const unImpairedAggreate = require('./unImpairedAggregate');
 const gauges = require('./gauges');
+const users = require('./users');
 
 module.exports = {
   impaired,
@@ -10,5 +11,5 @@ module.exports = {
   impairedAggregate,
   unImpairedAggreate,
   gauges,
-  // users: require('./users'),
+  users,
 };
