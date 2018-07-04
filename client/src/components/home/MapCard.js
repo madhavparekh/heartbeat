@@ -39,14 +39,10 @@ class MapCard extends React.Component {
       <div className="mapCard">
         <Card>
           <CardContent>
-<<<<<<< HEAD
-            <Typography color="textSecondary">Map of the Rio Grande</Typography>
-=======
             <Typography color="textSecondary">
               Map of the Rio Grande
             </Typography>
             <GuageButton />
->>>>>>> rebasing with master
           </CardContent>
         </Card>
       </div>
