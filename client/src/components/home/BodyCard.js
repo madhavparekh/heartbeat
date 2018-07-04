@@ -34,7 +34,6 @@ const styles = {
     // marginLeft: "auto",
   },
   graphCard: {
-    // margin: 5,
     marginLeft: 5,
     marginRight: 5,
   },
@@ -55,13 +54,6 @@ const styles = {
 function BodyCard(props) {
   const { classes } = props;
 
-  // state = {
-  //   direction: "row",
-  //   justify: "center",
-  //   alignItems: "center",
-  // };
-  // const bull = <span className={classes.bullet}>•</span>;
-  // const { alignItems, direction, justify } = this.state;
   return (
     <div>
       <Grid item xs={24}>
@@ -87,9 +79,6 @@ function BodyCard(props) {
               </Grid>
             </Grid>
           </CardContent>
-          {/* <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
         </Card>
       </Grid>
     </div>

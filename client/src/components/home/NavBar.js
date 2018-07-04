@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import blue from "@material-ui/core/colors/blue";
 
 const styles = {
   root: {
@@ -22,6 +23,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+  },
+  appBar: {
+    background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
   },
 };
 
@@ -77,7 +81,7 @@ class NavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
               className={classes.menuButton}
