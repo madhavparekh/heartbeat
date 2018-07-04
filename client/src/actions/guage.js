@@ -1,24 +1,22 @@
-import request from "superagent";
+import request from 'superagent';
 
-import { GuageTypes as types } from "../action-types";
+import { GuageTypes as types } from '../action-types';
 
-const fetchGuageObjects = guages => {
-    return {
-        type: types.FETCH_GUAGE_OBJECTS,
-        guages,
-    };
+const fetchGuageObjects = (guages) => {
+  return {
+    type: types.FETCH_GUAGE_OBJECTS,
+    guages,
+  };
 };
 
-export function fetchGuages(river) {
-    return async dispatch => {
-        try {
-            const guagesFromAPI = await request.get(
-                "/api/guages"
-            );
-            // pretent this is an api call...
-            dispatch(fetchGuageObjects(guagesFromAPI.body));
-        } catch (e) {
-            throw e;
-        }
-    };
+export function fetchGuages() {
+  return async (dispatch) => {
+    try {
+      const guagesFromAPI = await request.get('/api/gauges');
+      // pretent this is an api call...
+      dispatch(fetchGuageObjects(guagesFromAPI.body));
+    } catch (e) {
+      throw e;
+    }
+  };
 }
