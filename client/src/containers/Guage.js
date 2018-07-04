@@ -7,10 +7,11 @@ import Layout from "../components/guage/Layout";
 
 class Guage extends React.Component {
     render() {
+        console.log(this.props.guages)
         return (
             <Layout
                 guages={this.props.guages}
-                fetchGuages={river => this.props.fetchGuages(river)}
+                fetchGuages={() => this.props.fetchGuages()}
             />
         );
     }

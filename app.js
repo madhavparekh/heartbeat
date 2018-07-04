@@ -6,9 +6,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose/lib');
 const passport = require('passport');
+const cors = require('cors');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const uploadRouter = require('./routes/upload');
+
 
 const {
   uploadImpairedDatabase,
@@ -17,6 +19,8 @@ const {
 } = require('./utils/uploadDatabase');
 
 const app = express();
+
+app.use(cors());
 
 // Connect to the Mongo DB
 const databaseUri = 'mongodb://localhost/heartbeat';

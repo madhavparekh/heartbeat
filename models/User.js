@@ -29,35 +29,34 @@ const UserSchema = new mongoose.Schema({
 /**
  * Password hash middleware.
  */
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', (next) => {
   const user = this;
   if (this.isModified('password') || this.isNew) {
-    bcrypt.genSalt(10, (err, salt) => {
+    return bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         return next(err);
       }
-      bcrypt.hash(user.password, salt, (error, hash) => {
+      return bcrypt.hash(user.password, salt, (error, hash) => {
         if (error) {
           return next(error);
         }
         user.password = hash;
-        next();
+        return next();
       });
     });
-  } else {
-    return next();
   }
+  return next();
 });
 
 // Create method to compare password input to password saved in database
-UserSchema.methods.comparePassword = function (pw, cb) {
+UserSchema.methods.comparePassword = (pw, cb) => (
   bcrypt.compare(pw, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);
     }
-    cb(null, isMatch);
-  });
-};
+    return cb(null, isMatch);
+  })
+);
 
 /**
  * Statics

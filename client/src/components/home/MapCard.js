@@ -1,7 +1,6 @@
 import React from "react";
 
-// import PropTypes from "prop-types";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,7 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Typography from "@material-ui/core/Typography";
 
-import GuageButton from '../guage/Layout'
+import Guage from '../../containers/Guage'
 
 const styles = {
   mapCard: {
@@ -42,7 +41,7 @@ class MapCard extends React.Component {
             <Typography color="textSecondary">
               Map of the Rio Grande
             </Typography>
-            <GuageButton />
+            <Guage />
           </CardContent>
         </Card>
       </div>
