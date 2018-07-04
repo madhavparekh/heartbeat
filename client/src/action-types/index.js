@@ -1,19 +1,12 @@
-import TodoTypes from "./todo";
-import CountTypes from "./count";
-
-//water project
-import GuageTypes from "./guage"
-
-export { TodoTypes };
-export { CountTypes };
+import GuageTypes from './guage';
+import FlowTypes from './flowData';
 
 //water project
 export { GuageTypes };
+export { FlowTypes };
 
 export default {
-  TodoTypes,
-  CountTypes,
-  
   //water project
   GuageTypes,
+  FlowTypes,
 };
