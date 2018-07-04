@@ -6,7 +6,7 @@ const config = require('../config/main');
 // -------------------------------------------
 
 module.exports = {
-  login(req, res, next) {
+  login(req, res) {
     User.findOne(
       {
         email: req.body.email,
@@ -56,7 +56,7 @@ module.exports = {
       }
       // go ahead and create the new user
 
-      User.create(req.body, (error, users) => {
+      User.create(req.body, (error) => {
         if (error) {
           // console.log(error);
           res.json({ success: false });

@@ -18,7 +18,7 @@ export class Home extends React.Component {
         fetchTodos={() => this.props.fetchTodos()}
 
         //water project
-        fetchGuages={() => this.props.fetchGuages()}
+        // fetchGuages={() => this.props.fetchGuages()}
         // fetchDefaultData={() => this.props.fetchDefaultData()}
       />
     );

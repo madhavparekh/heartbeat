@@ -10,7 +10,7 @@ class Guage extends React.Component {
         return (
             <Layout
                 guages={this.props.guages}
-                fetchGuages={river => this.props.fetchGuages(river)}
+                fetchGuages={() => this.props.fetchGuages()}
             />
         );
     }
