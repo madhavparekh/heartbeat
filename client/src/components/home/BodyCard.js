@@ -54,6 +54,13 @@ const styles = {
 function BodyCard(props) {
   const { classes } = props;
 
+  // state = {
+  //   direction: "row",
+  //   justify: "center",
+  //   alignItems: "center",
+  // };
+  // const bull = <span className={classes.bullet}>•</span>;
+  // const { alignItems, direction, justify } = this.state;
   return (
     <div>
       <Grid item xs={24}>
