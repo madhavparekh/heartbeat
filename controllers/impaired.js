@@ -13,8 +13,8 @@ module.exports = {
       },
       { $sort: { date: 1 } },
     ])
-      .then((ImpairedData) => {
-        res.status(200).send(ImpairedData);
+      .then((impairedData) => {
+        res.status(200).send(impairedData);
       })
       .catch(err => res.status(400).send(err));
   },

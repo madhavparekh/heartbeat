@@ -1,3 +1,12 @@
 language: node_js
 node_js:
-  "node"
+   - "8"
+# script:
+#   - yarn lint
+#   - yarn test:cover
+#   - cd client 
+#   - yarn run test:CI
+# after_success:
+#   # Send coverage data to coveralls.
+#   - cd client
+#   - yarn run test:cover:CI

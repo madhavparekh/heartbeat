@@ -7,12 +7,10 @@ const {
   impairedAggregate,
   unImpairedAggreate,
   gauges,
-  users,
 } = require('../controllers');
 
 /* GET api impaired data from gauge_id */
 router.get('/api/impaired/gauge/:gauge_id', (req, res) => {
-  console.log(req.params.gauge_id);
   impaired.show(req, res);
 });
 
@@ -32,7 +30,6 @@ router.get('/api/unimpairedaggregate/gauge/:gauge_id', (req, res) => {
 
 /* GET api Gauge by gauge_id from Gauges */
 router.get('/api/gauges/:gauge_id', (req, res) => {
-  console.log(req.params.gauge_id);
   gauges.findOne(req, res);
 });
 

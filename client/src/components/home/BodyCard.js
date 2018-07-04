@@ -10,6 +10,7 @@ import GraphCard from "./GraphCard";
 import MapCard from "./MapCard";
 import ViewCard from "./ViewCard";
 import DescriptionCard from "./DescriptionCard";
+//import NavBar from "./NavBar";
 
 const styles = {
   descCard: {

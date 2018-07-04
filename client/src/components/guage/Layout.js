@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 // import CountOverview from "./CountOverview";
 // import CountButtons from "./CountButtons";
 
-type Props = {
-    guages: Array,
-    fetchGuages: Function,
-};
-
-const Layout = (props: Props) => (
+// type Props = {
+//     guages: Array,
+//     fetchGuages: Function,
+// };
+//const Layout = (props: Props)
+const Layout = () => (
     <div>
         {/* <CountOverview guages={props.guages} />
         <CountButtons changeCount={number => props.changeCount(number)} /> */}

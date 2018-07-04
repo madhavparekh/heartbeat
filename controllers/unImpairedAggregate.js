@@ -13,7 +13,9 @@ module.exports = {
       },
       { $sort: { date: 1 } },
     ])
-      .then(UnImpairedAggregateData => res.status(200).send(UnImpairedAggregateData))
+      .then((unImpairedAggregateData) => {
+        res.status(200).send(unImpairedAggregateData);
+      })
       .catch(err => res.status(400).send(err));
   },
 };
