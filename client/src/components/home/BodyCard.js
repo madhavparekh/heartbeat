@@ -12,8 +12,31 @@ import ViewCard from "./ViewCard";
 import DescriptionCard from "./DescriptionCard";
 
 const styles = {
-  card: {
-    minWidth: 275,
+  descCard: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  middleCards: {
+    // padding: 2,
+    marginTop: 5,
+    marginLeft: 2,
+    marginRight: 5,
+    marginBottom: 5,
+  },
+  mapCard: {
+    // marginLeft: 4,
+    // marginRight: 4,
+  },
+  viewCard: {
+    // padding: 2,
+    // marginLeft: 4,
+    // marginRight: 4,
+    // marginLeft: "auto",
+  },
+  graphCard: {
+    // margin: 5,
+    marginLeft: 5,
+    marginRight: 5,
   },
   bullet: {
     display: "inline-block",
@@ -41,25 +64,27 @@ function BodyCard(props) {
   // const { alignItems, direction, justify } = this.state;
   return (
     <div>
-      <Grid item xs={12}>
+      <Grid item xs={24}>
         <Card className={classes.card}>
           <CardContent>
-            <Grid container>
-              <Grid item xs={12}>
+            <Grid container spacing={8}>
+              <Grid item xs className={classes.descCard}>
                 <DescriptionCard />
               </Grid>
             </Grid>
 
-            <Grid container>
-              <Grid item xs={6}>
+            <Grid container spacing={8} xs className={classes.middleCards}>
+              <Grid item xs className={classes.mapCard}>
                 <MapCard />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={8} className={classes.viewCard}>
                 <ViewCard />
               </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <GraphCard />
+            <Grid container spacing={8}>
+              <Grid item xs className={classes.graphCard}>
+                <GraphCard />
+              </Grid>
             </Grid>
           </CardContent>
           {/* <CardActions>

@@ -5,7 +5,6 @@ import Card from "@material-ui/core/Card";
 
 import CardContent from "@material-ui/core/CardContent";
 
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import DescriptionCard from "./DescriptionCard";
 import ResearchCard from "./ResearchCard";
@@ -38,17 +37,17 @@ function BodyCard(props) {
         <Card className={classes.card}>
           <CardContent>
             <Grid container>
-              <Grid item xs={12}>
+              <Grid item xs={12} className={classes.allCards}>
                 <DescriptionCard />
               </Grid>
             </Grid>
 
             <Grid container>
-              <Grid item xs={6}>
+              <Grid item xs={6} className={classes.allCards}>
                 {/* import Research Team */}
                 <ResearchCard />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} className={classes.allCards}>
                 {/* import Technology Team */}
                 <TechCard />
               </Grid>
