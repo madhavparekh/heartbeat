@@ -36,7 +36,7 @@ class GeneralFlow extends Component {
     }
 
     componentwillmount() {
-        let newView = this.loadLiquidFillGauge(60.44, this.state.stock)
+        // let newView = this.loadLiquidFillGauge(60.44, this.state.stock)
         
         this.setState({view: newView}) 
     }

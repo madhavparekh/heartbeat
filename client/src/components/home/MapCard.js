@@ -10,6 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Typography from "@material-ui/core/Typography";
 
+import GuageButton from '../guage/Layout'
+
 const styles = {
   mapCard: {
     maxWidth: 10,
@@ -37,7 +39,14 @@ class MapCard extends React.Component {
       <div className="mapCard">
         <Card>
           <CardContent>
+<<<<<<< HEAD
             <Typography color="textSecondary">Map of the Rio Grande</Typography>
+=======
+            <Typography color="textSecondary">
+              Map of the Rio Grande
+            </Typography>
+            <GuageButton />
+>>>>>>> rebasing with master
           </CardContent>
         </Card>
       </div>
