@@ -5,15 +5,38 @@ import Card from "@material-ui/core/Card";
 
 import CardContent from "@material-ui/core/CardContent";
 
-import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import GraphCard from "./GraphCard";
 import MapCard from "./MapCard";
 import ViewCard from "./ViewCard";
+import DescriptionCard from "./DescriptionCard";
 //import NavBar from "./NavBar";
 
 const styles = {
-  card: {
-    minWidth: 275,
+  descCard: {
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  middleCards: {
+    // padding: 2,
+    marginTop: 5,
+    marginLeft: 2,
+    marginRight: 5,
+    marginBottom: 5,
+  },
+  mapCard: {
+    // marginLeft: 4,
+    // marginRight: 4,
+  },
+  viewCard: {
+    // padding: 2,
+    // marginLeft: 4,
+    // marginRight: 4,
+    // marginLeft: "auto",
+  },
+  graphCard: {
+    marginLeft: 5,
+    marginRight: 5,
   },
   bullet: {
     display: "inline-block",
@@ -31,27 +54,41 @@ const styles = {
 
 function BodyCard(props) {
   const { classes } = props;
-  // const bull = <span className={classes.bullet}>•</span>;
 
+  // state = {
+  //   direction: "row",
+  //   justify: "center",
+  //   alignItems: "center",
+  // };
+  // const bull = <span className={classes.bullet}>•</span>;
+  // const { alignItems, direction, justify } = this.state;
   return (
     <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec
-            vulputate interdum sollicitudin. Nunc lacinia auctor quam sed
-            pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque
-            lobortis odio.
-          </Typography>
-          <MapCard />
-          <ViewCard />
-          <GraphCard />
-        </CardContent>
-        {/* <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
-      </Card>
+      <Grid item xs={24}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Grid container spacing={8}>
+              <Grid item xs className={classes.descCard}>
+                <DescriptionCard />
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={8} xs className={classes.middleCards}>
+              <Grid item xs className={classes.mapCard}>
+                <MapCard />
+              </Grid>
+              <Grid item xs={8} className={classes.viewCard}>
+                <ViewCard />
+              </Grid>
+            </Grid>
+            <Grid container spacing={8}>
+              <Grid item xs className={classes.graphCard}>
+                <GraphCard />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
     </div>
   );
 }

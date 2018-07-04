@@ -5,13 +5,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import blue from "@material-ui/core/colors/blue";
 
 const styles = {
   root: {
@@ -24,26 +24,28 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-
+  appBar: {
+    background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
+  },
 };
 
 // class NavBar extends React.Component {
-  // state = {
-  //   auth: true,
-  //   anchorEl: null,
-  // };
+// state = {
+//   auth: true,
+//   anchorEl: null,
+// };
 
-  // handleChange = (event, checked) => {
-  //   this.setState({ auth: checked });
-  // };
+// handleChange = (event, checked) => {
+//   this.setState({ auth: checked });
+// };
 
-  // handleMenu = event => {
-  //   this.setState({ anchorEl: event.currentTarget });
-  // };
+// handleMenu = event => {
+//   this.setState({ anchorEl: event.currentTarget });
+// };
 
-  // handleClose = () => {
-  //   this.setState({ anchorEl: null });
-  // };
+// handleClose = () => {
+//   this.setState({ anchorEl: null });
+// };
 
 //   login: {
 //     marginRight: 15,
@@ -72,7 +74,6 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   }
 
-
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
@@ -80,35 +81,19 @@ class NavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-                onChange={this.handleChange}
-                aria-label="LoginSwitch"
-              />
-            }
-            label={auth ? "Logout" : "Login"}
-          />
-        </FormGroup>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
               className={classes.menuButton}
               color="inherit"
               aria-label="Menu"
-            >
-              <MenuIcon />
-            </IconButton>
+            />
 
             <Typography
               variant="title"
               color="inherit"
               className={classes.flex}
             >
-
               HeartBeat
             </Typography>
             <IconButton className={classes.login}>
@@ -125,7 +110,7 @@ class NavBar extends React.Component {
                 />
               </FormGroup>
             </IconButton>
-      
+
             {auth && (
               <div>
                 <IconButton
@@ -152,7 +137,6 @@ class NavBar extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
-
                 </Menu>
               </div>
             )}
