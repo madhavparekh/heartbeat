@@ -94,9 +94,7 @@ exports.uploadUnimpairedDatabase = async () => {
         rioGrandeGauges.forEach((gauge) => {
           const obj = {
             gauge_id: gauge.gauge_id,
-            discharge: data[gauge.gauge_id]
-              ? parseFloat(data[gauge.gauge_id]).toFixed(2)
-              : null,
+            discharge: data[gauge.gauge_id] ? parseFloat(data[gauge.gauge_id]).toFixed(2) : null,
             date: data.date,
           };
           objArr.push(obj);
@@ -127,10 +125,7 @@ exports.uploadImpairedDatabase = async () => {
       const pullFromDate = new Date(gauge.last_date_pulled);
       pullFromDate.setDate(pullFromDate.getDate() + 1);
 
-      let url = usgsDataURL.replace(
-        '1899-07-01',
-        pullFromDate.toISOString().split('T')[0],
-      );
+      let url = usgsDataURL.replace('1899-07-01', pullFromDate.toISOString().split('T')[0]);
 
       url = url.replace('00000000', gauge.gauge_id) + today;
 
@@ -149,18 +144,14 @@ exports.uploadImpairedDatabase = async () => {
       } else if (gauge.agency === 'IBWC') {
         // delete all records for gauge first
         // -- need to fix this by parsing and trimming html res to last pulled date
-        db.ImpairedData.deleteMany({ gauge_id: gauge.gauge_id }).catch(
-          (err) => {
-            if (err) throw err;
-          },
-        );
+        db.ImpairedData.deleteMany({ gauge_id: gauge.gauge_id }).catch((err) => {
+          if (err) throw err;
+        });
 
         params4IBWC.output = 'json';
         axios.get(gauge.data_url).then((response) => {
           let data = response.data
-            .slice(
-              response.data.lastIndexOf('REVISION') + 'REVISION'.length + 1,
-            )
+            .slice(response.data.lastIndexOf('REVISION') + 'REVISION'.length + 1)
             .trim();
           data = data.replace('</PRE>', '').trim();
           data = data.replace('</BODY>', '').trim();
@@ -200,7 +191,7 @@ const upLoadAggregateDischargeData = (data, count, gaugeId, aggrDB) => {
   Object.keys(data).forEach((date) => {
     aggrDB
       .create({
-        gaugeId,
+        gauge_id: gaugeId,
         date: new Date(date),
         discharge: parseFloat(data[date] / count[date]).toFixed(2),
       })
@@ -218,9 +209,7 @@ const pullDailyData = (toDB, fromDB) => {
     const aggregateCount = {};
 
     cursor.on('data', (doc) => {
-      const mmDD = `${(doc.date.getMonth() + 1)
-        .toString()
-        .padStart(2, '0')}/${doc.date
+      const mmDD = `${(doc.date.getMonth() + 1).toString().padStart(2, '0')}/${doc.date
         .getDate()
         .toString()
         .padStart(2, '0')}`;
@@ -230,19 +219,12 @@ const pullDailyData = (toDB, fromDB) => {
           ? 0
           : parseFloat(aggregateData[mmDD]) + parseFloat(doc.discharge);
 
-        aggregateCount[mmDD] = Number.isNaN(aggregateCount[mmDD])
-          ? 0.0
-          : aggregateCount[mmDD] + 1;
+        aggregateCount[mmDD] = Number.isNaN(aggregateCount[mmDD]) ? 0.0 : aggregateCount[mmDD] + 1;
       }
     });
 
     cursor.on('end', () => {
-      upLoadAggregateDischargeData(
-        aggregateData,
-        aggregateCount,
-        gauge.gauge_id,
-        toDB,
-      );
+      upLoadAggregateDischargeData(aggregateData, aggregateCount, gauge.gauge_id, toDB);
     });
     cursor.on('error', (err) => {
       throw err;
