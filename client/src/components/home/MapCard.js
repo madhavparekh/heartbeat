@@ -1,24 +1,18 @@
-import React from "react";
-
-import PropTypes from "prop-types";
-
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-
-import CardContent from "@material-ui/core/CardContent";
-
-import Typography from "@material-ui/core/Typography";
-
-import Guage from '../../containers/Guage'
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Guage from '../../containers/Guage';
 
 const styles = {
   mapCard: {
     maxWidth: 10,
   },
   bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
   },
   title: {
     marginBottom: 16,
@@ -38,9 +32,7 @@ class MapCard extends React.Component {
       <div className="mapCard">
         <Card>
           <CardContent>
-            <Typography color="textSecondary">
-              Map of the Rio Grande
-            </Typography>
+            <Typography color="textSecondary">Map of the Rio Grande</Typography>
             <Guage />
           </CardContent>
         </Card>
@@ -48,9 +40,5 @@ class MapCard extends React.Component {
     );
   }
 }
-
-MapCard.propTypes = {
-  // classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(MapCard);

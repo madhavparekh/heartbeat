@@ -1,12 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import NavBar from "./NavBar";
-import BodyCard from "./BodyCard";
-
+import React from 'react';
+import NavBar from './NavBar';
+import BodyCard from './BodyCard';
 
 const Layout = () => (
-
-
   <div>
     <div>
       <NavBar />
@@ -16,9 +12,5 @@ const Layout = () => (
     </div>
   </div>
 );
-
-Layout.propTypes = {
-  todos: PropTypes.array.isRequired,
-};
 
 export default Layout;

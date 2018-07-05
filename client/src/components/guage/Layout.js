@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core"
 
 // import CountOverview from "./CountOverview";
 // import CountButtons from "./CountButtons";
-import fetchGuages from "../../containers/Guage"
+//import fetchGuages from "../../containers/Guage"
 
 // type Props = {
 //     guages: Array,
