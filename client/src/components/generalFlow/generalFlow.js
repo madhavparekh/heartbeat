@@ -102,6 +102,7 @@ class GeneralFlow extends Component {
         .domain([0, 100]);
     }
 
+<<<<<<< HEAD
     var textPixels = (config.textSize * radius) / 2;
     var textFinalValue = parseFloat(value).toFixed(2);
     var textStartValue = config.valueCountUp ? config.minValue : textFinalValue;
@@ -135,6 +136,28 @@ class GeneralFlow extends Component {
     var data = [];
     for (var i = 0; i <= 40 * waveClipCount; i++) {
       data.push({ x: i / (40 * waveClipCount), y: i / 40 });
+=======
+    ComponentDidMount() {
+        
+        d3.select(this.anchor)
+            .append('svg')
+            .attr('width', 100)
+            .attr('height', 100)
+            .append('circle')
+            .style('stroke', 'gray')
+            .style('fill', 'black')
+            .attr('r', 40)
+            .attr('cx', 50)
+            .attr('cy', 50);
+
+
+        // let config = this.liquidFillGaugeDefaultSettings()
+        // this.loadLiquidFillGauge(svg, 60.44, config)
+            
+
+        
+
+>>>>>>> d3 stuff
     }
 
     // Scales for drawing the outer circle.
@@ -473,8 +496,15 @@ class GeneralFlow extends Component {
     //     return null
     // }
 
+<<<<<<< HEAD
     return <g ref="anchor" />;
   }
+=======
+        return (
+            <g ref={node => this.anchor = node} />
+        )    
+    }    
+>>>>>>> d3 stuff
 }
 
 export default GeneralFlow;
