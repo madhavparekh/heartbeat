@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import blue from "@material-ui/core/colors/blue";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+//import blue from "@material-ui/core/colors/blue";
 
 const styles = {
   root: {
@@ -25,7 +25,7 @@ const styles = {
     marginRight: 20,
   },
   appBar: {
-    background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
+    background: 'linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)',
   },
 };
 
@@ -106,7 +106,7 @@ class NavBar extends React.Component {
                       aria-label="LoginSwitch"
                     />
                   }
-                  label={auth ? "Logout" : "Login"}
+                  label={auth ? 'Logout' : 'Login'}
                 />
               </FormGroup>
             </IconButton>
@@ -114,7 +114,7 @@ class NavBar extends React.Component {
             {auth && (
               <div>
                 <IconButton
-                  aria-owns={open ? "menu-appbar" : null}
+                  aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="inherit"
@@ -125,12 +125,12 @@ class NavBar extends React.Component {
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   open={open}
                   onClose={this.handleClose}

@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case types.FETCH_IMPAIRED_DATA:
       return objectAssign({}, state, { impaired: action.flow });

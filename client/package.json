@@ -16,7 +16,7 @@
     "lint:watch": "yarn lint -- --watch",
     "clean-dist": "yarn remove-dist && mkdir dist",
     "remove-dist": "rimraf ./dist",
-    "prebuild": "yarn flow && yarn lint && yarn test && yarn clean-dist",
+    "prebuild": "yarn lint && yarn test && yarn clean-dist",
     "build": "babel-node tools/build.js && yarn open:dist",
     "test": "jest",
     "test:CI": "babel-node tools/testCi.js",
