@@ -1,19 +1,16 @@
-import { combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
-
-import todo from "./todo";
-import count from "./count";
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 // water project
-import guage from "./guage"
+import guage from './guage';
+import flowData from './flowData';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
-  todo,
-  count,
-  
+
   //water project
   guage,
+  flowData,
 });
 
 export default rootReducer;

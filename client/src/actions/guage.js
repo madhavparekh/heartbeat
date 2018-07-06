@@ -1,6 +1,6 @@
-import request from "superagent";
+import request from 'superagent';
 
-import { GuageTypes as types } from "../action-types";
+import { GuageTypes as types } from '../action-types';
 
 const fetchGuageObjects = guages => {
     console.log(guages)
