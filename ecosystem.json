@@ -3,7 +3,7 @@
     {
       "name": "rio grande",
       "exec_interpreter": "./node_modules/.bin/babel-node",
-      "script": "dist/index.js",
+      "script": "app.js",
       "watch": true,
       "env": {
         "NODE_ENV": "development"
