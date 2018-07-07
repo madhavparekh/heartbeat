@@ -34,7 +34,7 @@ export function fetchImpairedData(gauge_id) {
   return async (dispatch) => {
     try {
       const impairedData = await request.get(
-        `http://localhost:3001/api/impaired/gauge/${gauge_id}`
+        `${process.env.REACT_APP_NODE_SERVER}/api/impaired/gauge/${gauge_id}`
       );
       dispatch(fetchImpairedDataObj(impairedData.body));
     } catch (e) {
@@ -47,7 +47,7 @@ export function fetchUnImpairedData(gauge_id) {
   return async (dispatch) => {
     try {
       const unImpairedData = await request.get(
-        `http://localhost:3001/api/unimpaired/gauge/${gauge_id}`
+        `${process.env.REACT_APP_NODE_SERVER}/api/unimpaired/gauge/${gauge_id}`
       );
       dispatch(fetchUnImpairedDataObj(unImpairedData.body));
     } catch (e) {
@@ -60,7 +60,9 @@ export function fetchUnImpairedAggrData(gauge_id) {
   return async (dispatch) => {
     try {
       const unImpairedAggrData = await request.get(
-        `http://localhost:3001/api/unimpairedaggregate/gauge/${gauge_id}`
+        `${
+          process.env.REACT_APP_NODE_SERVER
+        }/api/unimpairedaggregate/gauge/${gauge_id}`
       );
       dispatch(fetchUnImpairedAggrDataObj(unImpairedAggrData.body));
     } catch (e) {
@@ -73,7 +75,9 @@ export function fetchImpairedAggrData(gauge_id) {
   return async (dispatch) => {
     try {
       const impairedAggrData = await request.get(
-        `http://localhost:3001/api/impairedaggregate/gauge/${gauge_id}`
+        `${
+          process.env.REACT_APP_NODE_SERVER
+        }/api/impairedaggregate/gauge/${gauge_id}`
       );
       dispatch(fetchImpairedAggrDataObj(impairedAggrData.body));
     } catch (e) {

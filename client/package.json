@@ -32,6 +32,7 @@
   "dependencies": {
     "@material-ui/core": "1.2.1",
     "@material-ui/icons": "1.1.0",
+    "babel-cli": "6.26.0",
     "d3": "4.13.0",
     "lodash": "4.17.5",
     "material-ui": "0.20.1",
@@ -43,9 +44,7 @@
     "react-router-redux": "5.0.0-alpha.6",
     "redux": "3.6.0",
     "redux-thunk": "2.1.0",
-    "superagent": "3.8.2",
-    "babel-cli": "6.26.0"
-    
+    "superagent": "3.8.2"
   },
   "devDependencies": {
     "autoprefixer": "7.1.4",
