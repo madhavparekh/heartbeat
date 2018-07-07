@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Save a reference to the Schema constructor
-const Schema = mongoose.Schema;//eslint-disable-line
+const Schema = mongoose.Schema; //eslint-disable-line
 
 // Using the Schema constructor, create a new ImpairedAggregateDataSchema object
 // This is similar to a Sequelize model
@@ -24,10 +24,7 @@ const ImpairedAggregateDataSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-const ImpairedAggregateData = mongoose.model(
-  'ImpairedAggregateData',
-  ImpairedAggregateDataSchema,
-);
+const ImpairedAggregateData = mongoose.model('ImpairedAggregateData', ImpairedAggregateDataSchema);
 
 // Export the ImpairedAggregateData model
 module.exports = ImpairedAggregateData;
