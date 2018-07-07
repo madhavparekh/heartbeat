@@ -14,6 +14,8 @@ module.exports = {
       (err, user) => {
         if (err) throw err;
 
+        console.log(user);
+
         if (!user) {
           res.send({ success: false, message: 'Authentication failed. User not found.' });
         } else {
@@ -58,7 +60,7 @@ module.exports = {
 
       User.create(req.body, (error) => {
         if (error) {
-          // console.log(error);
+          console.log(error);
           res.json({ success: false });
         } else {
           res.json({ success: true });
