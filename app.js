@@ -71,47 +71,47 @@ if (process.argv[2] === '--upload') {
   }
 }
 // scheduling task for uploading flow data
-CronJob(
-  '00 00 00 * * 6',
-  () => {
-		console.log('Uploading Impaired Data..'); //eslint-disable-line
-    // upload impaired data from website (USGS/IBWC)
-    uploadImpairedDatabase();
-  },
-  () => {
-		console.log('Impaired Data uploaded..'); //eslint-disable-line
-  },
-  true /* Start the job right now */,
-  'America/Los_Angeles' /* Time zone of this job. */,
-);
+// CronJob(
+//   '00 00 00 * * 6',
+//   () => {
+// 		console.log('Uploading Impaired Data..'); //eslint-disable-line
+//     // upload impaired data from website (USGS/IBWC)
+//     uploadImpairedDatabase();
+//   },
+//   () => {
+// 		console.log('Impaired Data uploaded..'); //eslint-disable-line
+//   },
+//   true /* Start the job right now */,
+//   'America/Los_Angeles' /* Time zone of this job. */,
+// );
 
-CronJob(
-  '00 15 00 * * 6',
-  () => {
-		console.log('Uploading Unmpaired Data..'); //eslint-disable-line
+// CronJob(
+//   '00 15 00 * * 6',
+//   () => {
+// 		console.log('Uploading Unmpaired Data..'); //eslint-disable-line
 
-    // upload unimpaired data from CSV file
-    uploadUnimpairedDatabase();
-  },
-  () => {
-		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
-  },
-  true /* Start the job right now */,
-  'America/Los_Angeles' /* Time zone of this job. */,
-);
-CronJob(
-  '00 30 00 * * 6',
-  () => {
-		console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
-    // upload aggregate data
-    uploadAggregateData();
-  },
-  () => {
-		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
-  },
-  true /* Start the job right now */,
-  'America/Los_Angeles' /* Time zone of this job. */,
-);
+//     // upload unimpaired data from CSV file
+//     uploadUnimpairedDatabase();
+//   },
+//   () => {
+// 		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
+//   },
+//   true /* Start the job right now */,
+//   'America/Los_Angeles' /* Time zone of this job. */,
+// );
+// CronJob(
+//   '00 30 00 * * 6',
+//   () => {
+// 		console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
+//     // upload aggregate data
+//     uploadAggregateData();
+//   },
+//   () => {
+// 		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
+//   },
+//   true /* Start the job right now */,
+//   'America/Los_Angeles' /* Time zone of this job. */,
+// );
 
 app.use(logger('dev'));
 app.use(express.json());
