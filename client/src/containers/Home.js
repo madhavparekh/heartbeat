@@ -12,9 +12,9 @@ export class Home extends React.Component {
   render() {
     return (
       <Layout
-        //water project
-        // fetchGuages={() => this.props.fetchGuages()}
-        // fetchDefaultData={() => this.props.fetchDefaultData()}
+      //water project
+      // fetchGuages={() => this.props.fetchGuages()}
+      // fetchDefaultData={() => this.props.fetchDefaultData()}
       />
     );
   }

@@ -1,5 +1,4 @@
 import request from 'superagent';
-
 import { GuageTypes as types } from '../action-types';
 
 const fetchGuageObjects = (guages) => {
@@ -13,7 +12,7 @@ export function fetchGuages() {
   return async (dispatch) => {
     try {
       const guagesFromAPI = await request.get(
-        'http://localhost:3001/api/gauges'
+        `${process.env.REACT_APP_NODE_SERVER}/api/gauges`
       );
       // pretent this is an api call...
       dispatch(fetchGuageObjects(guagesFromAPI.body));
