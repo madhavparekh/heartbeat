@@ -1,7 +1,6 @@
 const CronJob = require('cron').CronJob; //eslint-disable-line
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose/lib');
@@ -117,7 +116,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(passport.initialize());
 // Bring in defined Passport Strategy
