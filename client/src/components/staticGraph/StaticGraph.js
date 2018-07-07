@@ -26,19 +26,22 @@ class StaticGraph extends Component {
                 discharge: d.discharge
             }
         })
-
+        const width = 1000
         const svg = d3.select(this.node).append("path")
 
-        this.xScale.domain(d3.extent(newData, d => d.date)).range([0, 1000]);
+        this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
 
-        this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([500, 0]);
+        this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
 
         this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
 
         svg
           .attr('d', this.line(newData))
           .attr('fill', 'none')
-          .attr('stroke', 'red');
+          .attr('stroke', 'blue')
+          .attr("width", width)
+
+
     }
 
 
