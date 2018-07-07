@@ -132,6 +132,7 @@ class GeneralFlow extends Component {
       };
     }
 
+<<<<<<< HEAD
     // Data for building the clip wave area.
     var data = [];
     for (var i = 0; i <= 40 * waveClipCount; i++) {
@@ -149,15 +150,36 @@ class GeneralFlow extends Component {
             .attr('r', 40)
             .attr('cx', 50)
             .attr('cy', 50);
+=======
+    componentDidMount() {
+    // { width, height } = this.props;
+        this.update();
+       
+>>>>>>> d3 cirlce on page
 
 
         // let config = this.liquidFillGaugeDefaultSettings()
         // this.loadLiquidFillGauge(svg, 60.44, config)
             
+    }
 
+<<<<<<< HEAD
         
 
 >>>>>>> d3 stuff
+=======
+    update() {
+       
+       return  d3.select(this.anchor)
+            .attr('width', 300)
+            .attr('height', 300)
+            .append('circle')
+            .style('stroke', 'gray')
+            .style('fill', 'black')
+            .attr('r', 40)
+            .attr('cx', 50)
+            .attr('cy', 50);
+>>>>>>> d3 cirlce on page
     }
 
     // Scales for drawing the outer circle.
@@ -501,7 +523,12 @@ class GeneralFlow extends Component {
   }
 =======
         return (
-            <g ref={node => this.anchor = node} />
+            <div>
+                <svg width="960" height="600">
+                    <g ref={node => this.anchor = node} />
+                </svg>
+ 
+            </div>           
         )    
     }    
 >>>>>>> d3 stuff
