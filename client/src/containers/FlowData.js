@@ -12,6 +12,9 @@ class FlowData extends React.Component {
       <Layout
         gauge_id={gauge_id}
         unImpairedAggr={this.props.unImpairedAggr}
+        impairedAggr={this.props.impairedAggr}
+        impaired={this.props.impaired}
+        unImpaired={this.props.unImpaired}
         fetchImpairedData={(gauge_id) => this.props.fetchImpairedData(gauge_id)}
         fetchUnImpairedData={(gauge_id) =>
           this.props.fetchUnImpairedData(gauge_id)
@@ -55,6 +58,9 @@ FlowData.propTypes = {
   fetchUnImpairedAggrData: PropTypes.func.isRequired,
   gauge_id: PropTypes.number.isRequired,
   unImpairedAggr: PropTypes.array,
+  unImpaired: PropTypes.array,
+  impairedAggr: PropTypes.array,
+  impaired: PropTypes.array,
 };
 
 export default connect(
