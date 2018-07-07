@@ -7,3 +7,6 @@ mongodb://heroku_s3dksl6w:2te74o5brtf680ccloa11ull9n@ds219181.mlab.com:19181/her
 mongodump --db heartbeat
 //restore to mLab
 mongorestore -h ds219181.mlab.com:19181 -d heroku_s3dksl6w -u heroku_s3dksl6w -p 2te74o5brtf680ccloa11ull9n ./dump/heartbeat
+
+//local
+mongorestore -d heartbeat ./dump/heartbeat
