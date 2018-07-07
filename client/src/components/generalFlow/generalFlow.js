@@ -35,26 +35,28 @@ class GeneralFlow extends Component {
         }   
     }
 
-    ComponentDidMount() {
-        
-        d3.select(this.anchor)
-            .append('svg')
-            .attr('width', 100)
-            .attr('height', 100)
+    componentDidMount() {
+    // { width, height } = this.props;
+        this.update();
+       
+
+
+        // let config = this.liquidFillGaugeDefaultSettings()
+        // this.loadLiquidFillGauge(svg, 60.44, config)
+            
+    }
+
+    update() {
+       
+       return  d3.select(this.anchor)
+            .attr('width', 300)
+            .attr('height', 300)
             .append('circle')
             .style('stroke', 'gray')
             .style('fill', 'black')
             .attr('r', 40)
             .attr('cx', 50)
             .attr('cy', 50);
-
-
-        // let config = this.liquidFillGaugeDefaultSettings()
-        // this.loadLiquidFillGauge(svg, 60.44, config)
-            
-
-        
-
     }
 
     liquidFillGaugeDefaultSettings() {
@@ -328,7 +330,12 @@ class GeneralFlow extends Component {
         // }
 
         return (
-            <g ref={node => this.anchor = node} />
+            <div>
+                <svg width="960" height="600">
+                    <g ref={node => this.anchor = node} />
+                </svg>
+ 
+            </div>           
         )    
     }    
 }
