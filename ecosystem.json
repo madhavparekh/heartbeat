@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "rio grande",
+      "name": "rio_grande",
       "script": "node ./bin/www",
       "watch": true,
       "env": {
