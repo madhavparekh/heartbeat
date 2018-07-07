@@ -3,6 +3,7 @@ import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
 import GeneralFlow from "../generalFlow/Layout"
 import StaticGraph from "../staticGraph/Layout"
+import FlowData from "../../containers/FlowData";
 
 class GraphCard extends React.Component{
   
@@ -17,6 +18,7 @@ class GraphCard extends React.Component{
               forceStrength={-10}
              /> */}
              <StaticGraph />
+             <FlowData />
         </CardContent>
       </Card>
     );

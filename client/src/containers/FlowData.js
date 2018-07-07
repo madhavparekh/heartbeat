@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as flow from '../actions/flowData';
-import Layout from '../components/flowData/Layout';
+import Layout from '../components/flowData/FlowData';
 
 class FlowData extends React.Component {
   render() {
