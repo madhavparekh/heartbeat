@@ -1,27 +1,24 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
-import GeneralFlow from "../generalFlow/Layout"
-import StaticGraph from "../staticGraph/Layout"
-import FlowData from "../../containers/FlowData";
 
-class GraphCard extends React.Component{
-  
-  render() {
-    return(
-      <Card>
-        <CardContent>
-          <h1>Graph Card</h1>
-            {/* <GeneralFlow
-              width={960}
-              height={600}
-              forceStrength={-10}
-             /> */}
-             <StaticGraph />
-             <FlowData />
-        </CardContent>
-      </Card>
-    );
-  }  
-}
+import Layout from "../staticGraph/Layout"
+
+const GraphCard = (props) => {
+  return <Card>
+      <CardContent>
+        <h1>{props.gaugeId}</h1>
+      <Layout data={props.unImpaired} />
+      </CardContent>
+    </Card>;};
+
+GraphCard.propTypes = {
+  gaugeId: PropTypes.string.isRequired,
+  unImpairedAggr: PropTypes.array,
+  unImpaired: PropTypes.array,
+  impairedAggr: PropTypes.array,
+  impaired: PropTypes.array,
+};
+
 export default GraphCard;

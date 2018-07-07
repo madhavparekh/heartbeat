@@ -1,23 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";//eslint-disable-line
 import FlowData from "./FlowData";
-import { fetchImpairedAggrData } from "../../actions/flowData";
 
-type Props = {
-    gauge_id: string,
-    fetchImpairedData: Function,
-    fetchUnImpairedData: Function,
-    fetchUnImpairedAggrData: Function,
-    fetchImpairedAggrData: Function,
-    unImpairedAggr: Array,
-    unImpaired: Array,
-    impaired: Array,
-    impairedAggr: Array
 
-}
-
-const Layout = (props: Props) => (
-    <div>
+const Layout = (props) => (
         <FlowData
             gauge_id={props.gauge_id}
             fetchImpairedData={props.fetchImpairedData}
@@ -29,7 +15,6 @@ const Layout = (props: Props) => (
             impairedAggr={props.impairedAggr}
             
         />
-    </div>    
 );
 
 Layout.propTypes = {

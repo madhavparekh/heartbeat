@@ -52,19 +52,11 @@ const styles = {
   },
 };
 
-function BodyCard(props) {
+const BodyCard = (props) => {
   const { classes } = props;
-
-  // state = {
-  //   direction: "row",
-  //   justify: "center",
-  //   alignItems: "center",
-  // };
-  // const bull = <span className={classes.bullet}>•</span>;
-  // const { alignItems, direction, justify } = this.state;
   return (
     <div>
-      <Grid item xs={24}>
+      <Grid item xs={12}>
         <Card className={classes.card}>
           <CardContent>
             <Grid container spacing={8}>
@@ -83,7 +75,13 @@ function BodyCard(props) {
             </Grid>
             <Grid container spacing={8}>
               <Grid item xs className={classes.graphCard}>
-                <GraphCard />
+                <GraphCard 
+                  gaugeId={props.gaugeId}
+                  unImpairedAggr={props.unImpairedAggr}
+                  impairedAggr={props.impairedAggr}
+                  impaired={props.impaired}
+                  unImpaired={props.unImpaired}
+                />
               </Grid>
             </Grid>
           </CardContent>
@@ -94,6 +92,11 @@ function BodyCard(props) {
 }
 
 BodyCard.propTypes = {
+  gaugeId: PropTypes.string.isRequired,
+  unImpairedAggr: PropTypes.array,
+  unImpaired: PropTypes.array,
+  impairedAggr: PropTypes.array,
+  impaired: PropTypes.array,
   classes: PropTypes.object.isRequired,
 };
 
