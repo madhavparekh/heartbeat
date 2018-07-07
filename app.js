@@ -11,7 +11,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const uploadRouter = require('./routes/upload');
 
-
 const {
   uploadImpairedDatabase,
   uploadUnimpairedDatabase,
@@ -35,11 +34,11 @@ const db = mongoose.connection;
 
 // show any mongoose error
 db.on('error', (err) => {
-	console.log('Mongoose Error: ', err); //eslint-disable-line
+  console.log('Mongoose Error: ', err); //eslint-disable-line
 });
 
 db.once('open', () => {
-	console.log('Mongoose connectoion successful'); //eslint-disable-line
+  console.log('Mongoose connectoion successful'); //eslint-disable-line
 });
 
 // upload data if argv set to '--upload'
@@ -56,62 +55,62 @@ if (process.argv[2] === '--upload') {
       break;
     default:
       // impaired data
-			console.log('Loading Impaired data..'); //eslint-disable-line
+      console.log('Loading Impaired data..'); //eslint-disable-line
       uploadImpairedDatabase();
       // unimpaired data
       setTimeout(() => {
-				console.log('Loading Unimpaired data..'); //eslint-disable-line
+        console.log('Loading Unimpaired data..'); //eslint-disable-line
         uploadUnimpairedDatabase();
       }, 1000 * 60 * 5);
       // aggregate data
       setTimeout(() => {
-				console.log('Loading Aggregate data..'); //eslint-disable-line
+        console.log('Loading Aggregate data..'); //eslint-disable-line
         uploadAggregateData();
       }, 1000 * 60 * 10);
   }
 }
 // scheduling task for uploading flow data
-// CronJob(
-//   '00 00 00 * * 6',
-//   () => {
-// 		console.log('Uploading Impaired Data..'); //eslint-disable-line
-//     // upload impaired data from website (USGS/IBWC)
-//     uploadImpairedDatabase();
-//   },
-//   () => {
-// 		console.log('Impaired Data uploaded..'); //eslint-disable-line
-//   },
-//   true /* Start the job right now */,
-//   'America/Los_Angeles' /* Time zone of this job. */,
-// );
+CronJob(
+  '00 00 00 * * 6',
+  () => {
+    console.log('Uploading Impaired Data..'); //eslint-disable-line
+    // upload impaired data from website (USGS/IBWC)
+    uploadImpairedDatabase();
+  },
+  () => {
+    console.log('Impaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles' /* Time zone of this job. */,
+);
 
-// CronJob(
-//   '00 15 00 * * 6',
-//   () => {
-// 		console.log('Uploading Unmpaired Data..'); //eslint-disable-line
+CronJob(
+  '00 15 00 * * 6',
+  () => {
+    console.log('Uploading Unmpaired Data..'); //eslint-disable-line
 
-//     // upload unimpaired data from CSV file
-//     uploadUnimpairedDatabase();
-//   },
-//   () => {
-// 		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
-//   },
-//   true /* Start the job right now */,
-//   'America/Los_Angeles' /* Time zone of this job. */,
-// );
-// CronJob(
-//   '00 30 00 * * 6',
-//   () => {
-// 		console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
-//     // upload aggregate data
-//     uploadAggregateData();
-//   },
-//   () => {
-// 		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
-//   },
-//   true /* Start the job right now */,
-//   'America/Los_Angeles' /* Time zone of this job. */,
-// );
+    // upload unimpaired data from CSV file
+    uploadUnimpairedDatabase();
+  },
+  () => {
+    console.log('Unmpaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles' /* Time zone of this job. */,
+);
+CronJob(
+  '00 30 00 * * 6',
+  () => {
+    console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
+    // upload aggregate data
+    uploadAggregateData();
+  },
+  () => {
+    console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
+  },
+  true /* Start the job right now */,
+  'America/Los_Angeles' /* Time zone of this job. */,
+);
 
 app.use(logger('dev'));
 app.use(express.json());
