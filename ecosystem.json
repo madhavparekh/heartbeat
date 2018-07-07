@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "rio grande",
-      "script": "./app.js",
+      "script": "node ./bin/www",
       "watch": true,
       "env": {
         "NODE_ENV": "development"
