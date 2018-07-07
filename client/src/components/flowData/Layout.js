@@ -18,10 +18,16 @@ const Layout = (props) => (
       Get UnImpaired Aggr Data
     </Button>
     <ul>
-      {props.unImpairedAggr &&
-        props.unImpairedAggr.map((data) => (
-          <li key={data.date}>{data.discharge}</li>
-        ))}
+      {props.impairedAggr && (
+        <p>Length of impaired aggr: {props.impairedAggr.length}</p>
+      )}
+      {props.unImpairedAggr && (
+        <p>Length of un impaired aggr: {props.unImpairedAggr.length}</p>
+      )}
+      {props.impaired && <p>Length of impaired: {props.impaired.length}</p>}
+      {props.unImpaired && (
+        <p>Length of un impaired: {props.unImpaired.length}</p>
+      )}
     </ul>
   </div>
 );
@@ -33,6 +39,9 @@ Layout.propTypes = {
   fetchUnImpairedAggrData: PropTypes.func.isRequired,
   fetchImpairedAggrData: PropTypes.func.isRequired,
   unImpairedAggr: PropTypes.array,
+  unImpaired: PropTypes.array,
+  impaired: PropTypes.array,
+  impairedAggr: PropTypes.array,
 };
 
 export default Layout;

@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
     case types.FETCH_IMPAIRED_DATA:
       return objectAssign({}, state, { impaired: action.flow });
     case types.FETCH_UNIMPAIRED_DATA:
-      return objectAssign({}, state, { unimpaired: action.flow });
+      return objectAssign({}, state, { unImpaired: action.flow });
     case types.FETCH_IMPAIRED_AGGR_DATA:
       return objectAssign({}, state, { impairedAggr: action.flow });
     case types.FETCH_UNIMPAIRED_AGGR_DATA:
