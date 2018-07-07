@@ -1,47 +1,47 @@
-// @flow
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
+import React from "react";
+import PropTypes from "prop-types";//eslint-disable-line
+import FlowData from "./FlowData";
+import { fetchImpairedAggrData } from "../../actions/flowData";
 
-const Layout = (props) => (
-  <div>
-    <Button onClick={() => props.fetchImpairedData(props.gauge_id)}>
-      Get Impaired Data
-    </Button>
-    <Button onClick={() => props.fetchUnImpairedData(props.gauge_id)}>
-      Get UnImpaired Data
-    </Button>
-    <Button onClick={() => props.fetchImpairedAggrData(props.gauge_id)}>
-      Get Impaired Aggr Data
-    </Button>
-    <Button onClick={() => props.fetchUnImpairedAggrData(props.gauge_id)}>
-      Get UnImpaired Aggr Data
-    </Button>
-    <ul>
-      {props.impairedAggr && (
-        <p>Length of impaired aggr: {props.impairedAggr.length}</p>
-      )}
-      {props.unImpairedAggr && (
-        <p>Length of un impaired aggr: {props.unImpairedAggr.length}</p>
-      )}
-      {props.impaired && <p>Length of impaired: {props.impaired.length}</p>}
-      {props.unImpaired && (
-        <p>Length of un impaired: {props.unImpaired.length}</p>
-      )}
-    </ul>
-  </div>
+type Props = {
+    gauge_id: string,
+    fetchImpairedData: Function,
+    fetchUnImpairedData: Function,
+    fetchUnImpairedAggrData: Function,
+    fetchImpairedAggrData: Function,
+    unImpairedAggr: Array,
+    unImpaired: Array,
+    impaired: Array,
+    impairedAggr: Array
+
+}
+
+const Layout = (props: Props) => (
+    <div>
+        <FlowData
+            gauge_id={props.gauge_id}
+            fetchImpairedData={props.fetchImpairedData}
+            fetchUnImpairedData={props.fetchUnImpairedData}
+            fetchUnImpairedAggrData={props.fetchUnImpairedAggrData}
+            fetchImpairedAggrData={props.fetchImpairedAggrData}
+            unImpairedAggr={props.unImpairedAggr}
+            impaired={props.impaired}
+            impairedAggr={props.impairedAggr}
+            
+        />
+    </div>    
 );
 
 Layout.propTypes = {
-  gauge_id: PropTypes.string.isRequired,
-  fetchImpairedData: PropTypes.func.isRequired,
-  fetchUnImpairedData: PropTypes.func.isRequired,
-  fetchUnImpairedAggrData: PropTypes.func.isRequired,
-  fetchImpairedAggrData: PropTypes.func.isRequired,
-  unImpairedAggr: PropTypes.array,
-  unImpaired: PropTypes.array,
-  impaired: PropTypes.array,
-  impairedAggr: PropTypes.array,
+    gauge_id: PropTypes.string.isRequired,
+    fetchImpairedData: PropTypes.func.isRequired,
+    fetchUnImpairedData: PropTypes.func.isRequired,
+    fetchUnImpairedAggrData: PropTypes.func.isRequired,
+    fetchImpairedAggrData: PropTypes.func.isRequired,
+    unImpairedAggr: PropTypes.array,
+    unImpaired: PropTypes.array,
+    impaired: PropTypes.array,
+    impairedAggr: PropTypes.array,
 };
 
 export default Layout;
