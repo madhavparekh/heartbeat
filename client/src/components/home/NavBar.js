@@ -57,13 +57,19 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: true,
+      auth: false,
       anchorEl: null,
     };
   }
 
-  handleChange(event, checked) {
-    this.setState({ auth: checked });
+  componentDidMount() {
+    if (localStorage.getItem('HTB_TOKEN')) {
+      this.setState({ auth: true });
+    }
+  }
+
+  handleChange() {
+    this.setState({ auth: !this.state.auth });
   }
 
   handleMenu(event) {
@@ -102,7 +108,7 @@ class NavBar extends React.Component {
                   control={
                     <Switch
                       checked={auth}
-                      onChange={this.handleChange}
+                      onChange={() => this.handleChange()}
                       aria-label="LoginSwitch"
                     />
                   }

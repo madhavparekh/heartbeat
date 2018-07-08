@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; //eslint-dis
 import Home from '../containers/Home';
 import Project from '../containers/Project';
 import FlowData from '../containers/FlowData';
+import User from '../containers/User';
 
 const App = () => (
   <div>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route exact path="/project" component={Project} />
         <Route exact path="/flowdata" component={FlowData} />
+        <Route exact path="/user" component={User} />
       </Switch>
     </MuiThemeProvider>
   </div>
