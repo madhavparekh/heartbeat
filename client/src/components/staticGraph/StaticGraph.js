@@ -11,7 +11,7 @@ class StaticGraph extends Component {
         super(props);
         
         this.state = {
-            data: null,
+            data: [],
             d3Line: null,
             d3Area: null,
             yScale: null,
@@ -52,14 +52,18 @@ class StaticGraph extends Component {
             this.determineScales(newProps.startDate,
                 newProps.endDate,
                 data);
-        
-        this.setState({
-            data: data,
-            xScale: xScale,
-            yScale: yScale,
-            d3Area: d3Area,
-            d3Line: d3Line
-        });
+
+        if (this.state.data.length === 0){
+            this.setState({
+                data: data.map(d => [d[0], 0]),
+                xScale: xScale,
+                yScale: yScale,
+                d3Area: d3Area,
+                d3Line: d3Line
+            });
+        }
+
+        this.animate(data, xScale, yScale, d3Area, d3Line);
     }
     
     determineScales(startDate, endDate, data) {
@@ -90,6 +94,33 @@ class StaticGraph extends Component {
             .y0(yScale(0));  
 
         return [xScale, yScale, d3Area, d3Line];
+        
+    }
+
+    animate(data, xScale, yScale, d3Area, d3Line) {
+        if (data.length > 0) {
+            let node = d3.select(this.svg);
+            let transition = d3.transition()
+                .duration(750)
+                .ease(d3.easeCubicInOut);
+
+            node.select('.chart-area')
+                .transition(transition)
+                .attr('d', d3Area(data));
+
+            node.select('.chart-line')
+                .transition(transition)
+                .attr('d', d3Line(data))
+                .on('end', () => {
+                    this.setState({
+                        data: data,
+                        xScale: xScale,
+                        yScale: yScale,
+                        d3Area: d3Area,
+                        d3Line: d3Line
+                    });
+                });
+        }
     }
 
     // updateD3() {    
