@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import { isFunction } from "lodash"
 
 
 class StaticGraph extends Component {
@@ -12,6 +13,7 @@ class StaticGraph extends Component {
         this.state = {
             data: null,
             d3Line: null,
+            d3Area: null,
             yScale: null,
             xScale: null,
             width: 1000,
@@ -46,7 +48,7 @@ class StaticGraph extends Component {
     componentWillReceiveProps(newProps) {
         let data = newProps.data.map((d) => [d.date, d.discharge]);
 
-        let [xScale, yScale, d3Line] =
+        let [xScale, yScale, d3Area, d3Line] =
             this.determineScales(newProps.startDate,
                 newProps.endDate,
                 data);
@@ -55,6 +57,7 @@ class StaticGraph extends Component {
             data: data,
             xScale: xScale,
             yScale: yScale,
+            d3Area: d3Area,
             d3Line: d3Line
         });
     }
@@ -67,6 +70,8 @@ class StaticGraph extends Component {
           return { date: parseTime(d[0]), discharge: d[1] };
         });
 
+
+
         let xScale = d3.scaleLinear()
             .domain(d3.extent(newData, d => d.date))
             .range([100, 1000]);
@@ -76,51 +81,65 @@ class StaticGraph extends Component {
           .range([450, 0]);
 
         let d3Line = d3.line()
-          .x((d) => d3.scaleLinear(d.date))
-          .y((d) => d3.scaleLinear(d.discharge));
+          .x((d) => xScale(parseTime(d[0])))
+          .y((d) => yScale(d[1]));
 
-        return [xScale, yScale, d3Line];
+        let d3Area = d3.area()
+            .x(d => xScale(parseTime(d[0])))
+            .y1(d => yScale(d[1]))
+            .y0(yScale(0));  
+
+        return [xScale, yScale, d3Area, d3Line];
     }
 
-    updateD3() {    
-        const parseTime = d3.timeParse("%Y-%m-%d")
-        const newData = this.props.data.map(d => {
-            return {
-                date: parseTime(d.date),
-                discharge: d.discharge
-            }
-        })
-        const width = 1000
-        const svg = d3.select(this.node).append("path")
+    // updateD3() {    
+    //     const parseTime = d3.timeParse("%Y-%m-%d")
+    //     const newData = this.props.data.map(d => {
+    //         return {
+    //             date: parseTime(d.date),
+    //             discharge: d.discharge
+    //         }
+    //     })
+    //     const width = 1000
+    //     const svg = d3.select(this.node).append("path")
 
-        this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
+    //     this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
 
-        this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
+    //     this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
 
-        this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
+    //     this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
 
-        svg
-          .attr('d', this.line(newData))
-          .attr('fill', 'none')
-          .attr('stroke', 'blue')
-          .attr("width", width)
+    //     svg
+    //       .attr('d', this.line(newData))
+    //       .attr('fill', 'none')
+    //       .attr('stroke', 'blue')
+    //       .attr("width", width)
 
-    }
+    // }
 
 
     render() {
+        if(isFunction(this.state.d3Line)) {
+
+            return (
+                <div>    
+                    {/* <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} /> */}
+                    <svg className="timechart"
+                        style={{width: this.state.width, height:"500px"}}>
+                        <g transform="translate(70,10)">
+                            <path className="chart-area"
+                                d={this.state.d3Area(this.state.data)}/>
+                            <path className="chart-line" 
+                                d={this.state.d3Line(this.state.data)}/>
+                        </g>    
+                    </svg>    
+                </div>    
+            )
+        }
+
         return (
-        <div>    
-            {/* <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} /> */}
-            <svg className="timechart"
-                style={{width: "100%", height:"150px"}}>
-                <g transform="translate(70,10)">
-                    <path className="chart-line" 
-                        d={this.state.d3Line(this.state.data)}/>
-                </g>    
-            </svg>    
-        </div>    
-    )
+                <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />    
+        )
 
 
     }
