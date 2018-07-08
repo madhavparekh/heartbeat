@@ -33,11 +33,11 @@ const db = mongoose.connection;
 
 // show any mongoose error
 db.on('error', (err) => {
-  console.log('Mongoose Error: ', err); //eslint-disable-line
+	console.log('Mongoose Error: ', err); //eslint-disable-line
 });
 
 db.once('open', () => {
-  console.log('Mongoose connectoion successful'); //eslint-disable-line
+	console.log('Mongoose connectoion successful'); //eslint-disable-line
 });
 
 // upload data if argv set to '--upload'
@@ -54,16 +54,16 @@ if (process.argv[2] === '--upload') {
       break;
     default:
       // impaired data
-      console.log('Loading Impaired data..'); //eslint-disable-line
+			console.log('Loading Impaired data..'); //eslint-disable-line
       uploadImpairedDatabase();
       // unimpaired data
       setTimeout(() => {
-        console.log('Loading Unimpaired data..'); //eslint-disable-line
+				console.log('Loading Unimpaired data..'); //eslint-disable-line
         uploadUnimpairedDatabase();
       }, 1000 * 60 * 5);
       // aggregate data
       setTimeout(() => {
-        console.log('Loading Aggregate data..'); //eslint-disable-line
+				console.log('Loading Aggregate data..'); //eslint-disable-line
         uploadAggregateData();
       }, 1000 * 60 * 10);
   }
@@ -72,12 +72,12 @@ if (process.argv[2] === '--upload') {
 CronJob(
   '00 00 00 * * 6',
   () => {
-    console.log('Uploading Impaired Data..'); //eslint-disable-line
+		console.log('Uploading Impaired Data..'); //eslint-disable-line
     // upload impaired data from website (USGS/IBWC)
     uploadImpairedDatabase();
   },
   () => {
-    console.log('Impaired Data uploaded..'); //eslint-disable-line
+		console.log('Impaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
   'America/Los_Angeles' /* Time zone of this job. */,
@@ -86,13 +86,13 @@ CronJob(
 CronJob(
   '00 15 00 * * 6',
   () => {
-    console.log('Uploading Unmpaired Data..'); //eslint-disable-line
+		console.log('Uploading Unmpaired Data..'); //eslint-disable-line
 
     // upload unimpaired data from CSV file
     uploadUnimpairedDatabase();
   },
   () => {
-    console.log('Unmpaired Data uploaded..'); //eslint-disable-line
+		console.log('Unmpaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
   'America/Los_Angeles' /* Time zone of this job. */,
@@ -100,12 +100,12 @@ CronJob(
 CronJob(
   '00 30 00 * * 6',
   () => {
-    console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
+		console.log('Uploading Aggregate Impaired/Unmpaired Data..'); //eslint-disable-line
     // upload aggregate data
     uploadAggregateData();
   },
   () => {
-    console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
+		console.log('Aggregate Impaired/Unmpaired Data uploaded..'); //eslint-disable-line
   },
   true /* Start the job right now */,
   'America/Los_Angeles' /* Time zone of this job. */,
@@ -124,7 +124,7 @@ require('./config/passport')(passport);
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 app.use('/upload', uploadRouter);
 
 // catch 404 and forward to error handler
