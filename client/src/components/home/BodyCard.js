@@ -25,23 +25,18 @@ const styles = {
     marginBottom: 5,
   },
   mapCard: {
-    // marginLeft: 4,
+    marginLeft: 5,
     // marginRight: 4,
   },
   viewCard: {
     // padding: 2,
     // marginLeft: 4,
-    // marginRight: 4,
+    marginRight: 5,
     // marginLeft: "auto",
   },
   graphCard: {
     marginLeft: 5,
     marginRight: 5,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
   },
   title: {
     marginBottom: 16,
@@ -52,7 +47,7 @@ const styles = {
   },
 };
 
-const BodyCard = (props) => {
+const BodyCard = props => {
   const { classes } = props;
   return (
     <div>
@@ -60,22 +55,22 @@ const BodyCard = (props) => {
         <Card className={classes.card}>
           <CardContent>
             <Grid container spacing={8}>
-              <Grid item xs className={classes.descCard}>
+              <Grid item xs={12} className={classes.descCard}>
                 <DescriptionCard />
               </Grid>
-            </Grid>
+              {/* </Grid> */}
 
-            <Grid container spacing={8} xs className={classes.middleCards}>
+              {/* <Grid container spacing={8} xs className={classes.middleCards}> */}
               <Grid item xs className={classes.mapCard}>
                 <MapCard />
               </Grid>
               <Grid item xs={8} className={classes.viewCard}>
                 <ViewCard />
               </Grid>
-            </Grid>
-            <Grid container spacing={8}>
-              <Grid item xs className={classes.graphCard}>
-                <GraphCard 
+              {/* </Grid> */}
+              {/* <Grid container spacing={8}> */}
+              <Grid item xs={12} className={classes.graphCard}>
+                <GraphCard
                   gaugeId={props.gaugeId}
                   unImpairedAggr={props.unImpairedAggr}
                   impairedAggr={props.impairedAggr}
@@ -89,7 +84,7 @@ const BodyCard = (props) => {
       </Grid>
     </div>
   );
-}
+};
 
 BodyCard.propTypes = {
   gaugeId: PropTypes.string.isRequired,

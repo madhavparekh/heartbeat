@@ -1,47 +1,47 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 //import classnames from "classnames";
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
 //import Collapse from "@material-ui/core/Collapse";
 //import IconButton from "@material-ui/core/IconButton";
-import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
+import Typography from "@material-ui/core/Typography";
+import red from "@material-ui/core/colors/red";
 //import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import RaisedButton from 'material-ui/RaisedButton';
-import Grid from '@material-ui/core/Grid';
+import RaisedButton from "material-ui/RaisedButton";
+import Grid from "@material-ui/core/Grid";
 
-const styles = (theme) => ({
+const styles = theme => ({
   card: {
-    maxWidth: '100%',
+    maxWidth: "100%",
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   actions: {
-    display: 'flex',
+    display: "flex",
   },
   expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: red[500],
   },
   projButton: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     marginRight: 10,
-    display: 'flex',
+    display: "flex",
   },
 });
 
@@ -52,7 +52,7 @@ class DescriptionCard extends React.Component {
   }
 
   handleExpandClick() {
-    this.setState((state) => ({ expanded: !state.expanded }));
+    this.setState(state => ({ expanded: !state.expanded }));
   }
 
   render() {
@@ -60,8 +60,8 @@ class DescriptionCard extends React.Component {
 
     return (
       <div>
-        <Grid item xs={12}>
-          <Grid container>
+        <Grid container>
+          <Grid item xs={12}>
             <Card className={classes.card}>
               <CardHeader title="Project Description" subheader="" />
               <CardContent>
