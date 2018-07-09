@@ -13,11 +13,6 @@ router.get('/authuser', users.authUser);
 
 router.post('/upload', passport.authenticate('jwt', { session: false }), (req, res) => {
   if (!req.files) return res.status(400).send('No files were uploaded.');
-<<<<<<< HEAD
-
-=======
-  console.log(req.files.files);
->>>>>>> b68f0e269e72595f5bbfa295a541874de4dad3de
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const sampleFile = req.files.files;
 
