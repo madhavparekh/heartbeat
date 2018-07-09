@@ -9,6 +9,7 @@ import Home from '../containers/Home';
 import Project from '../containers/Project';
 import FlowData from '../containers/FlowData';
 import User from '../containers/User';
+import UpLoad from '../containers/UpLoad';
 
 const App = () => (
   <div>
@@ -18,6 +19,7 @@ const App = () => (
         <Route exact path="/project" component={Project} />
         <Route exact path="/flowdata" component={FlowData} />
         <Route exact path="/user" component={User} />
+        <Route exact path="/upload" component={UpLoad} />
       </Switch>
     </MuiThemeProvider>
   </div>

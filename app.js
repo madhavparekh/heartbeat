@@ -6,9 +6,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose/lib');
 const passport = require('passport');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const uploadRouter = require('./routes/upload');
 
 const {
   uploadImpairedDatabase,
@@ -123,9 +123,10 @@ require('./config/passport')(passport);
 
 app.use(passport.session());
 
+app.use(fileUpload());
+
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
-app.use('/upload', uploadRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
