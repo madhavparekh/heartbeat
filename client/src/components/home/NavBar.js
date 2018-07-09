@@ -5,13 +5,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import FlatButton from "material-ui/FlatButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+// logged in imports
+// import MenuItem from "@material-ui/core/MenuItem";
+// import Menu from "@material-ui/core/Menu";
 
 const styles = {
   root: {
@@ -57,30 +54,22 @@ const styles = {
 // };
 
 class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: true,
-      anchorEl: null,
-    };
-  }
+  // state = {
+  //   anchorEl: null,
+  // };
 
-  handleChange(event, checked) {
-    this.setState({ auth: checked });
-  }
+  // handleClick = event => {
+  //   this.setState({ anchorEl: event.currentTarget });
+  // };
 
-  handleMenu(event) {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose() {
-    this.setState({ anchorEl: null });
-  }
+  // handleClose = () => {
+  //   this.setState({ anchorEl: null });
+  // };
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
+    // const { anchorEl } = this.state;
+    // const open = Boolean(anchorEl);
 
     return (
       <div className={classes.root}>
@@ -100,23 +89,36 @@ class NavBar extends React.Component {
               HeartBeat
             </Typography>
             <FlatButton color="inherit" className={classes.signUpButton}>
-              <Typography
-                variant="body2"
-                color="inherit"
-                // className={classes.flex}
-              >
+              <Typography variant="body2" color="inherit">
                 Sign Up
               </Typography>
             </FlatButton>
             <FlatButton color="inherit" className={classes.loginButton}>
-              <Typography
-                variant="body2"
-                color="inherit"
-                // className={classes.flex}
-              >
+              <Typography variant="body2" color="inherit">
                 Login
               </Typography>
             </FlatButton>
+            {/* Buttons that will show up when logged in below */}
+
+            {/* <div>
+              <FlatButton
+                aria-owns={anchorEl ? "account-menu" : null}
+                aria-haspopup="true"
+                onClick={this.handleClick}
+              >
+                My Account
+              </FlatButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>Upload</MenuItem>
+                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+              </Menu>
+            </div> */}
           </Toolbar>
         </AppBar>
       </div>
