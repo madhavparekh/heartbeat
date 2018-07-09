@@ -16,7 +16,11 @@ import Home from '../containers/Home';
 import Project from '../containers/Project';
 import FlowData from '../containers/FlowData';
 import User from '../containers/User';
+<<<<<<< HEAD
 >>>>>>> user auth, routes, redux, file upload
+=======
+import UpLoad from '../containers/UpLoad';
+>>>>>>> file upload under user auth route
 
 const App = () => (
   <div>
@@ -30,7 +34,11 @@ const App = () => (
         <Route exact path="/users/login" component={Login} />
 =======
         <Route exact path="/user" component={User} />
+<<<<<<< HEAD
 >>>>>>> user auth, routes, redux, file upload
+=======
+        <Route exact path="/upload" component={UpLoad} />
+>>>>>>> file upload under user auth route
       </Switch>
     </MuiThemeProvider>
   </div>
