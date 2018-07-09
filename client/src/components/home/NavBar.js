@@ -54,7 +54,6 @@ const styles = {
 // };
 
 class NavBar extends React.Component {
-<<<<<<< HEAD
   // state = {
   //   anchorEl: null,
   // };
@@ -62,25 +61,6 @@ class NavBar extends React.Component {
   // handleClick = event => {
   //   this.setState({ anchorEl: event.currentTarget });
   // };
-=======
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: false,
-      anchorEl: null,
-    };
-  }
-
-  componentDidMount() {
-    if (localStorage.getItem('HTB_TOKEN')) {
-      this.setState({ auth: true });
-    }
-  }
-
-  handleChange() {
-    this.setState({ auth: !this.state.auth });
-  }
->>>>>>> b68f0e269e72595f5bbfa295a541874de4dad3de
 
   // handleClose = () => {
   //   this.setState({ anchorEl: null });
