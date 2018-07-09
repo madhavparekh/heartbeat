@@ -31,7 +31,6 @@ class UpLoad extends React.Component {
   }
   onChange(e) {
     if (e.target.files[0].name.indexOf('.csv') !== -1) {
-      console.log('csv');
       this.setState({ fileExt: false });
     }
     this.setState({ file: e.target.files[0] });
