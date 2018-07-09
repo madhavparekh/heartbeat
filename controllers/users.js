@@ -18,7 +18,7 @@ module.exports = {
           res.send({
             success: false,
             message: 'Authentication failed. User not found.',
-            reroute: '/api/users/login',
+            reroute: '/login',
           });
         } else {
           // Check if password matches
@@ -34,13 +34,13 @@ module.exports = {
                 token,
                 message: 'Logged in successfully',
                 name: user.name,
-                reroute: '/api/users/upload',
+                reroute: '/upload',
               });
             } else {
               res.send({
                 success: false,
                 message: 'Authentication failed. Passwords did not match!',
-                reroute: '/api/users/login',
+                reroute: '/login',
               });
             }
           });
@@ -56,36 +56,43 @@ module.exports = {
   },
 
   authUser(req, res) {
-    if (!req.body.headers.Authorization) return;
-
-    const decoded = jwt.verify(req.body.headers.Authorization, config.secret);
-
-    const currentTime = new Date();
-
-    if (decoded.exp < currentTime.getTime()) {
+    if (!req.body.headers.Authorization) {
       res.json({
         success: false,
-        message: 'You have been logged out, please log in!',
-        reroute: '/api/users/login',
+        message: 'Missing Authorizationg token',
+        reroute: '/login',
       });
     } else {
-      User.findOne({ email: decoded.data.email })
-        .then((user) => {
-          if (user) {
-            res.json({
-              success: true,
-              message: `Welcome back ${decoded.data.name}`,
-              reroute: '/api/users/upload',
-            });
-          } else {
-            res.json({ success: false, message: 'Please log in!', reroute: '/api/users/login' });
-          }
-        })
-        .catch(err => res.json({
+      const decoded = jwt.verify(req.body.headers.Authorization, config.secret);
+
+      const currentTime = new Date();
+
+      if (decoded.exp < currentTime.getTime()) {
+        req.logout();
+        res.json({
           success: false,
-          message: 'Oops, something went wrong, try again!',
-          reroute: '/api/users/login',
-        }));
+          message: 'You have been logged out, please log in!',
+          reroute: '/login',
+        });
+      } else {
+        User.findOne({ email: decoded.data.email })
+          .then((user) => {
+            if (user) {
+              res.json({
+                success: true,
+                message: `Welcome back ${decoded.data.name}`,
+                reroute: '/upload',
+              });
+            } else {
+              res.json({ success: false, message: 'Please log in!', reroute: '/login' });
+            }
+          })
+          .catch(err => res.json({
+            success: false,
+            message: 'Oops, something went wrong, try again!',
+            reroute: '/login',
+          }));
+      }
     }
   },
 
@@ -93,7 +100,7 @@ module.exports = {
     User.findOne({ email: req.body.email }, (err, user) => {
       // is email address already in use?
       if (user) {
-        res.json({ success: false, message: 'Email already in use', reroute: '/api/users/signin' });
+        res.json({ success: false, message: 'Email already in use', reroute: '/signin' });
         return;
       }
       // go ahead and create the new user
@@ -103,7 +110,7 @@ module.exports = {
           res.json({
             success: false,
             message: 'Could not create new account! Try Again',
-            reroute: '/api/users/signin',
+            reroute: '/signin',
           });
         } else {
           // Create token if user is created
