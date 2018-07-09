@@ -14,9 +14,9 @@ import LoginForm from "./LoginForm";
 const styles = {
   card: {
     maxWidth: "100%",
-    marginTop: 5,
-    marginLeft: 5,
-    marginRight: 5,
+    marginTop: 16,
+    marginLeft: 24,
+    marginRight: 24,
     marginBottom: 5,
   },
 

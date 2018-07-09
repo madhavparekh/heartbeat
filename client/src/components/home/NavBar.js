@@ -9,9 +9,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
+import FlatButton from "material-ui/FlatButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-//import blue from "@material-ui/core/colors/blue";
 
 const styles = {
   root: {
@@ -20,9 +20,12 @@ const styles = {
   flex: {
     flex: 1,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
+  loginButton: {
+    marginLeft: 7,
+    marginRight: 6,
+  },
+  signUpButton: {
+    marginRight: 7,
   },
   appBar: {
     background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
@@ -82,7 +85,7 @@ class NavBar extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar color="inherit">
             <IconButton
               className={classes.menuButton}
               color="inherit"
@@ -96,50 +99,24 @@ class NavBar extends React.Component {
             >
               HeartBeat
             </Typography>
-            <IconButton className={classes.login}>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={auth}
-                      onChange={this.handleChange}
-                      aria-label="LoginSwitch"
-                    />
-                  }
-                  label={auth ? "Logout" : "Login"}
-                />
-              </FormGroup>
-            </IconButton>
-
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? "menu-appbar" : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu>
-              </div>
-            )}
+            <FlatButton color="inherit" className={classes.signUpButton}>
+              <Typography
+                variant="body2"
+                color="inherit"
+                // className={classes.flex}
+              >
+                Sign Up
+              </Typography>
+            </FlatButton>
+            <FlatButton color="inherit" className={classes.loginButton}>
+              <Typography
+                variant="body2"
+                color="inherit"
+                // className={classes.flex}
+              >
+                Login
+              </Typography>
+            </FlatButton>
           </Toolbar>
         </AppBar>
       </div>
