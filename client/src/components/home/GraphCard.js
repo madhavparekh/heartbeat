@@ -1,21 +1,41 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import Card from "@material-ui/core/Card";
-import { CardContent } from "@material-ui/core";
+import Card from '@material-ui/core/Card';
+import { CardContent } from '@material-ui/core';
 
-import Layout from "../staticGraph/Layout"
+import Layout from '../staticGraph/Layout';
+import GaugePicker from '../guage/GaugePicker';
 
 const GraphCard = (props) => {
-
-  if(!props[props.currentFlowDataName]){
-    return null
+  if (!props[props.currentFlowDataName]) {
+    return null;
   }
-  return <Card>
+  return (
+    <Card>
       <CardContent>
-        <h1>{props.gaugeId}</h1>
-      <Layout data={props[props.currentFlowDataName]} currentFlowDataName={props.currentFlowDataName}/>
+        <div
+          style={{
+            width: '400px',
+            display: 'flex',
+            justifyContent: 'space-around',
+          }}
+        >
+          <GaugePicker
+            gauges={props.gauges}
+            fetchFlowData={(gaugeId) => {
+              props.fetchFlowData(gaugeId);
+            }}
+          />
+          <h1 style={{ paddingTop: '10px' }}>{props.gaugeId}</h1>
+        </div>
+        <Layout
+          data={props[props.currentFlowDataName]}
+          currentFlowDataName={props.currentFlowDataName}
+        />
       </CardContent>
-    </Card>;};
+    </Card>
+  );
+};
 
 GraphCard.propTypes = {
   gaugeId: PropTypes.string.isRequired,

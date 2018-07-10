@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
 
-import CardContent from "@material-ui/core/CardContent";
+import CardContent from '@material-ui/core/CardContent';
 
-import Grid from "@material-ui/core/Grid";
-import GraphCard from "./GraphCard";
-import MapCard from "./MapCard";
-import ViewCard from "./ViewCard";
-import DescriptionCard from "./DescriptionCard";
+import Grid from '@material-ui/core/Grid';
+import GraphCard from './GraphCard';
+import MapCard from './MapCard';
+import ViewCard from './ViewCard';
+import DescriptionCard from './DescriptionCard';
 //import NavBar from "./NavBar";
 
 const styles = {
@@ -48,7 +48,6 @@ const styles = {
 };
 
 class BodyCard extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -59,11 +58,9 @@ class BodyCard extends React.Component {
   //   currentGraph: defaultGraph,
   // }
 
-  changeGraph() {
+  changeGraph() {}
 
-  }
-
-  render(){
+  render() {
     return (
       <div>
         <Grid item xs={12}>
@@ -82,14 +79,20 @@ class BodyCard extends React.Component {
                 <Grid item xs={8} className={styles.viewCard}>
                   <ViewCard
                     currentFlowDataName={this.props.currentFlowDataName}
-                    updateCurrentFlowDataName={(name) => this.props.updateCurrentFlowDataName(name)}
-                   />
+                    updateCurrentFlowDataName={(name) =>
+                      this.props.updateCurrentFlowDataName(name)
+                    }
+                  />
                 </Grid>
                 {/* </Grid> */}
                 {/* <Grid container spacing={8}> */}
                 <Grid item xs={12} className={styles.graphCard}>
                   <GraphCard
+                    fetchFlowData={(gaugeId) => {
+                      this.props.fetchFlowData(gaugeId);
+                    }}
                     gaugeId={this.props.gaugeId}
+                    gauges={this.props.gauges}
                     unImpairedAggr={this.props.unImpairedAggr}
                     impairedAggr={this.props.impairedAggr}
                     impaired={this.props.impaired}
