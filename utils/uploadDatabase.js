@@ -48,6 +48,15 @@ const params4IBWC = {
   ignoreEmpty: true,
 };
 
+const params4USER = {
+  noheader: false,
+  delimiter: 'auto',
+  colParser: {
+    date: date => new Date(date),
+  },
+  ignoreEmpty: true,
+};
+
 const updateLastPulledDate = () => {
   db.ImpairedData.aggregate(
     [
@@ -69,6 +78,31 @@ const updateLastPulledDate = () => {
       });
     },
   );
+};
+
+exports.uploadUserData = async (email, fileName) => {
+  console.log('uploading user data..');
+  try {
+    csv(params4USER)
+      .fromStream(request.get(`${__dirname}/../static/csv/${fileName}`))
+      .on('data', (res) => {
+        const data = JSON.parse(res);
+        data.email = email;
+        // const objArr = [];
+
+        db.impairedData
+          .create(data)
+          .then(() => {})
+          .catch((err) => {
+            if (err) throw err;
+          });
+      })
+      .on('done', (err) => {
+        if (err) throw err;
+      });
+  } catch (err) {
+    throw err;
+  }
 };
 
 exports.uploadUnimpairedDatabase = async () => {

@@ -1,11 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import FlatButton from "material-ui/FlatButton";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 // logged in imports
 // import MenuItem from "@material-ui/core/MenuItem";
 // import Menu from "@material-ui/core/Menu";
@@ -25,7 +26,7 @@ const styles = {
     marginRight: 7,
   },
   appBar: {
-    background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
+    background: 'linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)',
   },
 };
 
@@ -88,16 +89,41 @@ class NavBar extends React.Component {
             >
               HeartBeat
             </Typography>
-            <FlatButton color="inherit" className={classes.signUpButton}>
-              <Typography variant="body2" color="inherit">
-                Sign Up
-              </Typography>
-            </FlatButton>
-            <FlatButton color="inherit" className={classes.loginButton}>
-              <Typography variant="body2" color="inherit">
-                Login
-              </Typography>
-            </FlatButton>
+            {!localStorage.getItem('HBT_TOKEN') && (
+              <div>
+                <FlatButton color="inherit" className={classes.signUpButton}>
+                  <Typography variant="body2" color="inherit">
+                    <Link to="/users/signin">Sign Up</Link>
+                  </Typography>
+                </FlatButton>
+                <FlatButton color="inherit" className={classes.loginButton}>
+                  <Typography variant="body2" color="inherit">
+                    <Link to="/users/login">Login</Link>
+                  </Typography>
+                </FlatButton>
+              </div>
+            )}
+
+            {localStorage.getItem('HBT_TOKEN') && (
+              <div>
+                <FlatButton color="inherit" style={{ marginRight: 15 }}>
+                  <Typography variant="title" color="inherit">
+                    {`Welcome ${localStorage.getItem('HBT_USER_NAME')}`}
+                  </Typography>
+                </FlatButton>
+                <FlatButton color="inherit" className={classes.loginButton}>
+                  <Typography variant="body2" color="inherit">
+                    <Link to="/users/upload">Upload CSV file</Link>
+                  </Typography>
+                </FlatButton>
+                <FlatButton color="inherit" className={classes.loginButton}>
+                  <Typography variant="body2" color="inherit">
+                    <Link to="/users/logout">Logout</Link>
+                  </Typography>
+                </FlatButton>
+              </div>
+            )}
+
             {/* Buttons that will show up when logged in below */}
 
             {/* <div>

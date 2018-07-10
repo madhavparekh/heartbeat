@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Save a reference to the Schema constructor
-const Schema = mongoose.Schema;//eslint-disable-line
+const Schema = mongoose.Schema; //eslint-disable-line
 
 // Using the Schema constructor, create a new ImpairedDataSchema object
 // This is similar to a Sequelize model
@@ -20,6 +20,12 @@ const ImpairedDataSchema = new Schema({
   gauge_id: {
     type: Schema.Types.String,
     ref: 'Gauges',
+  },
+
+  // data belongs to user
+  email: {
+    type: Schema.Types.String,
+    ref: 'User',
   },
 });
 
