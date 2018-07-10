@@ -11,7 +11,12 @@ import { TextField, FormHelperText, FormControl } from '@material-ui/core';
 import RaisedButton from 'material-ui/RaisedButton';
 import Aux from '../../hoc/Auxilary';
 
-const emailRegex = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/i;
+export function validateEmail(email) {
+  const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  return regex.test(email);
+}
+
+
 const styles = (theme) => ({
   container: {
     display: 'flex',
@@ -48,99 +53,38 @@ class SignUpForm extends React.Component {
   render() {
     const { classes } = this.props;
 
-    return (
-      <Aux>
+    return <Aux>
         <form className={classes.container}>
-          <TextField
-            id="name"
-            label="Name"
-            className={classes.textField}
-            required
-            name="name"
-            onChange={(e) => {
+          <TextField id="name" label="Name" className={classes.textField} required name="name" onChange={(e) => {
               this.handleChange(e);
-            }}
-            margin="normal"
-          />
+            }} margin="normal" />
           <FormControl>
-            <TextField
-              id="email"
-              label="Email"
-              name="email"
-              required
-              className={classes.textField}
-              //   value={this.state.email}
+            <TextField id="email" label="Email" name="email" required className={classes.textField} //   value={this.state.email}
               onChange={(e) => {
                 this.handleChange(e);
-              }}
-              margin="normal"
-            />
-            {!emailRegex.test(this.state.email) && (
-              <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+              }} margin="normal" />
+            {!validateEmail(this.state.email) && <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
                 Invalid email
-              </FormHelperText>
-            )}
+              </FormHelperText>}
           </FormControl>
           <FormControl>
-            <TextField
-              id="password-input"
-              label="Password"
-              name="password"
-              className={classes.textField}
-              onChange={(e) => this.handleChange(e)}
-              type="password"
-              required
-              autoComplete="current-password"
-              margin="normal"
-            />
-            {this.state.password.length < 8 && (
-              <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+            <TextField id="password-input" label="Password" name="password" className={classes.textField} onChange={(e) => this.handleChange(e)} type="password" required autoComplete="current-password" margin="normal" />
+            {this.state.password.length < 8 && <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
                 Must be 8 char or longer
-              </FormHelperText>
-            )}
+              </FormHelperText>}
           </FormControl>
           <FormControl>
-            {this.state.password.length >= 8 && (
-              <TextField
-                id="password-input"
-                label="Re Enter Password"
-                name="matchpassword"
-                className={classes.textField}
-                onChange={(e) => this.handleChange(e)}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-              />
-            )}
-            {this.state.password.length >= 8 &&
-              this.state.password !== this.state.matchpassword && (
-                <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+            {this.state.password.length >= 8 && <TextField id="password-input" label="Re Enter Password" name="matchpassword" className={classes.textField} onChange={(e) => this.handleChange(e)} type="password" autoComplete="current-password" margin="normal" />}
+            {this.state.password.length >= 8 && this.state.password !== this.state.matchpassword && <FormHelperText
+                  style={{ color: 'red', marginLeft: 8 }}
+                >
                   {`Re-entered password doesn't match`}
-                </FormHelperText>
-              )}
+                </FormHelperText>}
           </FormControl>
         </form>
-        <RaisedButton
-          label="SignUp"
-          aria-label="SignUp"
-          className={classes.signUpButton}
-          onClick={() =>
-            this.props.signUpUser(
-              this.state.name,
-              this.state.email,
-              this.state.password
-            )
-          }
-          disabled={
-            !(
-              this.state.matchpassword === this.state.password &&
-              this.state.matchpassword !== ''
-            )
-          }
-        />
+        <RaisedButton label="SignUp" aria-label="SignUp" className={classes.signUpButton} onClick={() => this.props.signUpUser(this.state.name, this.state.email, this.state.password)} disabled={!(this.state.matchpassword === this.state.password && this.state.matchpassword !== '')} />
         {this.props.success && <Redirect to={this.props.route} />}
-      </Aux>
-    );
+      </Aux>;
   }
 }
 
