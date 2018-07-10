@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -53,4 +54,9 @@ class Login extends Component {
 const style = {
   margin: 15,
 };
+
+Login.propTypes = {
+  logInUser: PropTypes.func.isRequired,
+};
+
 export default Login;

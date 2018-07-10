@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 // import Typography from "@material-ui/core/Typography";
-import RaisedButton from "material-ui/RaisedButton";
-import Grid from "@material-ui/core/Grid";
+// import RaisedButton from 'material-ui/RaisedButton';
+import Grid from '@material-ui/core/Grid';
 
-import LoginForm from "./LoginForm";
+import LoginForm from './LoginForm';
 
 const styles = {
   card: {
-    maxWidth: "100%",
+    maxWidth: '100%',
     marginTop: 16,
     marginLeft: 24,
     marginRight: 24,
@@ -28,12 +28,12 @@ const styles = {
     marginBottom: 12,
   },
   actions: {
-    display: "flex",
+    display: 'flex',
   },
   loginButton: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     marginRight: 10,
-    display: "flex",
+    display: 'flex',
   },
 };
 
@@ -49,14 +49,14 @@ class LoginCard extends React.Component {
               {/* <Typography className={classes.title}>
               <h1>Login</h1>
             </Typography> */}
-              <LoginForm />
+              <LoginForm logInUser={this.props.logInUser} />
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
-              <RaisedButton
+              {/* <RaisedButton
                 label="Login"
                 aria-label="Login"
                 className={classes.loginButton}
-              />
+              /> */}
             </CardActions>
           </Card>
         </Grid>
@@ -67,6 +67,7 @@ class LoginCard extends React.Component {
 
 LoginCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  logInUser: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(LoginCard);
