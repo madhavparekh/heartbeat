@@ -18,7 +18,7 @@ module.exports = {
           res.send({
             success: false,
             message: 'Authentication failed. User not found.',
-            reroute: '/login',
+            reroute: '/users/login',
           });
         } else {
           // Check if password matches
@@ -34,13 +34,13 @@ module.exports = {
                 token,
                 message: 'Logged in successfully',
                 name: user.name,
-                reroute: '/upload',
+                reroute: '/users/upload',
               });
             } else {
               res.send({
                 success: false,
                 message: 'Authentication failed. Passwords did not match!',
-                reroute: '/login',
+                reroute: '/users/login',
               });
             }
           });
@@ -60,7 +60,7 @@ module.exports = {
       res.json({
         success: false,
         message: 'Missing Authorizationg token',
-        reroute: '/login',
+        reroute: '/users/login',
       });
     } else {
       const decoded = jwt.verify(req.body.headers.Authorization, config.secret);
@@ -72,7 +72,7 @@ module.exports = {
         res.json({
           success: false,
           message: 'You have been logged out, please log in!',
-          reroute: '/login',
+          reroute: '/users/login',
         });
       } else {
         User.findOne({ email: decoded.data.email })
@@ -81,7 +81,7 @@ module.exports = {
               res.json({
                 success: true,
                 message: `Welcome back ${decoded.data.name}`,
-                reroute: '/upload',
+                reroute: '/users/upload',
               });
             } else {
               res.json({ success: false, message: 'Please log in!', reroute: '/login' });
@@ -90,7 +90,7 @@ module.exports = {
           .catch(err => res.json({
             success: false,
             message: 'Oops, something went wrong, try again!',
-            reroute: '/login',
+            reroute: '/users/login',
           }));
       }
     }
@@ -110,7 +110,7 @@ module.exports = {
           res.json({
             success: false,
             message: 'Could not create new account! Try Again',
-            reroute: '/signin',
+            reroute: '/users/signin',
           });
         } else {
           // Create token if user is created
@@ -122,6 +122,7 @@ module.exports = {
             token,
             message: 'New account created successfully',
             name: newUser.name,
+            reroute: '/users/upload',
           });
         }
       });
