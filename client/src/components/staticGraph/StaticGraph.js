@@ -25,8 +25,6 @@ class StaticGraph extends Component {
 
     }
 
-   
-
     updateD3() {
         const newData = this.props.data.map(d => {
             return {
@@ -52,24 +50,13 @@ class StaticGraph extends Component {
           .attr('fill', 'none')
           .attr('stroke', 'blue')
           .attr("width", width)
-           
-
-        svg.append("path").data([this.area(newData)])    
-          
 
     }
 
 
     render() {
-        return <svg width="90%" height="500px">
-            <g>
-              <Axis scale={this.xScale} x={0} gridLength={550} y={0 + 500 + 0} orientation="bottom" />
-              <Axis scale={this.yScale} x={0} y={0} gridLength={600} orientation="left" />
-              <svg width="90%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
-            </g>
-          </svg>;
-
-
+        return <svg width="90%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
+        
     }
 
 
@@ -77,7 +64,6 @@ class StaticGraph extends Component {
 
 StaticGraph.propTypes = {
   data: PropTypes.array,
-  d3Line: PropTypes.func,
 };
 
 export default StaticGraph

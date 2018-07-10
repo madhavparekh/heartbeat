@@ -80,7 +80,10 @@ class BodyCard extends React.Component {
                   <MapCard />
                 </Grid>
                 <Grid item xs={8} className={styles.viewCard}>
-                  <ViewCard />
+                  <ViewCard
+                    currentFlowDataName={this.props.currentFlowDataName}
+                    updateCurrentFlowDataName={(name) => this.props.updateCurrentFlowDataName(name)}
+                   />
                 </Grid>
                 {/* </Grid> */}
                 {/* <Grid container spacing={8}> */}
@@ -91,6 +94,7 @@ class BodyCard extends React.Component {
                     impairedAggr={this.props.impairedAggr}
                     impaired={this.props.impaired}
                     unImpaired={this.props.unImpaired}
+                    currentFlowDataName={this.props.currentFlowDataName}
                   />
                 </Grid>
               </Grid>
@@ -100,7 +104,7 @@ class BodyCard extends React.Component {
       </div>
     );
   }
-};
+}
 
 BodyCard.propTypes = {
   gaugeId: PropTypes.string.isRequired,
@@ -109,6 +113,8 @@ BodyCard.propTypes = {
   impairedAggr: PropTypes.array,
   impaired: PropTypes.array,
   classes: PropTypes.object.isRequired,
+  currentFlowDataName: PropTypes.string,
+  updateCurrentFlowDataName: PropTypes.func,
 };
 
 export default withStyles(styles)(BodyCard);

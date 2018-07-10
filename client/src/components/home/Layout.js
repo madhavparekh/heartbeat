@@ -15,6 +15,8 @@ const Layout = (props) => (
         impairedAggr={props.impairedAggr}
         impaired={props.impaired}
         unImpaired={props.unImpaired}
+        currentFlowDataName={props.currentFlowDataName}
+        updateCurrentFlowDataName={(name) => props.updateCurrentFlowDataName(name)}
       />
     </div>
   </div>
@@ -27,6 +29,8 @@ Layout.propTypes = {
   unImpaired: PropTypes.array,
   impairedAggr: PropTypes.array,
   impaired: PropTypes.array,
+  currentFlowDataName: PropTypes.string,
+  updateCurrentFlowDataName: PropTypes.func
 };
 
 export default Layout;
