@@ -11,6 +11,7 @@ import FlowData from '../containers/FlowData';
 import SignUp from '../containers/SignUp';
 import Login from '../containers/Login';
 import UpLoad from '../containers/UpLoad';
+import LogOut from '../components/logout/LogOut';
 
 const App = () => (
   <div>
@@ -21,7 +22,8 @@ const App = () => (
         <Route exact path="/flowdata" component={FlowData} />
         <Route exact path="/users/signin" component={SignUp} />
         <Route exact path="/users/login" component={Login} />
-        <Route exact path="/upload" component={UpLoad} />
+        <Route exact path="/users/upload" component={UpLoad} />
+        <Route exact path="/users/logout" component={LogOut} />
       </Switch>
     </MuiThemeProvider>
   </div>
