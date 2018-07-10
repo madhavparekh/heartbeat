@@ -8,7 +8,7 @@ export function signUpUser(name, email, password) {
       localStorage.removeItem('HBT_USER_NAME');
       request
         .post(`${process.env.REACT_APP_NODE_SERVER}/api/users/signin`)
-        .send(name, email, password)
+        .send({ name: name, email: email, password: password })
         .end((err, res) => {
           if (err) throw err;
           if (res.body.success) {
@@ -42,7 +42,7 @@ export function logInUser(email, password) {
       localStorage.removeItem('HBT_USER_NAME');
       request
         .post(`${process.env.REACT_APP_NODE_SERVER}/api/users/login`)
-        .send({ email, password })
+        .send({ email: email, password: password })
         .end((err, res) => {
           if (err) throw err;
           if (res.body.success) {

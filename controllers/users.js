@@ -34,7 +34,7 @@ module.exports = {
                 token,
                 message: 'Logged in successfully',
                 name: user.name,
-                reroute: '/users/upload',
+                reroute: '/',
               });
             } else {
               res.send({
@@ -81,7 +81,7 @@ module.exports = {
               res.json({
                 success: true,
                 message: `Welcome back ${decoded.data.name}`,
-                reroute: '/users/upload',
+                reroute: '/',
               });
             } else {
               res.json({ success: false, message: 'Please log in!', reroute: '/login' });
@@ -122,7 +122,7 @@ module.exports = {
             token,
             message: 'New account created successfully',
             name: newUser.name,
-            reroute: '/users/upload',
+            reroute: '/',
           });
         }
       });

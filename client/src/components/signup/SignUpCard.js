@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 // import Typography from "@material-ui/core/Typography";
-import RaisedButton from "material-ui/RaisedButton";
-import Grid from "@material-ui/core/Grid";
+import RaisedButton from 'material-ui/RaisedButton';
+import Grid from '@material-ui/core/Grid';
 
-import SignUpForm from "./SignUpForm";
+import SignUpForm from './SignUpForm';
 
 const styles = {
   card: {
-    maxWidth: "100%",
+    maxWidth: '100%',
     marginTop: 16,
     marginLeft: 24,
     marginRight: 24,
@@ -28,12 +28,12 @@ const styles = {
     marginBottom: 12,
   },
   actions: {
-    display: "flex",
+    display: 'flex',
   },
   signUpButton: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     marginRight: 10,
-    display: "flex",
+    display: 'flex',
   },
 };
 
@@ -51,13 +51,6 @@ class SignUpCard extends React.Component {
             </Typography> */}
               <SignUpForm />
             </CardContent>
-            <CardActions className={classes.actions} disableActionSpacing>
-              <RaisedButton
-                label="SignUp"
-                aria-label="SignUp"
-                className={classes.signUpButton}
-              />
-            </CardActions>
           </Card>
         </Grid>
       </Grid>
