@@ -26,6 +26,9 @@ class Home extends React.Component {
         impairedAggr={this.props.impairedAggr}
         impaired={this.props.impaired}
         unImpaired={this.props.unImpaired}
+        currentFlowDataName={this.props.currentFlowDataName}
+        updateCurrentFlowDataName={(name) => this.props.updateCurrentFlowDataName(name)}
+
       />
     );
   }
