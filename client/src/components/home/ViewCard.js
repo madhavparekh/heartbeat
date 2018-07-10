@@ -37,7 +37,10 @@ function ViewCard(props) {
           <Typography className={classes.title} color="textSecondary">
             Graph View Options
           </Typography>
-          <ViewBar />
+          <ViewBar
+            currentFlowDataName={props.currentFlowDataName}
+            updateCurrentFlowDataName={(name) => props.updateCurrentFlowDataName(name)}
+           />
         </CardContent>
       </Card>
     </div>
@@ -46,6 +49,8 @@ function ViewCard(props) {
 
 ViewCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  currentFlowDataName: PropTypes.string,
+  updateCurrentFlowDataName: PropTypes.func,
 };
 
 export default withStyles(styles)(ViewCard);

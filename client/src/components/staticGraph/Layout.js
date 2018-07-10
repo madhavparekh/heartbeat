@@ -12,15 +12,14 @@ class Layout extends React.Component {
             plotted: false,
             viewPortData : [],
             count: 700,
-
+            currentFlowDataName: 'impaired'
         }
     }
 
     componentDidUpdate() {
-        if(!this.state.plotted && this.props.data.length > 1){
-
-            this.countdown = setInterval(() => this.calculateViewPortData(), 5)
-            this.setState({ plotted: true })
+        if ((!this.state.plotted && this.props.data.length > 1) || this.props.currentFlowDataName !== this.state.currentFlowDataName) {
+          this.countdown = setInterval(() => this.calculateViewPortData(), 5);
+            this.setState({ plotted: true, currentFlowDataName: this.props.currentFlowDataName});
         }
     }
 
@@ -30,8 +29,8 @@ class Layout extends React.Component {
 
 
 
-    static getDerivedStateFromProps(props,state) {
-        if(!state.plotted){
+    static getDerivedStateFromProps(props, state) {
+        if(!state.plotted && props.data){
             return {
                 viewPortData: props.data.slice(0, 700)
             }
@@ -51,7 +50,10 @@ class Layout extends React.Component {
     }
 
     render() {
-        return <StaticGraph data={this.state.viewPortData} /> 
+    
+        if(!this.props.data || this.props.data.length < 1){
+            return null}
+        return <StaticGraph data={this.state.viewPortData} currentFlowDataName={this.props.currentFlowDataName} />; 
     }
 }
 
@@ -59,6 +61,8 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
     data: PropTypes.array,
+    currentFlowDataName: PropTypes.string,
+
 };
 
 export default Layout

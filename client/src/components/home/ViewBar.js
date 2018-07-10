@@ -35,7 +35,9 @@ class ViewBar extends React.Component {
   }
 
   handleChange(event, value) {
+    const containerValues = ['impaired', 'unImpaired', 'unImpairedAggr']
     this.setState({ value });
+    this.props.updateCurrentFlowDataName(containerValues[value])
   }
 
   render() {
@@ -53,9 +55,9 @@ class ViewBar extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            <Tab label="Flow Comparison" />
-            <Tab label="General Flow" />
-            <Tab label="Dimensionless Hydrograph" />
+            <Tab label="Impaired" />
+            <Tab label="UnImpaired" />
+            <Tab label="UnImpaired Aggregate" />
           </Tabs>
         </AppBar>
         {value === 0 && (
@@ -92,6 +94,8 @@ class ViewBar extends React.Component {
 
 ViewBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  currentFlowDataName: PropTypes.string,
+  updateCurrentFlowDataName: PropTypes.func,
 };
 
 export default withStyles(styles)(ViewBar);

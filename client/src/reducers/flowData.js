@@ -6,7 +6,7 @@ const initialState = {
   unImpaired: [],
   impairedAggr: [],
   unImpairedAggr: [],
-  currentFlowDataName: 'impared',
+  currentFlowDataName: 'impaired',
 };
 
 export default function(state = initialState, action) {
