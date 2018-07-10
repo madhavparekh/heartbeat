@@ -97,7 +97,6 @@ module.exports = {
   },
 
   signin(req, res) {
-    console.log(req.body);
     User.findOne({ email: req.body.email }, (err, user) => {
       // is email address already in use?
       if (user) {
@@ -123,7 +122,7 @@ module.exports = {
             token,
             message: 'New account created successfully',
             name: newUser.name,
-            reroute: '/users/upload',
+            reroute: '/',
           });
         }
       });
