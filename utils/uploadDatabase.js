@@ -80,25 +80,27 @@ const updateLastPulledDate = () => {
   );
 };
 
-exports.uploadUserData = async (email, fileName) => {
+exports.uploadUserData = async (email, dataString) => {
   console.log('uploading user data..');
   try {
     csv(params4USER)
-      .fromStream(request.get(`${__dirname}/../static/csv/${fileName}`))
+      .fromString(dataString)
       .on('data', (res) => {
         const data = JSON.parse(res);
         data.email = email;
         // const objArr = [];
+        // console.log(data);
 
-        db.impairedData
-          .create(data)
+        db.ImpairedData.create(data)
           .then(() => {})
           .catch((err) => {
             if (err) throw err;
           });
       })
       .on('done', (err) => {
-        if (err) throw err;
+        if (err) {
+          throw err;
+        }
       });
   } catch (err) {
     throw err;

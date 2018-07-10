@@ -14,6 +14,11 @@ router.get('/api/impaired/gauge/:gauge_id', (req, res) => {
   impaired.show(req, res);
 });
 
+/* GET api impaired data from email */
+router.get('/api/impaired/gauge/email/:email', (req, res) => {
+  impaired.showEmail(req, res);
+});
+
 /* GET api unimpaired data from gauge_id */
 router.get('/api/unimpaired/gauge/:gauge_id', (req, res) => {
   unImpaired.show(req, res);
