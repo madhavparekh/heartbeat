@@ -123,7 +123,7 @@ require('./config/passport')(passport);
 
 app.use(passport.session());
 
-app.use(fileUpload());
+//  app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
