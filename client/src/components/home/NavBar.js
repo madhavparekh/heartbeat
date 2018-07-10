@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import FlatButton from 'material-ui/FlatButton';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import FlatButton from "material-ui/FlatButton";
+import Avatar from "@material-ui/core/Avatar";
+import HeartBeatLogo from "../../HeartBeatLogo.jpg";
 // logged in imports
 // import MenuItem from "@material-ui/core/MenuItem";
 // import Menu from "@material-ui/core/Menu";
@@ -18,6 +20,12 @@ const styles = {
   flex: {
     flex: 1,
   },
+  row: {
+    display: "flex",
+  },
+  avatar: {
+    marginRight: 8,
+  },
   loginButton: {
     marginLeft: 7,
     marginRight: 6,
@@ -26,7 +34,7 @@ const styles = {
     marginRight: 7,
   },
   appBar: {
-    background: 'linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)',
+    background: "linear-gradient(45deg, #03A9F4 30%, #80DEEA 90%)",
   },
 };
 
@@ -83,15 +91,22 @@ class NavBar extends React.Component {
             />
 
             <Typography
-              variant="title"
+              variant="display1"
               color="inherit"
               className={classes.flex}
             >
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                HeartBeat
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <div className={classes.row}>
+                  <Avatar
+                    alt="HeartBeatLogo"
+                    src="../../HeartBeatLogo.jpg"
+                    className={classes.avatar}
+                  />
+                  <Typography variant="display1">HeartBeat</Typography>
+                </div>
               </Link>
             </Typography>
-            {!localStorage.getItem('HBT_TOKEN') && (
+            {!localStorage.getItem("HBT_TOKEN") && (
               <div>
                 <FlatButton color="inherit" className={classes.signUpButton}>
                   <Typography variant="body2" color="inherit">
@@ -106,11 +121,11 @@ class NavBar extends React.Component {
               </div>
             )}
 
-            {localStorage.getItem('HBT_TOKEN') && (
+            {localStorage.getItem("HBT_TOKEN") && (
               <div>
                 <FlatButton color="inherit" style={{ marginRight: 15 }}>
                   <Typography variant="title" color="inherit">
-                    {`Welcome ${localStorage.getItem('HBT_USER_NAME')}`}
+                    {`Welcome ${localStorage.getItem("HBT_USER_NAME")}`}
                   </Typography>
                 </FlatButton>
                 <FlatButton color="inherit" className={classes.loginButton}>
