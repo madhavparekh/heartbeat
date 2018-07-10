@@ -15,8 +15,6 @@ class StaticGraph extends Component {
         this.area = d3.area();
         this.line = d3.line();
         this.parseTime = d3.timeParse("%Y-%m-%d");
-        
-
     }
 
     componentDidUpdate() {
@@ -26,30 +24,33 @@ class StaticGraph extends Component {
     }
 
     updateD3() {
-        const newData = this.props.data.map(d => {
-            return {
-                date: this.parseTime(d.date),
-                discharge: d.discharge
-            }
-        })
-        const width = 1000
-        const svg = d3.select(this.node).append("path")
+        if(this.props.data.length > 1){
 
-        this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
-
-        this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
-
-        this.area.x(d => this.xScale(this.parseTime(d[0])))
-            .y1(d => this.yScale(d[1]))
-            .y0(this.yScale(0));  
-
-        this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
-
-        svg
-          .attr('d', this.line(newData))
-          .attr('fill', 'none')
-          .attr('stroke', 'blue')
-          .attr("width", width)
+            const newData = this.props.data.map(d => {
+                return {
+                    date: this.parseTime(d.date),
+                    discharge: d.discharge
+                }
+            })
+            const width = 1000
+            const svg = d3.select(this.node).append("path")
+    
+            this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
+    
+            this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
+    
+            this.area.x(d => this.xScale(this.parseTime(d[0])))
+                .y1(d => this.yScale(d[1]))
+                .y0(this.yScale(0));  
+    
+            this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
+    
+            svg
+              .attr('d', this.line(newData))
+              .attr('fill', 'none')
+              .attr('stroke', 'blue')
+              .attr("width", width)
+        }
 
     }
 

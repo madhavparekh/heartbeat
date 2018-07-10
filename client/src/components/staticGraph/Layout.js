@@ -11,14 +11,14 @@ class Layout extends React.Component {
             
             plotted: false,
             viewPortData : [],
-            count: 700,
+            count: 364,
             currentFlowDataName: 'impaired'
         }
     }
 
     componentDidUpdate() {
         if ((!this.state.plotted && this.props.data.length > 1) || this.props.currentFlowDataName !== this.state.currentFlowDataName) {
-          this.countdown = setInterval(() => this.calculateViewPortData(), 5);
+            this.countdown = setInterval(() => this.calculateViewPortData(), 5);
             this.setState({ plotted: true, currentFlowDataName: this.props.currentFlowDataName});
         }
     }
@@ -32,7 +32,7 @@ class Layout extends React.Component {
     static getDerivedStateFromProps(props, state) {
         if(!state.plotted && props.data){
             return {
-                viewPortData: props.data.slice(0, 700)
+                viewPortData: props.data.slice(0, 364)
             }
         }
         return null
@@ -44,6 +44,9 @@ class Layout extends React.Component {
             const currentData = cloneDeep(this.state.viewPortData)
             const newData = currentData.slice(1, currentData.length)
             newData.push(this.props.data[this.state.count])
+            if(this.state.count === this.props.data.length - 1){
+                return null
+            }
             this.setState({viewPortData: newData, count: this.state.count + 1})
         
         }
