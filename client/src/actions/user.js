@@ -54,7 +54,6 @@ export function logInUser(email, password) {
               msg: res.body.message,
               route: res.body.reroute,
             });
-            window.location.href = res.body.reroute;
           } else {
             dispatch({
               success: false,
@@ -85,6 +84,8 @@ export function logOutUser() {
             route: res.body.reroute,
           });
         });
+
+      window.location.href = '/';
     } catch (e) {
       throw e;
     }
