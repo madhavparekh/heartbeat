@@ -98,17 +98,20 @@ class StaticGraph extends Component {
     }
 
     animate(data, xScale, yScale, d3Area, d3Line) {
+        
         if (data.length > 0) {
-            let node = d3.select(this.svg);
+            
+            let svg = d3.select(this.node);
+            console.log(svg);
             let transition = d3.transition()
                 .duration(750)
                 .ease(d3.easeCubicInOut);
 
-            node.select('.chart-area')
+            svg.select('.chart-area')
                 .transition(transition)
                 .attr('d', d3Area(data));
 
-            node.select('.chart-line')
+            svg.select('.chart-line')
                 .transition(transition)
                 .attr('d', d3Line(data))
                 .on('end', () => {
