@@ -11,7 +11,7 @@ class Layout extends React.Component {
             
             plotted: false,
             viewPortData : [],
-            count: 300,
+            count: 700,
 
         }
     }
@@ -33,9 +33,10 @@ class Layout extends React.Component {
     static getDerivedStateFromProps(props,state) {
         if(!state.plotted){
             return {
-                viewPortData: props.data.slice(0, 300)
+                viewPortData: props.data.slice(0, 700)
             }
         }
+        return null
        
     }
 

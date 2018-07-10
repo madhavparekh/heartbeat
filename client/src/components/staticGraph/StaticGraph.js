@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import Axis from "./Axis";
 
 
 class StaticGraph extends Component {
@@ -60,10 +61,13 @@ class StaticGraph extends Component {
 
 
     render() {
-       
-        return (
-                <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />    
-        )
+        return <svg width="90%" height="500px">
+            <g>
+              <Axis scale={this.xScale} x={0} gridLength={550} y={0 + 500 + 0} orientation="bottom" />
+              <Axis scale={this.yScale} x={0} y={0} gridLength={600} orientation="left" />
+              <svg width="90%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
+            </g>
+          </svg>;
 
 
     }
