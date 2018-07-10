@@ -1,13 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-// import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const styles = theme => ({
+import * as userAction from '../../actions/user';
+
+import { withStyles } from '@material-ui/core/styles';
+// import MenuItem from "@material-ui/core/MenuItem";
+import { TextField, FormHelperText, FormControl } from '@material-ui/core';
+
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+const styles = (theme) => ({
   container: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -20,26 +25,22 @@ const styles = theme => ({
 });
 
 class SignUpForm extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       name: "John Doe",
-  //       email: "johnnydoe@email.com",
-  //       password: "password",
-  //     };
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      matchpassword: '',
+    };
+  }
 
-  //   handleChange = name => event => {
-  //     this.setState({
-  //       [name]: event.target.value,
-  //     });
-  //   };
-
-  //   handleChange = email => event => {
-  //     this.setState({
-  //       [email]: event.target.value,
-  //     });
-  //   };
+  handleChange(e) {
+    let field = e.target.name;
+    this.setState({
+      [field]: e.target.value,
+    });
+  }
 
   render() {
     const { classes } = this.props;
@@ -50,27 +51,59 @@ class SignUpForm extends React.Component {
           id="name"
           label="Name"
           className={classes.textField}
+          required
+          name="name"
           //   value={this.state.name}
           //   onChange={this.handleChange("name")}
           margin="normal"
         />
-        <TextField
-          id="email"
-          label="Email"
-          className={classes.textField}
-          //   value={this.state.email}
-          //   onChange={this.handleChange("email")}
-          margin="normal"
-        />
-        <TextField
-          id="password-input"
-          label="Password"
-          className={classes.textField}
-          //   value={this.state.password}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-        />
+        <FormControl>
+          <TextField
+            id="email"
+            label="Email"
+            name="email"
+            required
+            className={classes.textField}
+            //   value={this.state.email}
+            //   onChange={this.handleChange("email")}
+            margin="normal"
+          />
+          {!emailRegex.test(this.state.email) && (
+            <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+              Invalid email
+            </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl>
+          <TextField
+            id="password-input"
+            label="Password"
+            name="password"
+            className={classes.textField}
+            onChange={(e) => this.handleChange(e)}
+            type="password"
+            required
+            autoComplete="current-password"
+            margin="normal"
+          />
+          {this.state.password.length < 8 && (
+            <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+              Must be 8 char or longer
+            </FormHelperText>
+          )}
+        </FormControl>
+        {this.state.password.length >= 8 && (
+          <TextField
+            id="password-input"
+            label="Re Enter Password"
+            name="matchpassword"
+            className={classes.textField}
+            //   value={this.state.password}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+          />
+        )}
       </form>
     );
   }
@@ -79,5 +112,21 @@ class SignUpForm extends React.Component {
 SignUpForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => {
+  return {
+    msg: state.user.msg,
+    route: state.user.route,
+  };
+};
 
-export default withStyles(styles)(SignUpForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUpUser: (name, email, password) =>
+      dispatch(userAction.signUpUser(name, email, password)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(SignUpForm));
