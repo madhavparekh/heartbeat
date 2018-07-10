@@ -47,43 +47,59 @@ const styles = {
   },
 };
 
-const BodyCard = props => {
-  const { classes } = props;
-  return (
-    <div>
-      <Grid item xs={12}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Grid container spacing={8}>
-              <Grid item xs={12} className={classes.descCard}>
-                <DescriptionCard />
-              </Grid>
-              {/* </Grid> */}
+class BodyCard extends React.Component {
 
-              {/* <Grid container spacing={8} xs className={classes.middleCards}> */}
-              <Grid item xs className={classes.mapCard}>
-                <MapCard />
+  constructor(props) {
+    super(props);
+
+    // this.changeGraph = changeGraph();
+  }
+
+  // state = {
+  //   currentGraph: defaultGraph,
+  // }
+
+  changeGraph() {
+
+  }
+
+  render(){
+    return (
+      <div>
+        <Grid item xs={12}>
+          <Card className={styles.card}>
+            <CardContent>
+              <Grid container spacing={8}>
+                <Grid item xs={12} className={styles.descCard}>
+                  <DescriptionCard />
+                </Grid>
+                {/* </Grid> */}
+
+                {/* <Grid container spacing={8} xs className={this.props.middleCards}> */}
+                <Grid item xs className={styles.mapCard}>
+                  <MapCard />
+                </Grid>
+                <Grid item xs={8} className={styles.viewCard}>
+                  <ViewCard />
+                </Grid>
+                {/* </Grid> */}
+                {/* <Grid container spacing={8}> */}
+                <Grid item xs={12} className={styles.graphCard}>
+                  <GraphCard
+                    gaugeId={this.props.gaugeId}
+                    unImpairedAggr={this.props.unImpairedAggr}
+                    impairedAggr={this.props.impairedAggr}
+                    impaired={this.props.impaired}
+                    unImpaired={this.props.unImpaired}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={8} className={classes.viewCard}>
-                <ViewCard />
-              </Grid>
-              {/* </Grid> */}
-              {/* <Grid container spacing={8}> */}
-              <Grid item xs={12} className={classes.graphCard}>
-                <GraphCard
-                  gaugeId={props.gaugeId}
-                  unImpairedAggr={props.unImpairedAggr}
-                  impairedAggr={props.impairedAggr}
-                  impaired={props.impaired}
-                  unImpaired={props.unImpaired}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-    </div>
-  );
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
+    );
+  }
 };
 
 BodyCard.propTypes = {

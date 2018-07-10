@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
     unImpaired: state.flowData.unImpaired,
     impairedAggr: state.flowData.impairedAggr,
     unImpairedAggr: state.flowData.unImpairedAggr,
+    currentFlowDataName: state.flowData.currentFlowDataName,
   };
 };
 
@@ -46,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchUnImpairedData: (gaugeId) => dispatch(flow.fetchUnImpairedData(gaugeId)),
     fetchImpairedAggrData: (gaugeId) => dispatch(flow.fetchImpairedAggrData(gaugeId)),
     fetchUnImpairedAggrData: (gaugeId) => dispatch(flow.fetchUnImpairedAggrData(gaugeId)),
+    updateCurrentFlowDataName: (name) => dispatch(flow.updateCurrentFlowDataName(name)),
   };
 };
 
@@ -54,10 +56,12 @@ Home.propTypes = {
   fetchImpairedData: PropTypes.func.isRequired,
   fetchImpairedAggrData: PropTypes.func.isRequired,
   fetchUnImpairedAggrData: PropTypes.func.isRequired,
+  updateCurrentFlowDataName: PropTypes.func.isRequired,
   unImpairedAggr: PropTypes.array,
   unImpaired: PropTypes.array,
   impairedAggr: PropTypes.array,
   impaired: PropTypes.array,
+  currentFlowDataName: PropTypes.string,
 };
 
 export default connect(
