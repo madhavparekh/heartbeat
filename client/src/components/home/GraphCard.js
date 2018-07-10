@@ -9,7 +9,7 @@ const GraphCard = (props) => {
   return <Card>
       <CardContent>
         <h1>{props.gaugeId}</h1>
-      <Layout data={props.unImpaired} />
+      <Layout data={props.impaired} />
       </CardContent>
     </Card>;};
 

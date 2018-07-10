@@ -30,6 +30,12 @@ const fetchImpairedAggrDataObj = (flow) => {
   };
 };
 
+const updateCurrentFlowDataObj = (name) => {
+  return { type: types.UPDATE_CURRENT_FLOW_DATA,
+    name,
+   };
+}
+
 export function fetchImpairedData(gauge_id) {
   return async (dispatch) => {
     try {
@@ -84,4 +90,19 @@ export function fetchImpairedAggrData(gauge_id) {
       throw e;
     }
   };
+
+  
+}
+
+export function updateCurrentFlowDataName(name) {
+  return (dispatch) => {
+    try {
+     
+      dispatch(updateCurrentFlowDataObj(name));
+    } catch (e) {
+      throw e;
+    }
+  };
+
+
 }
