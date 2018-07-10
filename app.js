@@ -6,7 +6,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose/lib');
 const passport = require('passport');
 const cors = require('cors');
-const fileUpload = require('express-fileupload');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -122,8 +121,6 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use(passport.session());
-
-//  app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);

@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import React from 'react';
+import axios from 'axios';
 import request from 'superagent';
 import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
@@ -35,21 +36,50 @@ class UpLoader extends React.Component {
   }
   onFormSubmit(e) {
     e.preventDefault(); // Stop form submit
+    const file = this.state.file;
     const formData = new FormData();
     formData.append('file', this.state.file);
+
+    // axios
+    //   .post(`${process.env.REACT_APP_NODE_SERVER}/api/users/upload`, formData, {
+    //     headers: {
+    //       Authorization: `jwt ${localStorage.getItem('HBT_TOKEN')}`,
+    //       enctype: 'multipart/form-data',
+    //     },
+    //   })
+    //   .then((res) => {
+    //     if (res.status >= 400) {
+    //       this.setState({
+    //         message: 'You have been logged out! Redirecting to Login page..',
+    //         err: true,
+    //       });
+    //       setTimeout(() => {
+    //         this.setState({ reDirect: !this.state.reDirect });
+    //       }, 1500);
+    //     } else if (res.status < 400) {
+    //       this.setState({
+    //         message: 'File upload complete!!',
+    //         err: false,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => console.log(error));
+
     request
       .post(`${process.env.REACT_APP_NODE_SERVER}/api/users/upload`)
-      .send(formData)
+      .attach('file', this.state.file)
       .set({
         Authorization: `jwt ${localStorage.getItem('HBT_TOKEN')}`,
       })
       .end((err, res) => {
-        if (res.status >= 400) {
+        if (res.status === 401) {
           this.setState({
             message: 'You have been logged out! Redirecting to Login page..',
             err: true,
           });
           setTimeout(() => {
+            localStorage.removeItem('HBT_TOKEN');
+            localStorage.removeItem('HBT_USER_NAME');
             this.setState({ reDirect: !this.state.reDirect });
           }, 1500);
         } else if (res.status < 400) {
@@ -57,11 +87,15 @@ class UpLoader extends React.Component {
             message: 'File upload complete!!',
             err: false,
           });
+        } else {
+          this.setState({
+            message: `Sorry, having issues with our server! Error code ${
+              res.status
+            }. Server message ${res.body}`,
+            err: false,
+          });
         }
       });
-
-    // this.fileUpload(this.state.file).then((response) => {
-    //   console.log(response.data);
   }
   onChange(e) {
     if (e.target.files[0].name.indexOf('.csv') !== -1) {

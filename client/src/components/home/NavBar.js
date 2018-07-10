@@ -87,7 +87,9 @@ class NavBar extends React.Component {
               color="inherit"
               className={classes.flex}
             >
-              HeartBeat
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                HeartBeat
+              </Link>
             </Typography>
             {!localStorage.getItem('HBT_TOKEN') && (
               <div>
