@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FlatButton from "material-ui/FlatButton";
+import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import HeartBeatLogo from "../../HeartBeatLogo.jpg";
 // logged in imports
@@ -108,16 +109,15 @@ class NavBar extends React.Component {
             </Typography>
             {!localStorage.getItem("HBT_TOKEN") && (
               <div>
-                <FlatButton color="inherit" className={classes.signUpButton}>
-                  <Typography variant="body2" color="inherit">
-                    <Link to="/users/signin">Sign Up</Link>
-                  </Typography>
-                </FlatButton>
-                <FlatButton color="inherit" className={classes.loginButton}>
+                <Button href="/users/signin" color="default" variant="contained" className={classes.signUpButton}>SIGN UP
+                </Button>
+                <Button href="/users/login" color="default" variant="contained" className={classes.loginButton}>LOGIN
+                </Button>
+                {/* <FlatButton color="inherit" className={classes.loginButton}>
                   <Typography variant="body2" color="inherit">
                     <Link to="/users/login">Login</Link>
                   </Typography>
-                </FlatButton>
+                </FlatButton> */}
               </div>
             )}
 
