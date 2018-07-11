@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
 
 import Layout from '../staticGraph/Layout';
+import AggrePlot from "../staticGraph/AggrePlot"
 import GaugePicker from '../guage/GaugePicker';
 
 const GraphCard = (props) => {
@@ -13,6 +14,7 @@ const GraphCard = (props) => {
   return (
     <Card>
       <CardContent>
+
         <div
           style={{
             width: '400px',
@@ -28,10 +30,8 @@ const GraphCard = (props) => {
           />
           <h1 style={{ paddingTop: '10px' }}>{props.gaugeId}</h1>
         </div>
-        <Layout
-          data={props[props.currentFlowDataName]}
-          currentFlowDataName={props.currentFlowDataName}
-        />
+
+        {props.currentFlowDataName === 'unImpairedAggr' ? <AggrePlot data={props[props.currentFlowDataName]} /> : <Layout data={props[props.currentFlowDataName]} currentFlowDataName={props.currentFlowDataName} />}
       </CardContent>
     </Card>
   );
@@ -44,6 +44,8 @@ GraphCard.propTypes = {
   impairedAggr: PropTypes.array,
   impaired: PropTypes.array,
   currentFlowDataName: PropTypes.string,
+  fetchFlowData: PropTypes.func,
+  gauges: PropTypes.array
 };
 
 export default GraphCard;

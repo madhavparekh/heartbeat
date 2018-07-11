@@ -1,6 +1,5 @@
 import React from 'react';
 import ProtoTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -63,6 +62,7 @@ class GaugePicker extends React.Component {
 }
 
 GaugePicker.propTypes = {
+  fetchFlowData: ProtoTypes.func,
   gauges: ProtoTypes.array.isRequired,
 };
 
