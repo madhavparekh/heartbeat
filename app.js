@@ -1,3 +1,4 @@
+require('dotenv').config();
 const CronJob = require('cron').CronJob; //eslint-disable-line
 const createError = require('http-errors');
 const express = require('express');
