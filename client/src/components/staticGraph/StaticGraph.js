@@ -39,26 +39,29 @@ class StaticGraph extends Component {
     
             this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
     
-            this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([450, 0]);
+            this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([400, 0]);
     
-            this.area.x(d => this.xScale(this.parseTime(d[0])))
-                .y1(d => this.yScale(d[1]))
-                .y0(this.yScale(0));  
+            this.area
+              .x((d) => this.xScale(this.parseTime(d[0])))
+              .y1((d) => this.yScale(d[1]))
+              .y0( (d) => this.yScale(d.discharge));  
     
             this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
     
             svg
               .attr('d', this.line(newData))
               .attr('fill', 'none')
-              .attr('stroke', 'blue')
+              .attr('stroke', '#42a5f5')
+              .attr('stroke-width', '10')
               .attr("width", width)
+           
         }
 
     }
 
 
     render() {
-        return <svg width="90%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
+        return <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
         
     }
 
