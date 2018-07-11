@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 // import MenuItem from "@material-ui/core/MenuItem";
-import TextField from '@material-ui/core/TextField';
+import { TextField, FormHelperText, FormControl } from '@material-ui/core';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import * as userAction from '../../actions/user';
@@ -52,26 +52,35 @@ class LoginForm extends React.Component {
     return (
       <div>
         <form className={classes.container}>
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
-            className={classes.textField}
-            placeholder="john@doe.com"
-            onChange={(e) => this.handleChange(e)}
-            margin="normal"
-          />
-          <TextField
-            id="password-input"
-            name="password"
-            label="Password"
-            className={classes.textField}
-            placeholder="12345678"
-            onChange={(e) => this.handleChange(e)}
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-          />
+          <FormControl>
+            <TextField
+              id="email"
+              name="email"
+              label="Email"
+              className={classes.textField}
+              placeholder="john@doe.com"
+              onChange={(e) => this.handleChange(e)}
+              margin="normal"
+            />
+          </FormControl>
+          <FormControl>
+            <TextField
+              id="password-input"
+              name="password"
+              label="Password"
+              className={classes.textField}
+              placeholder="12345678"
+              onChange={(e) => this.handleChange(e)}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+            />
+            {this.props.msg && (
+              <FormHelperText style={{ color: 'red' }}>
+                Invalid email and/or password
+              </FormHelperText>
+            )}
+          </FormControl>
         </form>
         <RaisedButton
           label="Login"
@@ -81,7 +90,8 @@ class LoginForm extends React.Component {
             this.props.logInUser(this.state.email, this.state.password)
           }
         />
-        {this.props.success && <Redirect to={'/'} />}
+
+        {this.props.success && <Redirect to={this.props.route} />}
       </div>
     );
   }
@@ -90,6 +100,8 @@ class LoginForm extends React.Component {
 LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
   logInUser: PropTypes.func.isRequired,
+  success: PropTypes.bool.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
