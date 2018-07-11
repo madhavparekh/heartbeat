@@ -20,6 +20,7 @@ const styles = {
   },
   flex: {
     flex: 1,
+    marginLeft: -45,
   },
   row: {
     display: "flex",
@@ -81,24 +82,48 @@ class NavBar extends React.Component {
     // const { anchorEl } = this.state;
     // const open = Boolean(anchorEl);
 
-    return <div className={classes.root}>
+    return (
+      <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar color="inherit">
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" />
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            />
 
-            <Typography variant="display1" color="inherit" className={classes.flex}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
+            <Typography
+              variant="display1"
+              color="inherit"
+              className={classes.flex}
+            >
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <div className={classes.row}>
-                  <Avatar alt="HeartBeatLogo" src="../../HeartBeatLogo.jpg" className={classes.avatar} />
+                  <Avatar
+                    alt="HeartBeatLogo"
+                    src="../../HeartBeatLogo.jpg"
+                    className={classes.avatar}
+                  />
                   <Typography variant="display1">HeartBeat</Typography>
                 </div>
               </Link>
             </Typography>
-            {!localStorage.getItem('HBT_TOKEN') && <div>
-                <Button href="/users/signin" color="default" variant="contained" className={classes.signUpButton}>
+            {!localStorage.getItem("HBT_TOKEN") && (
+              <div>
+                <Button
+                  href="/users/signin"
+                  color="default"
+                  variant="contained"
+                  className={classes.signUpButton}
+                >
                   SIGN UP
                 </Button>
-                <Button href="/users/login" color="default" variant="contained" className={classes.loginButton}>
+                <Button
+                  href="/users/login"
+                  color="default"
+                  variant="contained"
+                  className={classes.loginButton}
+                >
                   LOGIN
                 </Button>
                 {/* <FlatButton color="inherit" className={classes.loginButton}>
@@ -106,23 +131,36 @@ class NavBar extends React.Component {
                     <Link to="/users/login">Login</Link>
                   </Typography>
                 </FlatButton> */}
-              </div>}
+              </div>
+            )}
 
-            {localStorage.getItem('HBT_TOKEN') && <div>
+            {localStorage.getItem("HBT_TOKEN") && (
+              <div>
                 <FlatButton color="inherit" style={{ marginRight: 15 }}>
                   <Typography variant="title" color="inherit">
-                    {`Welcome ${localStorage.getItem('HBT_USER_NAME')}`}
+                    {`Welcome ${localStorage.getItem("HBT_USER_NAME")}`}
                   </Typography>
                 </FlatButton>
 
-                <Button href="/users/upload" color="default" variant="contained" className={classes.loginButton}>
+                <Button
+                  href="/users/upload"
+                  color="default"
+                  variant="contained"
+                  className={classes.loginButton}
+                >
                   Upload CSV file
                 </Button>
 
-            <Button href="/users/logout" color="default" variant="contained" className={classes.loginButton}>
-              LOGOUT
+                <Button
+                  href="/users/logout"
+                  color="default"
+                  variant="contained"
+                  className={classes.loginButton}
+                >
+                  LOGOUT
                 </Button>
-              </div>}
+              </div>
+            )}
 
             {/* Buttons that will show up when logged in below */}
 
@@ -147,7 +185,8 @@ class NavBar extends React.Component {
             </div> */}
           </Toolbar>
         </AppBar>
-      </div>;
+      </div>
+    );
   }
 }
 

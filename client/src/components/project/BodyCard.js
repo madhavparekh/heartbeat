@@ -11,13 +11,30 @@ import ResearchCard from "./ResearchCard";
 import TechCard from "./TechCard";
 
 const styles = {
-  card: {
-    minWidth: 275,
+  descCard: {
+    marginLeft: 5,
+    marginRight: 5,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+  middleCards: {
+    // padding: 2,
+    marginTop: 5,
+    marginLeft: 2,
+    marginRight: 5,
+    marginBottom: 5,
+  },
+  mapCard: {
+    marginLeft: 5,
+    // marginRight: 4,
+  },
+  viewCard: {
+    // padding: 2,
+    // marginLeft: 4,
+    marginRight: 5,
+    // marginLeft: "auto",
+  },
+  graphCard: {
+    marginLeft: 5,
+    marginRight: 5,
   },
   title: {
     marginBottom: 16,
@@ -28,40 +45,37 @@ const styles = {
   },
 };
 
-function BodyCard(props) {
-  const { classes } = props;
+class BodyCard extends React.Component {
+  render() {
+    return (
+      <div>
+        <Grid item xs={12}>
+          <Card className={styles.card}>
+            <CardContent>
+              <Grid container spacing={8}>
+                <Grid item xs={12} className={styles.descCards}>
+                  <DescriptionCard />
+                </Grid>
 
-  return (
-    <div>
-      <Grid item xs={12}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Grid container>
-              <Grid item xs={12} className={classes.allCards}>
-                <DescriptionCard />
+                <Grid item xs={6} className={styles.mapCard}>
+                  {/* import Research Team */}
+                  <ResearchCard />
+                </Grid>
+                <Grid item xs={6} className={styles.viewCard}>
+                  {/* import Technology Team */}
+                  <TechCard />
+                </Grid>
               </Grid>
-            </Grid>
-
-            <Grid container>
-              <Grid item xs={6} className={classes.allCards}>
-                {/* import Research Team */}
-                <ResearchCard />
-              </Grid>
-              <Grid item xs={6} className={classes.allCards}>
-                {/* import Technology Team */}
-                <TechCard />
-              </Grid>
-            </Grid>
-            <Grid item xs={12} />
-          </CardContent>
-        </Card>
-      </Grid>
-    </div>
-  );
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
+    );
+  }
 }
 
 BodyCard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  styles: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(BodyCard);
