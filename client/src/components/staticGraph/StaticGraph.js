@@ -46,13 +46,16 @@ class StaticGraph extends Component {
               .y1((d) => this.yScale(d[1]))
               .y0( (d) => this.yScale(d.discharge));  
     
-            this.line.x((d) => this.xScale(d.date)).y((d) => this.yScale(d.discharge));
+            this.line
+              .x((d) => this.xScale(d.date))
+              .y((d) => this.yScale(d.discharge))
+                .curve(d3.curveCardinal);
     
             svg
               .attr('d', this.line(newData))
               .attr('fill', 'none')
               .attr('stroke', '#42a5f5')
-              .attr('stroke-width', '10')
+              .attr('stroke-width', '5')
               .attr("width", width)
            
         }
