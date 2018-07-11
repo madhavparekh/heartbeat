@@ -11,30 +11,20 @@ const GraphCard = (props) => {
   if (!props[props.currentFlowDataName]) {
     return null;
   }
-  return (
-    <Card>
+  return <Card>
       <CardContent>
-
-        <div
-          style={{
-            width: '400px',
-            display: 'flex',
-            justifyContent: 'space-around',
-          }}
-        >
-          <GaugePicker
-            gauges={props.gauges}
-            fetchFlowData={(gaugeId) => {
+        <div style={{ width: '400px', display: 'flex', justifyContent: 'space-around' }}>
+          <GaugePicker gauges={props.gauges} fetchFlowData={(gaugeId) => {
               props.fetchFlowData(gaugeId);
-            }}
-          />
-          <h1 style={{ paddingTop: '10px' }}>{props.gaugeId}</h1>
+            }} />
+          <h1 style={{ paddingTop: '10px' }}>
+            {props.gaugeId}{' '}
+          </h1>
         </div>
 
         {props.currentFlowDataName === 'unImpairedAggr' ? <AggrePlot data={props[props.currentFlowDataName]} /> : <Layout data={props[props.currentFlowDataName]} currentFlowDataName={props.currentFlowDataName} />}
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
 
 GraphCard.propTypes = {
