@@ -42,9 +42,12 @@ class StaticGraph extends Component {
 
             newData = newData.slice(0, newData.length - 2)
             const width = 1000
+            const margin = { top: 20, right: 20, bottom: 30, left: 50 }
             
             const svg = d3.select(this.node).append("path")
             const svg2 = d3.select(this.node).append("path")
+            const axisWarp = d3.select(this.node).append("g").attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")")
     
             this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
     
@@ -75,6 +78,11 @@ class StaticGraph extends Component {
                 .attr('stroke', 'red')
                 .attr('stroke-width', '5')
                 .attr("width", width)
+
+            axisWarp.attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")")
+
+            axisWarp.call(d3.axisLeft(this.yScale));                                
         }
 
     }
