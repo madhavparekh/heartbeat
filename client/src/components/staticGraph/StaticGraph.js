@@ -41,10 +41,16 @@ class StaticGraph extends Component {
             const width = 1000
 
             const svg = d3.select(this.node).append("path")
+
             const axisWarp = d3
               .select(this.node)
               .append('g')
               .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+            const axisWarpX = d3
+              .select(this.node)
+              .append('g')
+              .attr('transform', 'translate(0,' + height + ')');  
     
             this.xScale.domain(d3.extent(newData, d => d.date)).range([20, width]);
     
@@ -67,8 +73,11 @@ class StaticGraph extends Component {
               .attr('stroke-width', '5')
               .attr("width", width)
             
-            axisWarp.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-            axisWarp.attr("transform", "translate(0," + height + ")").call(d3.axisBottom(this.xScale));    
+            axisWarpX.call(d3.axisBottom(this.xScale)).selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)");;    
             axisWarp.call(d3.axisLeft(this.yScale));   
         }
 
