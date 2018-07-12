@@ -28,22 +28,21 @@ const styles = {
 
 function ViewCard(props) {
   const { classes } = props;
-  //   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary">
-            Graph View Options
-          </Typography>
-          <ViewBar
-            currentFlowDataName={props.currentFlowDataName}
-            updateCurrentFlowDataName={(name) => props.updateCurrentFlowDataName(name)}
-           />
-        </CardContent>
-      </Card>
-    </div>
+    <Card style={{ marginTop: "20px", height: "400px" }}>
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary">
+          Graph View Options
+        </Typography>
+        <ViewBar
+          currentFlowDataName={props.currentFlowDataName}
+          updateCurrentFlowDataName={name =>
+            props.updateCurrentFlowDataName(name)
+          }
+        />
+      </CardContent>
+    </Card>
   );
 }
 

@@ -1,20 +1,22 @@
 /* eslint-disable import/no-named-as-default */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'; //eslint-disable-line
+import React from "react";
+import PropTypes from "prop-types";
+import { Switch, Route } from "react-router-dom";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"; //eslint-disable-line
 
 // import Theme from "../styles/Theme";
-import Home from '../containers/Home';
-import Project from '../containers/Project';
-import FlowData from '../containers/FlowData';
-import SignUp from '../containers/SignUp';
-import Login from '../containers/Login';
-import UpLoad from '../containers/UpLoad';
-import LogOut from '../components/logout/LogOut';
+import Home from "../containers/Home";
+import Project from "../containers/Project";
+import FlowData from "../containers/FlowData";
+import SignUp from "../containers/SignUp";
+import Login from "../containers/Login";
+import UpLoad from "../containers/UpLoad";
+import LogOut from "../components/logout/LogOut";
+import NavBar from "../components/navbar/NavBar";
 
 const App = () => (
   <div>
+    <NavBar />
     <MuiThemeProvider>
       <Switch>
         <Route exact path="/" component={Home} />
