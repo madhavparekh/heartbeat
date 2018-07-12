@@ -57,7 +57,7 @@ class ViewBar extends React.Component {
           >
             <Tab label="Impaired" />
             <Tab label="UnImpaired" />
-            <Tab label="UnImpaired Aggregate" />
+            <Tab label="Dimensionless Hydrograph" />
           </Tabs>
         </AppBar>
         {value === 0 && (
