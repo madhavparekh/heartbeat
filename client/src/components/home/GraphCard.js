@@ -41,7 +41,10 @@ const GraphCard = props => {
         </div>
 
         {props.currentFlowDataName === "unImpairedAggr" ? (
-          <AggrePlot data={props[props.currentFlowDataName]} />
+          <AggrePlot
+            impairedData={props.impairedAggr}
+            unImpairedData={props.unImpairedAggr}
+          />
         ) : (
           <Layout
             data={props[props.currentFlowDataName]}
