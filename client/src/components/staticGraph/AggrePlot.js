@@ -42,9 +42,10 @@ class AggrePlot extends Component {
             impairedData = impairedData.slice(0, impairedData.length - 2)
             unImpairedData = unImpairedData.slice(0, unImpairedData.length - 2)
 
-            const margin = { top: 20, right: 20, bottom: 75, left: 20 };
+            const margin = { top: 20, right: 20, bottom: 20, left: 20 };
             const height = 650 - margin.top - margin.bottom;
-            const width = 1000
+            const xAxisHeight = 625
+            const width = 1500
             const svg = d3.select(this.node).append("path")
             const svg2 = d3.select(this.node).append("path")
 
@@ -57,11 +58,11 @@ class AggrePlot extends Component {
                 .select(this.node)
                 .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-                .attr('transform', 'translate(0,' + height + ')')   
+                .attr('transform', 'translate(20,' + xAxisHeight + ')')   
 
             this.xScale.domain(d3.extent(unImpairedData, d => d.date)).range([0, width]);
 
-            this.yScale.domain(d3.extent(unImpairedData, (d) => d.discharge)).range([height - 20, 0]);
+            this.yScale.domain(d3.extent(unImpairedData, (d) => d.discharge)).range([height, 0]);
 
             this.area.x(d => this.xScale(this.parseTime(d[0])))
                 .y1(d => this.yScale(d[1]))
@@ -99,7 +100,7 @@ class AggrePlot extends Component {
                 <Typography align="center" variant="display1" gutterBottom>
                     Dimensionless Hydrograph
                 </Typography>
-           <svg width="100%" height="600px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
+           <svg width="100%" height="675px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
            </div>
         )     
     }
