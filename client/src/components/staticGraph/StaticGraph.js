@@ -10,7 +10,7 @@ class StaticGraph extends Component {
     constructor(props) {
         super(props);
         
-        this.xScale = d3.scaleLinear();
+        this.xScale = d3.scaleTime();
         this.yScale = d3.scaleLinear();
         this.area = d3.area();
         this.line = d3.line();
@@ -19,6 +19,7 @@ class StaticGraph extends Component {
 
     componentDidUpdate() {
         d3.select(this.node).selectAll('path').remove()
+        d3.select(this.node).selectAll('g').remove()
         this.updateD3()
 
     }
@@ -34,12 +35,26 @@ class StaticGraph extends Component {
             })
             
             newData = newData.slice(0, newData.length - 2)
+
+            const margin = { top: 20, right: 20, bottom: 75, left: 20 };
+            const height = 650 - margin.top - margin.bottom;
             const width = 1000
+
             const svg = d3.select(this.node).append("path")
+
+            const axisWarp = d3
+              .select(this.node)
+              .append('g')
+              .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+            const axisWarpX = d3
+              .select(this.node)
+              .append('g')
+              .attr('transform', 'translate(0,' + height + ')');  
     
-            this.xScale.domain(d3.extent(newData, d => d.date)).range([100, width]);
+            this.xScale.domain(d3.extent(newData, d => d.date)).range([20, width]);
     
-            this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([400, 0]);
+            this.yScale.domain(d3.extent(newData, (d) => d.discharge)).range([height - 20, 20]);
     
             this.area
               .x((d) => this.xScale(this.parseTime(d[0])))
@@ -57,14 +72,20 @@ class StaticGraph extends Component {
               .attr('stroke', '#42a5f5')
               .attr('stroke-width', '5')
               .attr("width", width)
-           
+            
+            axisWarpX.call(d3.axisBottom(this.xScale)).selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)");;    
+            axisWarp.call(d3.axisLeft(this.yScale));   
         }
 
     }
 
 
     render() {
-        return <svg width="100%" height="500px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
+        return <svg width="100%" height="600px" preserveAspectRatio="none" ref={(node) => (this.node = node)} />
         
     }
 
