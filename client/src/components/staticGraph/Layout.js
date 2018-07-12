@@ -11,15 +11,19 @@ class Layout extends React.Component {
             
             plotted: false,
             viewPortData : [],
-            count: 364,
-            currentFlowDataName: 'impaired'
+            compareViewPortData: [],
+            count: 200,
+            currentFlowDataName: 'impaired',
+            compareFlowDataName: 'unImpaired'
         }
     }
 
     componentDidUpdate() {
         if ((!this.state.plotted && this.props.data.length > 1) || this.props.currentFlowDataName !== this.state.currentFlowDataName) {
-            this.countdown = setInterval(() => this.calculateViewPortData(), 5);
+            
+            this.countdown = setInterval(() => this.calculateViewPortData(), 10);
             this.setState({ plotted: true, currentFlowDataName: this.props.currentFlowDataName});
+
         }
     }
 
@@ -29,10 +33,11 @@ class Layout extends React.Component {
 
 
 
-    static getDerivedStateFromProps(props, state) {
-        if(!state.plotted && props.data){
+    static getDerivedStateFromProps(props,state) {
+        if(props.compareData.length > 1 && props.data.length > 1 && state.count === 200){
             return {
-                viewPortData: props.data.slice(0, 364)
+                viewPortData: props.data.slice(0, 200),
+                compareViewPortData: props.compareData.slice(0,200)
             }
         }
         return null
@@ -40,10 +45,20 @@ class Layout extends React.Component {
     }
 
     calculateViewPortData() {
-        if(this.state.viewPortData.length > 1){
+        if(this.state.viewPortData.length > 1 && this.state.count < 202){
+            //current selection data
             const currentData = cloneDeep(this.state.viewPortData)
             const newData = currentData.slice(1, currentData.length)
             newData.push(this.props.data[this.state.count])
+
+            console.log(newData)
+            //compare selection data
+            
+            const currentCompareData = cloneDeep(this.state.compareViewPortData);
+            const newCompareData = currentCompareData.slice(1, currentCompareData.length);
+            newCompareData.push(this.props.compareData[this.state.count]);
+
+
             if(this.state.count === this.props.data.length - 1){
                 return null
             }
@@ -53,19 +68,20 @@ class Layout extends React.Component {
     }
 
     render() {
-    
         if(!this.props.data || this.props.data.length < 1){
             return null}
-        return <StaticGraph data={this.state.viewPortData} currentFlowDataName={this.props.currentFlowDataName} />; 
+        return <StaticGraph data={this.state.viewPortData} compareData={this.state.compareViewPortData} compareFlowDataName={this.props.compareFlowDataName} currentFlowDataName={this.props.currentFlowDataName} />; 
     }
 }
 
 
 
 Layout.propTypes = {
-    data: PropTypes.array,
-    currentFlowDataName: PropTypes.string,
-
+  data: PropTypes.array,
+  compareData: PropTypes.array,
+  compareViewPortData: PropTypes.array,
+  currentFlowDataName: PropTypes.string,
+  compareFlowDataName: PropTypes.string,
 };
 
 export default Layout

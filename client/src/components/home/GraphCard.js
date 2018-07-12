@@ -21,8 +21,8 @@ const GraphCard = (props) => {
             {props.gaugeId}{' '}
           </h1>
         </div>
-
-        {props.currentFlowDataName === 'unImpairedAggr' ? <AggrePlot data={props[props.currentFlowDataName]} /> : <Layout data={props[props.currentFlowDataName]} currentFlowDataName={props.currentFlowDataName} />}
+            
+      {props.currentFlowDataName === 'unImpairedAggr' ? <AggrePlot data={props[props.currentFlowDataName]} /> : <Layout data={props[props.currentFlowDataName]} compareData={props.unImpaired} currentFlowDataName={props.currentFlowDataName} compareDataName={'unImpared'} />}
       </CardContent>
     </Card>;
 };
