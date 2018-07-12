@@ -34,13 +34,22 @@ class StaticGraph extends Component {
         };
       });
 
-      newData = newData.slice(0, newData.length - 2);
+      let newCompareData = this.props.compareData.map(d => {
+        return {
+          date: this.parseTime(d.date),
+          discharge: d.discharge,
+        };
+      });
 
-      const margin = { top: 20, right: 20, bottom: 75, left: 20 };
+      newData = newData.slice(0, newData.length - 2);
+      newCompareData = newCompareData.slice(0, newCompareData.length - 2);
+
+      const margin = { top: 20, right: 20, bottom: 30, left: 50 };
       const height = 650 - margin.top - margin.bottom;
       const width = 1000;
 
       const svg = d3.select(this.node).append("path");
+      const svg2 = d3.select(this.node).append("path");
 
       const axisWarp = d3
         .select(this.node)
@@ -52,26 +61,33 @@ class StaticGraph extends Component {
         .append("g")
         .attr("transform", "translate(0," + height + ")");
 
-      this.xScale.domain(d3.extent(newData, d => d.date)).range([20, width]);
+      this.xScale
+        .domain(d3.extent(newCompareData, d => d.date))
+        .range([20, width]);
 
       this.yScale
-        .domain(d3.extent(newData, d => d.discharge))
+        .domain(d3.extent(newCompareData, d => d.discharge))
         .range([height - 20, 20]);
 
       this.area
-        .x(d => this.xScale(this.parseTime(d[0])))
-        .y1(d => this.yScale(d[1]))
+        .x(d => this.xScale(this.parseTime(d.date)))
+        .y1(d => this.yScale(d.discharge))
         .y0(d => this.yScale(d.discharge));
 
-      this.line
-        .x(d => this.xScale(d.date))
-        .y(d => this.yScale(d.discharge))
-        .curve(d3.curveCardinal);
+      this.line.x(d => this.xScale(d.date)).y(d => this.yScale(d.discharge));
+      //   .curve((d3.curveCatmullRom.alpha(0.75)))
 
       svg
         .attr("d", this.line(newData))
         .attr("fill", "none")
         .attr("stroke", "#42a5f5")
+        .attr("stroke-width", "5")
+        .attr("width", width);
+
+      svg2
+        .attr("d", this.line(newCompareData))
+        .attr("fill", "none")
+        .attr("stroke", "red")
         .attr("stroke-width", "5")
         .attr("width", width);
 
@@ -82,7 +98,10 @@ class StaticGraph extends Component {
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
         .attr("transform", "rotate(-65)");
-      axisWarp.call(d3.axisLeft(this.yScale));
+
+      axisWarp
+        .call(d3.axisLeft(this.yScale))
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     }
   }
 
