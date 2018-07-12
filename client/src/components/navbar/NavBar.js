@@ -66,22 +66,24 @@ class NavBar extends React.Component {
             </Typography>
             {!localStorage.getItem("HBT_TOKEN") && (
               <div>
-                <Button
-                  href="/users/signin"
-                  color="default"
-                  variant="contained"
-                  className={classes.signUpButton}
-                >
-                  SIGN UP
-                </Button>
-                <Button
-                  href="/users/login"
-                  color="default"
-                  variant="contained"
-                  className={classes.loginButton}
-                >
-                  LOGIN
-                </Button>
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    className={classes.signUpButton}
+                  >
+                    SIGN UP
+                  </Button>
+                </Link>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    className={classes.loginButton}
+                  >
+                    LOGIN
+                  </Button>
+                </Link>
               </div>
             )}
 
@@ -93,23 +95,25 @@ class NavBar extends React.Component {
                   </Typography>
                 </FlatButton>
 
-                <Button
-                  href="/users/upload"
-                  color="default"
-                  variant="contained"
-                  className={classes.loginButton}
-                >
-                  Upload CSV file
-                </Button>
+                <Link to="/upload" style={{ textDecoration: "none" }}>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    className={classes.loginButton}
+                  >
+                    Upload CSV file
+                  </Button>
+                </Link>
 
-                <Button
-                  href="/users/logout"
-                  color="default"
-                  variant="contained"
-                  className={classes.loginButton}
-                >
-                  LOGOUT
-                </Button>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button
+                    color="default"
+                    variant="contained"
+                    className={classes.loginButton}
+                  >
+                    LOGOUT
+                  </Button>
+                </Link>
               </div>
             )}
           </Toolbar>

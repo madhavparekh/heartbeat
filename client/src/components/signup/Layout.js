@@ -6,10 +6,6 @@ import SignUpCard from "./SignUpCard";
 
 export default class Layout extends React.Component {
   render() {
-    return (
-      <div>
-        <SignUpCard />
-      </div>
-    );
+    return <SignUpCard />;
   }
 }

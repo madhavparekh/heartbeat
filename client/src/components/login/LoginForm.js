@@ -9,10 +9,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import * as userAction from "../../actions/user";
 
 const styles = theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -43,25 +39,23 @@ class LoginForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div>
-        <form className={classes.container}>
-          <FormControl>
+      <div style={{ margin: "0px 10px 10px 10px" }}>
+        <form>
+          <FormControl style={{ width: "400px" }}>
             <TextField
               id="email"
               name="email"
+              fullWidth={true}
               label="Email"
-              className={classes.textField}
               placeholder="john@doe.com"
               onChange={e => this.handleChange(e)}
               margin="normal"
             />
-          </FormControl>
-          <FormControl>
             <TextField
               id="password-input"
               name="password"
               label="Password"
-              className={classes.textField}
+              fullWidth={true}
               placeholder="12345678"
               onChange={e => this.handleChange(e)}
               type="password"
@@ -76,6 +70,7 @@ class LoginForm extends React.Component {
           </FormControl>
         </form>
         <RaisedButton
+          style={{ marginTop: "20px", marginBottom: "20px" }}
           label="Login"
           aria-label="Login"
           className={classes.loginButton}

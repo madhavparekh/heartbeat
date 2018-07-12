@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 
-import GraphCard from "./GraphCard";
+// import GraphCard from "./GraphCard";
 import ViewCard from "./ViewCard";
 import DescriptionCard from "./DescriptionCard";
-import BaseMap from "../map/BaseMap";
+import Map from "../../containers/Map";
 
 const Layout = props => (
   <Card className={styles.card}>
     <DescriptionCard />
 
     <div style={{ display: "flex" }}>
-      <BaseMap />
+      <Map />
       <ViewCard
         currentFlowDataName={props.currentFlowDataName}
         updateCurrentFlowDataName={name =>
@@ -21,7 +21,7 @@ const Layout = props => (
       />
     </div>
 
-    <GraphCard
+    {/* <GraphCard
       fetchFlowData={gaugeId => {
         props.fetchFlowData(gaugeId);
       }}
@@ -32,7 +32,7 @@ const Layout = props => (
       impaired={props.impaired}
       unImpaired={props.unImpaired}
       currentFlowDataName={props.currentFlowDataName}
-    />
+    /> */}
   </Card>
 );
 

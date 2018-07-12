@@ -1,25 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-import * as userAction from '../../actions/user';
+import * as userAction from "../../actions/user";
 
-import { withStyles } from '@material-ui/core/styles';
-// import MenuItem from "@material-ui/core/MenuItem";
-import { TextField, FormHelperText, FormControl } from '@material-ui/core';
-import RaisedButton from 'material-ui/RaisedButton';
-import Aux from '../../hoc/Auxilary';
+import { withStyles } from "@material-ui/core/styles";
+import { TextField, FormHelperText, FormControl } from "@material-ui/core";
+import RaisedButton from "material-ui/RaisedButton";
+import Aux from "../../hoc/Auxilary";
 
 export function validateEmail(email) {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email);
 }
 
-const styles = (theme) => ({
+const styles = theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -35,10 +34,10 @@ class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: '',
-      matchpassword: '',
+      name: "",
+      email: "",
+      password: "",
+      matchpassword: "",
     };
   }
 
@@ -61,7 +60,7 @@ class SignUpForm extends React.Component {
             className={classes.textField}
             required
             name="name"
-            onChange={(e) => {
+            onChange={e => {
               this.handleChange(e);
             }}
             margin="normal"
@@ -73,13 +72,13 @@ class SignUpForm extends React.Component {
               name="email"
               required
               className={classes.textField} //   value={this.state.email}
-              onChange={(e) => {
+              onChange={e => {
                 this.handleChange(e);
               }}
               margin="normal"
             />
             {!validateEmail(this.state.email) && (
-              <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+              <FormHelperText style={{ color: "red", marginLeft: 8 }}>
                 Invalid email
               </FormHelperText>
             )}
@@ -90,14 +89,14 @@ class SignUpForm extends React.Component {
               label="Password"
               name="password"
               className={classes.textField}
-              onChange={(e) => this.handleChange(e)}
+              onChange={e => this.handleChange(e)}
               type="password"
               required
               autoComplete="current-password"
               margin="normal"
             />
             {this.state.password.length < 8 && (
-              <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+              <FormHelperText style={{ color: "red", marginLeft: 8 }}>
                 Must be 8 char or longer
               </FormHelperText>
             )}
@@ -109,7 +108,7 @@ class SignUpForm extends React.Component {
                 label="Re Enter Password"
                 name="matchpassword"
                 className={classes.textField}
-                onChange={(e) => this.handleChange(e)}
+                onChange={e => this.handleChange(e)}
                 type="password"
                 autoComplete="current-password"
                 margin="normal"
@@ -117,13 +116,14 @@ class SignUpForm extends React.Component {
             )}
             {this.state.password.length >= 8 &&
               this.state.password !== this.state.matchpassword && (
-                <FormHelperText style={{ color: 'red', marginLeft: 8 }}>
+                <FormHelperText style={{ color: "red", marginLeft: 8 }}>
                   {`Re-entered password doesn't match`}
                 </FormHelperText>
               )}
           </FormControl>
         </form>
         <RaisedButton
+          style={{ marginBottom: "20px" }}
           label="SignUp"
           aria-label="SignUp"
           className={classes.signUpButton}
@@ -137,7 +137,7 @@ class SignUpForm extends React.Component {
           disabled={
             !(
               this.state.matchpassword === this.state.password &&
-              this.state.matchpassword !== ''
+              this.state.matchpassword !== ""
             )
           }
         />
@@ -153,7 +153,7 @@ SignUpForm.propTypes = {
   success: PropTypes.bool.isRequired,
   route: PropTypes.string.isRequired,
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     msg: state.user.msg,
     route: state.user.route,
@@ -161,7 +161,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     signUpUser: (name, email, password) =>
       dispatch(userAction.signUpUser(name, email, password)),
