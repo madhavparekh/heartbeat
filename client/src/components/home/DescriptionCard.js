@@ -8,6 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import RaisedButton from "material-ui/RaisedButton";
+import Link from "react-router-dom";
 
 const styles = () => ({
   card: {
@@ -69,11 +70,13 @@ class DescriptionCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <RaisedButton
-            label="Project Details"
-            aria-label="Project Details"
-            className={classes.projButton}
-          />
+          <Link to="/project">
+            <RaisedButton
+              label="Project Details"
+              aria-label="Project Details"
+              className={classes.projButton}
+            />
+          </Link>
         </CardActions>
       </Card>
     );
