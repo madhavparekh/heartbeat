@@ -3,8 +3,8 @@ exports.rioGrandeGauges = [
     agency: 'USGS',
     gauge_id: '08251500',
     description: 'RIO GRANDE NEAR LOBATOS, CO',
-    latitude: "37°04'43 N",
-    longitude: "105°45'25 W",
+    latitude: '37°04\'43" N',
+    longitude: '105°45\'25" W',
     last_date_pulled: '1890-01-01',
     river_name: 'Rio Grande',
   },
@@ -130,8 +130,7 @@ exports.rioGrandeGauges = [
   {
     agency: 'IBWC',
     gauge_id: '08371500',
-    description:
-			'RIO GRANDE ABOVE RIO CONCHOS NEAR PRESIDIO, TX AND OJINAGA, CHIH.', //eslint-disable-line
+    description: 'RIO GRANDE ABOVE RIO CONCHOS NEAR PRESIDIO, TX AND OJINAGA, CHIH.',
     data_url: 'https://www.ibwc.gov/wad/DDQUPRES.htm',
     latitude: '29°37\'15" N',
     longitude: '104°28\'50" W',
