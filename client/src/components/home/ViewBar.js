@@ -35,9 +35,9 @@ class ViewBar extends React.Component {
   }
 
   handleChange(event, value) {
-    const containerValues = ['impaired', 'unImpaired', 'unImpairedAggr']
+    const containerValues = ["impaired", "unImpaired", "unImpairedAggr"];
     this.setState({ value });
-    this.props.updateCurrentFlowDataName(containerValues[value])
+    this.props.updateCurrentFlowDataName(containerValues[value]);
   }
 
   render() {

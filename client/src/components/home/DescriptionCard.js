@@ -8,7 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import RaisedButton from "material-ui/RaisedButton";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = () => ({
   card: {
