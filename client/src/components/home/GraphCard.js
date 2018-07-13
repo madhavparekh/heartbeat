@@ -48,7 +48,9 @@ const GraphCard = props => {
         ) : (
           <Layout
             data={props[props.currentFlowDataName]}
+            compareData={props.unImpaired}
             currentFlowDataName={props.currentFlowDataName}
+            compareDataName={"unImpared"}
           />
         )}
       </CardContent>
