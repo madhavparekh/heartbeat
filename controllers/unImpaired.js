@@ -1,6 +1,7 @@
 const { UnImpairedData, ImpairedData } = require('../models');
 
-Date.prototype.addDays = function (days) {
+/* eslint-disable no-extend-native */
+Date.prototype.addDays = (days) => {
   const date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
   // console.log(date);
@@ -51,7 +52,7 @@ module.exports = {
     // fill dates in the end
     unImpMaxDate = unImpMaxDate.addDays(1);
     for (unImpMaxDate; unImpMaxDate <= impMaxDate; unImpMaxDate = unImpMaxDate.addDays(1)) {
-      promiserAry.push(
+      promiseAry.push(
         UnImpairedData.create({
           gauge_id: req.params.gauge_id,
           date: unImpMaxDate.toISOString().split('T')[0],

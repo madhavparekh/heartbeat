@@ -1,6 +1,7 @@
 const { ImpairedData, UnImpairedData } = require('../models');
 
-Date.prototype.addDays = function (days) {
+/* eslint-disable no-extend-native */
+Date.prototype.addDays = (days) => {
   const date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
   // console.log(date);
