@@ -12,7 +12,7 @@ const GraphCard = props => {
     return null;
   }
   return (
-    <Card style={{ margin: "20px" }}>
+    <Card style={{ margin: "" }}>
       <CardContent>
         <div
           style={{

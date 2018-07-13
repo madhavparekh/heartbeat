@@ -10,8 +10,8 @@ const Layout = () => (
     <DescriptionCard />
 
     <div style={{ display: "flex" }}>
-      <ResearchCard />
-      <TechCard />
+      {/* <ResearchCard />
+      <TechCard /> */}
     </div>
   </Card>
 );
