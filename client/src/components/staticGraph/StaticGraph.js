@@ -46,7 +46,7 @@ class StaticGraph extends Component {
 
       const margin = { top: 20, right: 20, bottom: 30, left: 50 };
       const height = 650 - margin.top - margin.bottom;
-      const width = 1000;
+      const width = 3000;
 
       const svg = d3.select(this.node).append("path");
       const svg2 = d3.select(this.node).append("path");

@@ -21,7 +21,7 @@ class Layout extends React.Component {
       (!this.state.plotted && this.props.data.length > 1) ||
       this.props.currentFlowDataName !== this.state.currentFlowDataName
     ) {
-      this.countdown = setInterval(() => this.calculateViewPortData(), 10);
+      this.countdown = setInterval(() => this.calculateViewPortData(), 20);
       this.setState({
         plotted: true,
         currentFlowDataName: this.props.currentFlowDataName,
