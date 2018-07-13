@@ -7,6 +7,14 @@ import Layout from "../staticGraph/Layout";
 import AggrePlot from "../staticGraph/AggrePlot";
 import GaugePicker from "../guage/GaugePicker";
 
+const getGaugeName = (gauge, gauges) => {
+  if (gauges.length < 1) {
+    return null;
+  }
+  const selectGauge = gauges.find(g => g.gauge_id === gauge);
+  return selectGauge.description;
+};
+
 const GraphCard = props => {
   if (!props[props.currentFlowDataName]) {
     return null;
@@ -16,7 +24,7 @@ const GraphCard = props => {
       <CardContent>
         <div
           style={{
-            width: "400px",
+            width: "600px",
             display: "flex",
             justifyContent: "space-around",
           }}
@@ -27,11 +35,16 @@ const GraphCard = props => {
               props.fetchFlowData(gaugeId);
             }}
           />
-          <h1 style={{ paddingTop: "10px" }}>{props.gaugeId} </h1>
+          <h1 style={{ paddingTop: "5px", width: "250px" }}>
+            {props.gaugeId}: {getGaugeName(props.gaugeId, props.gauges)}
+          </h1>
         </div>
 
         {props.currentFlowDataName === "unImpairedAggr" ? (
-          <AggrePlot impairedData={props.impairedAggr} unImpairedData={props.unImpairedAggr} />
+          <AggrePlot
+            impairedData={props.impairedAggr}
+            unImpairedData={props.unImpairedAggr}
+          />
         ) : (
           <Layout
             data={props[props.currentFlowDataName]}

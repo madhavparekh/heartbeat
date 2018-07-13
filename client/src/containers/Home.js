@@ -1,27 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import * as flow from '../actions/flowData';
-import { fetchGuages } from '../actions/guage';
-import Layout from '../components/home/Layout';
+import * as flow from "../actions/flowData";
+import { fetchGuages, updateSelectedGauge } from "../actions/guage";
+import Layout from "../components/home/Layout";
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gaugeId: '08251500',
-    };
-  }
   componentDidMount() {
-    this.fetchFlowData(this.state.gaugeId);
+    this.fetchFlowData(this.props.currentSelectGauge);
     this.props.fetchGuages();
   }
 
   fetchFlowData(gaugeId) {
-    this.setState({
-      gaugeId: gaugeId,
-    });
+    this.props.updateSelectedGauge(gaugeId);
     this.props.fetchImpairedData(gaugeId);
     this.props.fetchUnImpairedData(gaugeId);
     this.props.fetchImpairedAggrData(gaugeId);
@@ -31,9 +23,9 @@ class Home extends React.Component {
   render() {
     return (
       <Layout
-        gaugeId={this.state.gaugeId}
+        gaugeId={this.props.currentSelectGauge}
         gauges={this.props.gauges}
-        fetchFlowData={(gaugeId) => {
+        fetchFlowData={gaugeId => {
           this.fetchFlowData(gaugeId);
         }}
         unImpairedAggr={this.props.unImpairedAggr}
@@ -41,7 +33,7 @@ class Home extends React.Component {
         impaired={this.props.impaired}
         unImpaired={this.props.unImpaired}
         currentFlowDataName={this.props.currentFlowDataName}
-        updateCurrentFlowDataName={(name) =>
+        updateCurrentFlowDataName={name =>
           this.props.updateCurrentFlowDataName(name)
         }
       />
@@ -49,7 +41,7 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     impaired: state.flowData.impaired,
     unImpaired: state.flowData.unImpaired,
@@ -57,21 +49,22 @@ const mapStateToProps = (state) => {
     unImpairedAggr: state.flowData.unImpairedAggr,
     currentFlowDataName: state.flowData.currentFlowDataName,
     gauges: state.guage.guages,
+    currentSelectGauge: state.guage.currentSelectGauge,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    fetchImpairedData: (gaugeId) => dispatch(flow.fetchImpairedData(gaugeId)),
-    fetchUnImpairedData: (gaugeId) =>
-      dispatch(flow.fetchUnImpairedData(gaugeId)),
-    fetchImpairedAggrData: (gaugeId) =>
+    fetchImpairedData: gaugeId => dispatch(flow.fetchImpairedData(gaugeId)),
+    fetchUnImpairedData: gaugeId => dispatch(flow.fetchUnImpairedData(gaugeId)),
+    fetchImpairedAggrData: gaugeId =>
       dispatch(flow.fetchImpairedAggrData(gaugeId)),
-    fetchUnImpairedAggrData: (gaugeId) =>
+    fetchUnImpairedAggrData: gaugeId =>
       dispatch(flow.fetchUnImpairedAggrData(gaugeId)),
-    updateCurrentFlowDataName: (name) =>
+    updateCurrentFlowDataName: name =>
       dispatch(flow.updateCurrentFlowDataName(name)),
     fetchGuages: () => dispatch(fetchGuages()),
+    updateSelectedGauge: d => dispatch(updateSelectedGauge(d)),
   };
 };
 
@@ -88,6 +81,8 @@ Home.propTypes = {
   currentFlowDataName: PropTypes.string,
   gauges: PropTypes.array,
   fetchGuages: PropTypes.func.isRequired,
+  updateSelectedGauge: PropTypes.func,
+  currentSelectGauge: PropTypes.string,
 };
 
 export default connect(
