@@ -10,3 +10,24 @@ mongorestore -h ds219181.mlab.com:19181 -d heroku_s3dksl6w -u heroku_s3dksl6w -p
 
 //local
 mongorestore -d heartbeat ./dump/heartbeat
+
+36°57'9" N 110°4'21" W
+
+To parse your input use the following.
+
+function ParseDMS(input) {
+var parts = input.split(/[^\d\w]+/);
+var lat = ConvertDMSToDD(parts[0], parts[1], parts[2], parts[3]);
+var lng = ConvertDMSToDD(parts[4], parts[5], parts[6], parts[7]);
+}
+The following will convert your DMS to DD
+
+function ConvertDMSToDD(degrees, minutes, seconds, direction) {
+var dd = degrees + minutes/60 + seconds/(60\*60);
+
+    if (direction == "S" || direction == "W") {
+        dd = dd * -1;
+    } // Don't do anything for N or E
+    return dd;
+
+}
