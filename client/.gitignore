@@ -27,8 +27,6 @@ build/Release
 node_modules
 flow-typed
 
-#dist folder
-dist
 
 # IDEA/Webstorm project files
 .idea

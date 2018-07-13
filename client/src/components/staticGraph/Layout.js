@@ -48,7 +48,7 @@ class Layout extends React.Component {
   }
 
   calculateViewPortData() {
-    if (this.state.viewPortData.length > 1 && this.state.count < 202) {
+    if (this.state.viewPortData.length > 1) {
       //current selection data
       const currentData = cloneDeep(this.state.viewPortData);
       const newData = currentData.slice(1, currentData.length);

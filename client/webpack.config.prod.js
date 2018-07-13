@@ -62,6 +62,7 @@ export default {
     }),
   ],
   module: {
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/,
