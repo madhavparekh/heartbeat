@@ -9,31 +9,22 @@ import red from "@material-ui/core/colors/red";
 
 const styles = () => ({
   card: {
-    maxWidth: "100%",
+    // maxWidth: "90%",
+
+    // display: "flex",
+    justifyContent: "center",
+    margin: "20px",
   },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-  actions: {
-    display: "flex",
+  img: {
+    justifyContent: "center",
   },
-  expand: {
-    transform: "rotate(0deg)",
+  //   avatar: {
 
-    marginLeft: "auto",
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  projButton: {
-    marginLeft: "auto",
-    marginRight: 10,
-    display: "flex",
-  },
+  //   },
 });
 
 class DescriptionCard extends React.Component {
@@ -52,7 +43,15 @@ class DescriptionCard extends React.Component {
     return (
       <Card className={classes.card}>
         <CardHeader title="Project Description" subheader="" />
-        <CardContent style={{ justifyContent: "center", margin: "20px" }}>
+        <CardContent
+          style={{
+            justifyContent: "center",
+
+            marginBottom: "20px",
+            marginLeft: "12px",
+            marginRight: "12px",
+          }}
+        >
           <Typography component="p" paragraph>
             When you go to the doctor and (s)he wants to know the strength of
             your heart, (s)he orders a cardiograph, which shows the your
