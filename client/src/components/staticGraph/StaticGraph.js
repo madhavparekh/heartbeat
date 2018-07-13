@@ -44,8 +44,8 @@ class StaticGraph extends Component {
       newData = newData.slice(0, newData.length - 2);
       newCompareData = newCompareData.slice(0, newCompareData.length - 2);
 
-      const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-      const height = 650 - margin.top - margin.bottom;
+      const margin = { top: 20, right: 20, bottom: 10, left: 20 };
+      const height = 725 - margin.top - margin.bottom;
       const width = 1000;
 
       const svg = d3.select(this.node).append("path");
@@ -65,15 +65,15 @@ class StaticGraph extends Component {
 
       this.yScale
         .domain(d3.extent(newData, d => d.discharge))
-        .range([height - 20, 20]);
+        .range([height - 20, 150]);
 
       this.area
         .x(d => this.xScale(this.parseTime(d.date)))
         .y1(d => this.yScale(d.discharge))
         .y0(d => this.yScale(d.discharge));
 
-      this.line.x(d => this.xScale(d.date)).y(d => this.yScale(d.discharge));
-      //   .curve((d3.curveCatmullRom.alpha(0.75)))
+      this.line.x(d => this.xScale(d.date)).y(d => this.yScale(d.discharge))
+        .curve((d3.curveCatmullRom.alpha(0.25)))
 
       svg
         .attr("d", this.line(newData))
@@ -100,7 +100,7 @@ class StaticGraph extends Component {
     return (
       <svg
         width="100%"
-        height="600px"
+        height="750px"
         preserveAspectRatio="none"
         ref={node => (this.node = node)}
       />
