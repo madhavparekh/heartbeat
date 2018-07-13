@@ -61,12 +61,10 @@ class StaticGraph extends Component {
         .append("g")
         .attr("transform", "translate(0," + height + ")");
 
-      this.xScale
-        .domain(d3.extent(newCompareData, d => d.date))
-        .range([20, width]);
+      this.xScale.domain(d3.extent(newData, d => d.date)).range([20, width]);
 
       this.yScale
-        .domain(d3.extent(newCompareData, d => d.discharge))
+        .domain(d3.extent(newData, d => d.discharge))
         .range([height - 20, 20]);
 
       this.area
@@ -81,13 +79,6 @@ class StaticGraph extends Component {
         .attr("d", this.line(newData))
         .attr("fill", "none")
         .attr("stroke", "#42a5f5")
-        .attr("stroke-width", "5")
-        .attr("width", width);
-
-      svg2
-        .attr("d", this.line(newCompareData))
-        .attr("fill", "none")
-        .attr("stroke", "red")
         .attr("stroke-width", "5")
         .attr("width", width);
 
