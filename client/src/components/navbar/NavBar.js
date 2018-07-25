@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import FlatButton from "material-ui/FlatButton";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -89,11 +88,11 @@ class NavBar extends React.Component {
 
             {localStorage.getItem("HBT_TOKEN") && (
               <div>
-                <FlatButton color="inherit" style={{ marginRight: 15 }}>
+                <Button color="inherit" style={{ marginRight: 15 }}>
                   <Typography variant="title" color="inherit">
                     {`Welcome ${localStorage.getItem("HBT_USER_NAME")}`}
                   </Typography>
-                </FlatButton>
+                </Button>
 
                 <Link to="/upload" style={{ textDecoration: "none" }}>
                   <Button
